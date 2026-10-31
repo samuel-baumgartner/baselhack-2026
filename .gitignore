@@ -1,0 +1,23 @@
+# Local scratch output and Python caches
+/tmp/
+__pycache__/
+*.py[cod]
+.venv/
+
+# Application dependencies and build output, when implementation starts
+node_modules/
+.next/
+coverage/
+.workflow-data/
+
+# Local credentials and tooling state
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.aws/
+.ssh/
+.codex/
+.vercel/
+.DS_Store
