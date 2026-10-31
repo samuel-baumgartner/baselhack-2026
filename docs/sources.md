@@ -30,6 +30,14 @@ Checked 31 October 2026. Primary sources preferred. Source availability and prod
 - **S26 - WebArena:** [Original paper](https://arxiv.org/abs/2307.13854), July 2023. Functional, reproducible web tasks and state-based success evaluation.
 - **S27 - ORO:** [ORO Bench](https://oroagents.com/benchmarks/oro-bench), October 2026 public benchmark description. Dynamic shopping tasks graded on recorded outcomes. No performance number from it is transferred to our product.
 
+- **S28 - pg-boss:** [Repository](https://github.com/timgit/pg-boss) and [job API](https://github.com/timgit/pg-boss/blob/master/docs/api/jobs.md). Node/Postgres queue, retry/backoff and attempt lifecycle. Queue semantics do not guarantee exactly-once effects in external systems.
+- **S29 - Better Auth:** [Email/password](https://better-auth.com/docs/authentication/email-password). Supported session/authentication path; the selected Next/Drizzle integration and signup controls must be checked during setup. Application memberships and buyer scopes remain our responsibility.
+- **S30 - shadcn/Tailwind:** [Tailwind v4 support](https://ui.shadcn.com/docs/tailwind-v4). Supported component/token integration; pin a compatible package set during setup.
+- **S31 - shadcn conversation UI:** [AI Elements](https://ui.shadcn.com/docs/ai-elements) and [components](https://ui.shadcn.com/docs/components). Current source-owned patterns and primitives for conversation, typed results and traces. A pattern is not an extra all-in-one runtime to install.
+- **S32 - AI SDK UI:** [useChat reference](https://ai-sdk.dev/docs/reference/ai-sdk-ui/use-chat). Transport-based conversation streaming and tool approval/output APIs; workflow persistence must be implemented separately.
+- **S33 - Next.js:** [Self-hosting](https://nextjs.org/docs/app/guides/self-hosting). Streaming and self-hosted operational concerns; verify the actual deployed proxy/tunnel behavior in rehearsal.
+- **S34 - OpenAI embedded UI distinction:** [MCP server and UI quickstart](https://developers.openai.com/plugins/build/app-quickstart) and [ChatGPT UI](https://developers.openai.com/plugins/build/chatgpt-ui). An embedded ChatGPT/MCP UI is a distinct integration from the selected standalone presentation app; it is not in this MVP scope.
+
 ## Evidence status
 
 No application inference, live merchant integration, benchmark run, pilot interview, price validation or measured revenue uplift was performed. All architecture, milestone durations, pricing, financial scenarios and adoption forecasts are proposals. Sources support the narrower facts attached to them, not the complete commercial thesis.

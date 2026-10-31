@@ -1,8 +1,10 @@
 # Presence: the business side of personal agents
 
-BaselHack 2026 | Adobe challenge | Planning version 1 | 31 October 2026, Europe/Zurich
+BaselHack 2026 | Adobe challenge | Reviewed planning version 2 | 31 October 2026, Europe/Zurich
 
 Status: research and proposed scope only. No application has been built. Presence is a working name, not an Adobe product or an affiliation claim. Sources are numbered in `sources.md`. Architecture is in `architecture.md` and rendered in the PDF.
+
+Version 2 fixes the presentation-first product surface, selected stack, actor boundaries, state model and implementation gates. See [the critical review](plan-review.md) and [the implementation specification](implementation-spec.md). All three live moments are mandatory. The selected interface is a standalone Next.js application using Tailwind v4 and shadcn/ui, not an app embedded in ChatGPT.
 
 ## 01. The decision we should align on
 
@@ -10,7 +12,7 @@ Status: research and proposed scope only. No application has been built. Presenc
 
 **Proposed pitch line:** Your next customer is an agent. Your business should be ready.
 
-The product is a shared, multi-tenant commercial layer with three visible outcomes: **publish, transact, reconnect**. The buyer is the independent hotel owner; the consumer's personal agent is the new distribution channel. Start with one fictional Basel hotel and one traveller. Restaurant support is a later configuration template, not a second vertical to build this weekend.
+The product is a shared, multi-tenant commercial layer with three visible outcomes: **publish, transact, reconnect**. Its commercial buyer is the independent hotel owner; its hackathon interface is designed for the presenter and audience. Owner and traveller remain separate authorized domain actors. The prototype includes our own clearly identified buyer-agent simulator, which uses the public merchant API. Independent external assistants are a future integration, not an assumed completed capability. Start with one fictional Basel hotel and one traveller; restaurant support is a later template.
 
 The strongest demonstration is a nonstandard request that a generic listing cannot reliably resolve: a traveller arrives after midnight with a dog and needs a quiet workspace after checkout, under CHF 220. The hotel cannot promise late checkout but can offer a room plus workspace. The owner approves the offer through email or a structured dashboard. The customer approves the exact terms. A real database records the resulting reservation.
 
@@ -111,25 +113,23 @@ UCP, ACP, MCP and A2A are different building blocks. MCP exposes tools; A2A coor
 
 Total: **180 seconds**, including all demo actions. Use seven views in a continuous presentation; avoid repeated switches between unrelated windows. Keep AI history to 18 seconds. If a demo stalls for more than five seconds, switch to the prepared, clearly labelled replay.
 
-### Speaker draft, approximately 350 words
+### Speaker draft, approximately 240 words
 
-AI moved from a research ambition to systems that can answer us. Transformers enabled a new wave of language models; ChatGPT made conversation familiar. Now commerce protocols let agents take action. Imagine 2030: your family asks an assistant to arrange a weekend, and the assistant compares and contacts businesses for you.
+AI has moved from research to conversation, and now toward action. Imagine 2030: your family asks an assistant to arrange a weekend. It compares businesses and requests offers for you.
 
-But what happens to the independent hotel that still takes special requests by email? Its rooms might be perfect. If the agent cannot verify the policies or obtain an offer, that hotel can lose the opportunity before anyone calls.
+What happens to an independent hotel that still handles special requests by email? Its rooms might be perfect, but the agent cannot reliably resolve its policies or obtain an offer.
 
-We are building Presence: the business side of personal agents.
+Presence is the business side of personal agents.
 
-Here is our fictional Basel hotel. We enter its website. Presence extracts the offering, shows where each fact came from, and asks the owner to confirm what is missing. One approved record now powers a human page and an interface an agent can use.
+Here is our fictional Basel hotel. We enter its website, inspect the extracted facts and confirm a missing policy. One approved record now serves people and agents.
 
-Our traveller arrives after midnight with a dog and needs somewhere to work after checkout, under 220 francs. The hotel cannot offer late checkout. Its owner can offer a room and workspace for 205. The request arrives in the inbox they already use. The owner approves; the traveller approves the exact terms; here is the saved reservation. We have connected the agent economy to the hotel's actual way of working.
+Our traveller arrives after midnight with a dog and needs workspace after checkout, under 220 francs. Watch the request reach the owner's actual inbox. Their reply becomes an offer: a room and workspace for 205. The owner approves the terms; the traveller accepts; here is the confirmed fictional reservation.
 
-And the relationship can continue. With the traveller's permission, the hotel publishes a suitable future event. Their agent receives it, checks relevance, and suggests returning. The customer controls the subscription.
+The relationship continues only with permission. The traveller subscribes to suitable events. The hotel publishes one; their agent receives it and suggests returning. Unsubscribe remains under the traveller's control.
 
-Our benchmark compares the same customer tasks and candidate businesses before and after publication. We will show the actual completed-task results, not claim that publishing an API instantly changes every search engine. Switzerland has roughly four thousand open hotel establishments. Our pilot hypothesis is 149 francs per month, with deeper integrations as demand grows.
+Our controlled tests compare completed tasks before and after publication. They do not claim instant search ranking. Switzerland has roughly four thousand open hotel establishments; 149 francs per month is our pilot pricing hypothesis.
 
-This direction already has signals: Adobe measured rapid growth in AI travel referrals, and UCP has published a lodging-booking draft. The adoption rate is uncertain; the mechanism is tangible. Start with a website and an inbox. Connect operational systems next. Keep improving from real outcomes.
-
-The next web is agents acting for people. We help local businesses stay in the relationship.
+AI travel referrals are growing, and a lodging commerce standard is already in draft. Start with a website and an inbox; connect operational systems next. When customers send agents, local businesses should stay in the relationship.
 
 ## 06. Demo contract: three moments, one continuous story
 
@@ -157,11 +157,11 @@ Display task and offer IDs, source/version, pending versus confirmed states, amo
 
 ### Demo reliability
 
-Use a seeded fictional merchant, fixed traveller scenario, prepared owner mailbox and prepared offer fields. Live extraction and database actions must genuinely execute. Keep a recorded successful trace as a labelled fallback. Human email latency is unpredictable: prepare the owner dashboard as the fast path and show the real email receipt/reply during Q&A. Any replayed email event must be labelled as replayed, not live mail.
+Use a seeded fictional merchant, fixed traveller scenario, prepared real owner mailbox and prepared reply text. Live extraction, the actual email round trip, database reservation and consented callback must execute during the connected demo. The dashboard approves the mail-derived offer; it does not substitute for a missing reply. Keep a recorded trace as a labelled outage fallback; a replay does not count as live proof. Rehearse provider latency early, and show pending/retry states truthfully if delivery is slow.
 
 ## 07. Milestones: research, then pitch, then implementation
 
-Estimates below are **focused engineering hours**, not calendar commitments; team size and submission deadline were not supplied. The implementation critical path is approximately 14-18 hours after pitch alignment, with substantial uncertainty. The order is intentional. Each milestone has a concrete exit condition and a cut if it overruns.
+Estimates below are **focused engineering hours**, not calendar commitments; the deadline remains unspecified after clarification. Version 1's 14-18-hour suggestion was too optimistic for polished UI plus real email, authorization and failure handling. Budget roughly 20-28 engineering hours, then reassess after the integration checks. The three live moments remain mandatory; reduce benchmark breadth and roadmap features first. Each milestone has a concrete exit condition.
 
 ### M0. Research and decision brief - completed in this planning pass
 
@@ -169,39 +169,39 @@ Deliverables: recovered challenge brief, current evidence, five competitor compa
 
 ### M1. Lock the pitch and demo - 30-45 minutes
 
-Choose the fictional Basel hotel, the specific traveller request, seven slide messages, three demo moments and one closing line. Walk the story aloud before any UI work. Exit: a timed storyboard with every claimed outcome linked to a visible action or record. Owner: pitch lead plus product lead. Cut: reduce history and financial detail before reducing proof of the mechanism.
+Use the clarified standalone presentation scope, fictional Basel hotel, specific traveller request, seven slide messages and all three live moments. Review the design preview and actor transitions before implementation. Exit: a timed storyboard with every claimed outcome linked to a visible action or record. Reduce history and financial detail before reducing proof of the mechanism.
 
 ### M2. Freeze the contracts and benchmark tasks - 45-60 minutes
 
-Define BusinessVersion, Capability, Inquiry, OfferVersion, Reservation, Subscription, Event and AuditEvent. Fix price/authority rules, the 12 evaluation scenarios, baseline source pages and trace fields. Exit: a written API contract, state machine and scorer specification; no implementation-dependent grading. Owner: technical lead. Capture the baseline before modifying source content.
+Freeze the implementation specification: distinct inquiry, immutable offer revision and reservation attempt; actor permissions; outbox boundary; six core evaluation scenarios; baseline source pages; and trace fields. Exit: agreed contracts, state transitions, UI states and scorer specification. Capture the baseline before modifying source content. The expanded 12-scenario study follows the connected slice.
 
-### M3. Time-box integration checks - 45-60 minutes
+### M3. Time-box integration checks - 60-90 minutes
 
-After authorization to implement, test: installed Codex auth works without printing credentials; HarnessAgent Codex adapter produces schema-valid configuration in an isolated workspace using explicit direct authentication; one Gateway model can call a tool; Resend can send to a team-controlled address and return an inbound reply through HTTPS; chosen Workflow World survives an application restart and resumes after a webhook. Exit: real traces for these checks. Do not treat documentation as an executed test.
+After implementation begins, test: Codex/HarnessAgent produces a schema-valid proposal using native direct authentication; a Gateway model calls a tool; Resend sends to a team-controlled mailbox and receives an actual reply through HTTPS; pg-boss resumes committed work after a worker restart. Exit: recorded successful traces. Exercise mail first because it is mandatory and externally dependent. Documentation is not an executed test.
 
-Fallbacks: use the official OpenAI Codex SDK or CLI behind the same internal onboarding interface if the experimental harness blocks progress; retain AI SDK for commercial buyer agents. Use an established Postgres job worker and explicit persisted states if self-hosted Workflow compatibility consumes more than an hour. Keep signed callback delivery and polling fallback regardless. Secrets remain outside the repo and outside uploaded remote jobs.
+Fallback: use the official OpenAI Codex SDK/CLI behind the same onboarding interface if the experimental harness blocks progress, or a disclosed Gateway extractor if native access is unavailable. Keep AI SDK for the buyer. PostgreSQL plus pg-boss is the selected durable runtime; do not add a second Workflow runtime. Keep signed callback delivery and authenticated task reads. A labelled mail replay is an outage fallback only, not satisfaction of the live-mail gate. Secrets stay outside the repo and uploaded remote jobs.
 
-### M4. Shared foundation - 1.5-2 hours
+### M4. Shared foundation and styled shell - 3-4 hours
 
-One Next.js/TypeScript codebase, Postgres schema and migrations, authenticated owner session, tenant-scoped data access, task/outbox primitives, seed/reset command, health checks, and Docker Compose. Exit: two tenants cannot read or mutate each other's inquiries; database state survives restart. Do not build custom auth or a generic plugin marketplace.
+One Next.js/TypeScript codebase; Tailwind v4/shadcn presentation shell; Better Auth session and owner membership; separate demo buyer principal; Postgres migrations; pg-boss worker and transactional outbox; seed/reset and Compose health checks. Exit: two tenants cannot access each other's tasks, demo role switching does not grant arbitrary authority, state survives restart, and the shell is readable at projector resolution. Do not build custom auth or a generic plugin marketplace.
 
 ## 08. Milestones continued and scope control
 
-### M5. URL to approved presence - 2-3 hours
+### M5. URL to approved presence - 3-4 hours
 
 Implement safe fetch, structured extraction with evidence, missing-field interview, owner approval, human rendering and generated manifest/OpenAPI/MCP projections. Exit: onboard two different fixture hotels through the same pipeline with no route or app generation; editing one approved fact updates both representations. Input support for the demo is URL-first. Name/Maps lookup and phone/WhatsApp onboarding follow later.
 
-### M6. End-to-end inquiry and reservation - 3-4 hours
+### M6. End-to-end inquiry and reservation - 4-6 hours
 
-Connect buyer tool calls to persisted inquiries, merchant email, dashboard offer approval, optional parsed email reply, traveller approval, and fictional inventory commit. Deliver signed task callbacks with retries. Exit: a complete request-to-reservation trace, a duplicate delivery that does not duplicate a booking, and an expired offer rejected without charging or booking. The real email bridge needs at least one successful inbound reply outside a replay.
+Connect public-API buyer calls to persisted inquiries, actual merchant email, parsed owner reply, authenticated offer approval, traveller approval and atomic fictional inventory commit. Deliver signed task callbacks through the demo receiver. Exit: a complete real-email-to-reservation trace, worker restart recovery, duplicate delivery without duplicate booking, expired offer rejection and contention for the last unit. Show the offer card and confirmation state using actual records. A missing live inbound reply fails this milestone.
 
-### M7. Permission-based return visit - 1-1.5 hours
+### M7. Permission-based return visit - 2-3 hours
 
 Implement subscription, owner-created event, outbox delivery, buyer-agent receiver and a relevance decision. Exit: subscribed relevant event triggers a suggestion; unsubscribed/expired subscription blocks delivery; duplicate events do not retrigger. Use our demo buyer, not an assumed universal ChatGPT webhook.
 
-### M8. Controlled benchmark and impact view - 2-3 hours
+### M8. Controlled benchmark and evidence view - 1.5-2.5 hours
 
-Run the frozen task suite across three selected model families and intervention arms, with repeats if budget allows. Exit: denominators, errors, raw traces, model IDs, source version and task-level results are visible. Run a 12-episode smoke pass first, then the full matrix; avoid changing prompts after seeing holdout scores. Bulk suites and substantial builds use the installed remote-work helper if likely to affect local responsiveness.
+After the connected flow passes, run six core scenarios across two model families, three repeats and baseline/full-layer arms: 72 exploratory episodes. Use fixture mail adapters for bulk tests and separate denominators for transaction and retention. Show errors, raw traces, model/provider, source version and actual cost. Do not tune on held-out cases. The 432-episode ablation is expansion scope. Bulk suites and substantial builds use the installed remote-work helper where workload warrants it.
 
 ### M9. Pitch freeze and rehearsal - 1.5-2 hours
 
@@ -213,23 +213,24 @@ M0 -> M1 -> M2 -> M3 -> M4 -> M5 -> M6 -> M7 -> M8 -> M9. Once M2 is fixed, a pi
 
 ### Cut order when time is short
 
-Cut name/Maps/WhatsApp inputs, voice, PMS/CRM/ERP, payment, autonomous negotiation, domain mapping, detailed analytics and extra verticals first. Keep owner-reviewed onboarding, one real email round trip, valid fictional booking and one consented event. Shrink the benchmark to 12 tasks x 2 models x 2 arms x 1 repeat and label it exploratory. Never cut accurate confirmation semantics, tenant isolation, or truthful demo labels.
+Cut name/Maps/WhatsApp, voice, PMS/CRM/ERP, payment, autonomous negotiation, domain mapping, advanced analytics, A2A/UCP adapters and extra verticals first. Keep owner-reviewed onboarding, real email round trip, valid fictional booking and consented agent follow-up. Reduce benchmark repetitions or models before any live moment, and label the smaller result exploratory. Preserve authorization, confirmation semantics and truthful demo labels.
 
 ## 09. Stack and the agent-runtime decision
 
 ### Simple stack
 
-- **Next.js App Router + TypeScript:** owner UI, public human pages, REST routes, MCP transport adapter, webhook receivers and optional demo chat. Use the supported Node runtime, with exact versions pinned after M3.
+- **Next.js App Router + React + TypeScript strict mode:** presentation-first `/demo`, reused owner views, public human page, REST/MCP adapters and webhooks. Pin a compatible stable Node/Next/React combination during setup.
 - **PostgreSQL + Drizzle + Zod:** tenant data, source/evidence versions, tasks, offers, reservations, subscriptions, event inbox/outbox and traces. JSONB for approved merchant configuration; explicit relational state for commercial actions. No vector database is required for a few source pages.
 - **Vercel AI SDK 7 + AI Gateway:** bounded buyer-agent reasoning, tool calls, structured extraction and model comparisons. Gateway advertises hundreds of models, not thousands of independent providers. Fetch the enabled catalog and choose three tool-capable model families; record actual route/provider details and costs. [S12]
 - **HarnessAgent + Codex adapter:** preferred configurable onboarding worker using the authenticated subscription, conditional on an M3 smoke test. It produces reviewed data/configuration, not customer-specific executable routes. Current documentation lists the Codex adapter; harness packages are experimental. [S13, S14]
-- **Workflow SDK:** preferred durable orchestration using an explicitly selected persistent self-hosted World; verify its version and restart behavior. The default Local World is for development. The Worlds directory lists external persistence adapters, including Postgres; their support and maturity differ. Do not describe an untested adapter as production-ready. [S15]
+- **pg-boss + explicit Postgres domain state/outbox:** selected durable execution. Human waits do not retain a live model request. The outbox dispatcher schedules committed events; retries are idempotent at the application boundary. Workflow SDK is a future alternative, not an MVP dependency. [S28]
 - **Resend:** merchant email sending and receiving, received-email webhook, full-content retrieval and threaded replies. Mailpit can provide an optional local fixture mailbox; it does not replace the real Resend proof. [S16]
-- **Tailwind + shadcn/ui:** a small owner workspace with onboarding review, requests, offer response, consent/events and experiment results. The demo buyer is a route in the same application.
+- **Tailwind v4 + shadcn/ui:** coherent presentation shell, typed business/offer cards and current conversation/trace patterns. Layout and component styling use Tailwind; global CSS is limited to imports, theme tokens and unavoidable global primitives. No Bootstrap or alternate component framework. See the implementation specification and design preview. [S30, S31]
+- **Better Auth:** supported session management and preprovisioned demo users; owner memberships and buyer identities are scoped independently. No public signup or custom authentication implementation for the stage demo. [S29]
 
 ### What runs in Compose
 
-Required: `web` and `worker` from the same Next.js/TypeScript repository and image, plus `postgres` with a persistent volume. The worker executes shared server modules and workflow/job handling; it is not a separate backend framework. Optional: Mailpit for fixtures and a narrowly configured HTTPS tunnel for inbound Resend webhooks. Do not expose the entire development machine or database. Actual Workflow adapter service needs are resolved in M3; no Redis unless the selected existing runtime requires it.
+Required: `web` and `worker` from the same Next.js/TypeScript repository, plus `postgres` with a persistent volume. The worker uses a dedicated TypeScript entrypoint and pg-boss, sharing server modules with Next.js; it is not a separate backend framework. No Redis or Workflow World is needed. A restricted HTTPS tunnel accepts inbound Resend events. The native credentialed Codex adapter is explicitly host-side; do not imply Compose automatically inherits it. Mailpit is optional for tests, not for satisfying the live-mail requirement.
 
 Local packaging does not mean offline operation: model calls and Resend still need network access, and external callbacks require a reachable HTTPS endpoint. The application can use a local receiver for the controlled retention demo.
 
@@ -237,9 +238,7 @@ Local packaging does not mean offline operation: model calls and Resend still ne
 
 Vercel documents native subscription support for supported harnesses. Explicit `direct` authentication avoids inadvertently choosing Gateway when its credentials exist; direct mode still prioritizes explicit provider credentials, so the onboarding runtime must not inherit unintended API credentials. The host resolves native credentials. Do not copy the user's entire Codex HOME/auth store into a tenant workspace or image. [S14]
 
-The installed CLI is **codex-cli 0.163.0**. Its presence and help output were checked; no inference/authentication test was executed. Official OpenAI docs identify `@openai/codex-sdk` for controlling local Codex threads and distinguish ChatGPT sign-in from API-key usage. Some locally bundled skill text refers to `@cursor/sdk`; that is not the OpenAI SDK selected here. [S17, S18]
-
-Keep the credentialed harness behind a host-side boundary and a narrow job interface. Compose deployability must not depend on baking subscription tokens into an image. If a supported host credential broker cannot be made to work in M3, use a host-side Codex onboarding worker or Gateway-backed configuration extraction for the demo and disclose that deployment choice. Subscription access is quota-limited, not unlimited free inference.
+The installed CLI is **codex-cli 0.163.0**; inference/authentication was not tested. The fallback OpenAI SDK is `@openai/codex-sdk`, not `@cursor/sdk`. Native sign-in and API-key billing remain separate. Subscription use is quota-limited. [S17, S18]
 
 ## 10. Onboarding factory and shared API contract
 
@@ -276,7 +275,7 @@ For the demo, the traveller uses a directory whose candidate set is identical be
 
 ### Commercial state machine
 
-`received -> waiting_for_owner -> offered -> accepted_pending_confirmation -> confirmed`. Additional states: `needs_input`, `rejected`, `expired`, `cancelled`, `failed`. Cancellation can itself remain pending until confirmed. Offer expiration and resource-hold expiration are explicit. An external email-only merchant cannot promise atomic inventory locking; owner confirmation must reconcile the booking system. Our fictional merchant's seeded inventory is the authoritative test system.
+Keep separate records. Inquiry: received, waiting_for_owner, needs_input, offered or closed. OfferRevision: immutable terms with draft, published, accepted, superseded, withdrawn or expired state. ReservationAttempt: pending_merchant_confirmation, confirmed, rejected, expired or cancelled. Delivery/agent execution status is separate from commercial status. Acceptance validates exact approved terms and capacity; the fictional inventory adapter can confirm in one transaction. An email-only external merchant remains pending until an authorized owner confirms in the system of record. Holds, if used, have independent expiry and capacity checks.
 
 The LLM extracts and proposes; deterministic code validates totals, authority, offer versions, capacity and transitions. The owner signs off on concessions and terms. The traveller approves the exact version unless they have explicitly delegated that bounded authority. A database transaction and unique idempotency constraints prevent duplicate commits in the fictional store.
 
@@ -327,9 +326,9 @@ B vs A tests readability; C vs B tests structured access; D vs C tests the actio
 
 ### Small, reproducible suite
 
-Define **12 scenarios**, three tool-capable model families and three independent repeats per arm: 12 x 3 x 3 x 4 = **432 episodes**. Start with a 12-episode smoke run. A scenario includes several candidate businesses with known eligibility; randomize presentation order and use fresh sessions. Freeze three merchants as an initial fixture set and keep at least one unseen tenant/template for generalization checks if time allows.
+Core acceptance evaluation: **six scenarios x two model families x three repeats x two arms = 72 exploratory episodes**. Compare A (baseline) and D (full commercial layer), making clear this measures the whole intervention bundle. Core scenarios cover standard booking; tailored dog/workspace request; expired/changed terms; duplicate/concurrent acceptance; waiting/restart recovery; and consented versus suppressed follow-up. Use known candidate truth, randomized order and fresh sessions. Human replies and mail transport use deterministic fixtures in bulk runs; separately verify real email. Expansion: the original 12 scenarios x three families x three repeats x four arms = **432 episodes**, after the connected demo works and budget permits.
 
-Scenarios: standard stay; dog fee; after-midnight arrival; workspace alternative to late checkout; full hotel; changed price; expired offer; duplicate acceptance; merchant timeout; cancellation; relevant opted-in event; revoked or irrelevant event. Four scenarios are held out from prompt/policy tuning. Twelve scenarios are a small exploratory sample, so avoid broad statistical or market claims.
+Expansion scenarios: standard stay; dog fee; after-midnight arrival; workspace alternative to late checkout; full hotel; changed price; expired offer; duplicate acceptance; merchant timeout; cancellation; relevant opted-in event; revoked or irrelevant event. Freeze two core scenarios before prompt tuning; freeze four in the expanded suite. Both suites are small exploratory samples, so avoid broad statistical or market claims.
 
 The retention scenarios have a separate denominator and scorer; report discovery/comprehension, transaction, and retention results separately. Do not average unrelated task types into an unexplained agent-readiness score.
 
@@ -377,11 +376,11 @@ Adobe relevance: existing workflows already address content and AI representatio
 
 See `architecture.md` for editable Mermaid source and the next three PDF pages for rendered diagrams:
 
-- **Level 1, system context:** people, buyer-agent platform, Presence, email provider, first-party source sites, model services and future operational systems.
-- **Level 2, containers:** browser, Next.js web/API, TypeScript worker, Postgres, host-side credentialed harness, and external services. All app server code remains one Next.js/TypeScript codebase.
-- **Level 3, components:** tenant gateway, source ingestion, approved publishing, commercial state machine, merchant response adapter, durable event/outbox handling, consent/relevance boundary and evaluator.
+- **Level 1, system context:** presenter/owner/traveller, Presence including its demo buyer, real mailbox/Resend and model/source dependencies; future independent buyer platforms and operational systems are dashed.
+- **Level 2, containers:** browser, Next.js web/API, TypeScript pg-boss worker and Postgres inside Presence; native credentialed harness and provider services outside. The demo buyer executes in the worker and uses the public HTTP interface.
+- **Level 3, web/API components:** authentication/actor gate, owner/presenter views, public merchant REST/MCP facade, publication service, commercial service, subscription service and webhook/SSE boundary. Worker execution is a separate adjacent container, not mixed into this component decomposition.
 
-Diagrams express the proposed architecture. Dashed future-system relationships are roadmap items. C4 Level 4 is intentionally omitted: implementation-level classes and functions should follow after scope alignment, rather than inventing code structure now. A separate sequence diagram in the source explains the asynchronous booking flow.
+Diagrams express the proposed architecture. Semantic nodes/edges and PDF layout share `architecture.json`, preventing Mermaid/PDF drift. Dashed relationships are future integrations; optional/Codex fallback behavior is labelled. C4 Level 4 is deferred. The implementation specification provides module ownership and state contracts without inventing an unnecessary class hierarchy. A separate sequence explains real inbound mail, owner approval, buyer resumption and booking confirmation.
 
 ## 16. Risks, readiness and the next decision
 
@@ -393,7 +392,7 @@ Diagrams express the proposed architecture. Dashed future-system relationships a
 - **Untrusted content:** fetched pages, email and events are data. Prevent them from granting tool authority or changing developer instructions. Restrict outbound fetches and callbacks to avoid private-network access; cap fetch size and redirects.
 - **Tenant boundaries:** authenticate owner actions and buyer task access; enforce tenant scope on every query and event. A slug is not authentication. Keep tokenized response links single-purpose and short-lived.
 - **Email and callbacks:** signatures, replay protection, idempotent effects, deadlines, retry persistence and a dashboard fallback.
-- **Experimental dependencies:** pin a working harness and Workflow adapter after short tests; keep a supported SDK and durable-job fallback. Do not spend the hackathon debugging a general coding factory.
+- **Experimental dependencies:** isolate and pin the harness after a short smoke test; keep a supported SDK/Gateway extraction fallback. pg-boss is the selected durable runtime. Do not spend the hackathon debugging a general coding factory.
 - **Scope:** retention and benchmarking matter, but a convincing booking trace has priority over multiple verticals or enterprise integrations.
 
 ### Readiness checklist for the future build
@@ -404,4 +403,4 @@ At the start of this planning pass the folder was empty and had no Git repositor
 
 ### Alignment recommendation
 
-Agree on **one hotel, one nonstandard request, and publish/transact/reconnect** before implementing. Keep the shared application with versioned tenant configurations. Use the authenticated harness for onboarding where the smoke test confirms it works, and an explicitly persisted commercial workflow for human waits. The next work item is M1, a timed pitch/storyboard review; it is not an instruction to begin coding.
+The clarified scope is **one fictional hotel, one presentation flow and all three live moments** in a standalone Tailwind/shadcn Next.js app. Keep one shared application and validated tenant configurations. Next build gates are real email, harness/tool access and durable restart checks, followed by the styled shell and connected vertical slice. No further product-choice questions are pending; the deadline is unspecified. This review updates planning artifacts only and does not start application implementation.

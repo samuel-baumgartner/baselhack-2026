@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="1440" height="900" preserveAspectRatio="xMinYMin meet" viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>Presence presentation demo - design preview</title>
+	<desc>Proposed booking screen. Static design preview, not working software.</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="1440" height="900"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-900)" style="clip-path: url(#clip)">
+		<g transform="">
+			<rect x="0" y="0" width="1440" height="900" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(97%,98%,97%); fill-rule: evenodd;"/>
+			<rect x="0" y="0" width="226" height="900" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(7%,17%,19%); fill-rule: evenodd;"/>
+			<text x="28" y="843" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 27px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1686) scale(1,-1)">presence</text>
+			<text x="28" y="814" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 10px;fill: rgb(70%,78%,79%); stroke:none;" transform="translate(0,1628) scale(1,-1)">THE BUSINESS SIDE OF AGENTS</text>
+			<text x="28" y="734" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 11px;fill: rgb(70%,78%,79%); stroke:none;" transform="translate(0,1468) scale(1,-1)">YOUR DEMO</text>
+			<text x="33" y="685" style="font-family: Arial, Helvetica, sans-serif; font-size: 17px;fill: rgb(70%,78%,79%); stroke:none;" transform="translate(0,1370) scale(1,-1)">01   Publish</text>
+			<rect x="14" y="604" width="198" height="54" rx="10" ry="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(4%,49%,43%); fill-rule: evenodd;"/>
+			<text x="33" y="626" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,1252) scale(1,-1)">02   Book</text>
+			<text x="33" y="557" style="font-family: Arial, Helvetica, sans-serif; font-size: 17px;fill: rgb(70%,78%,79%); stroke:none;" transform="translate(0,1114) scale(1,-1)">03   Reconnect</text>
+			<text x="28" y="148" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 16px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,296) scale(1,-1)">Hotel Linden Basel</text>
+			<text x="28" y="122" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;fill: rgb(70%,78%,79%); stroke:none;" transform="translate(0,244) scale(1,-1)">Fictional demonstration hotel</text>
+			<text x="28" y="47" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;fill: rgb(70%,78%,79%); stroke:none;" transform="translate(0,94) scale(1,-1)">Session evidence</text>
+			<rect x="226" y="814" width="1214" height="86" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<path d="M 226,814 L 1440,814 Z" style="stroke: rgb(87%,90%,89%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="262" y="852" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 23px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,1704) scale(1,-1)">Book through the inbox</text>
+			<text x="262" y="831" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,1662) scale(1,-1)">One request. An owner-approved offer. Exact terms.</text>
+			<rect x="1150" y="837" width="252" height="40" rx="9" ry="9" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(90%,95%,93%); fill-rule: evenodd;"/>
+			<text x="1168" y="852" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 14px;fill: rgb(4%,49%,43%); stroke:none;" transform="translate(0,1704) scale(1,-1)">Viewing as: Traveller</text>
+			<text x="269" y="768" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 11px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,1536) scale(1,-1)">TRAVELLER'S AGENT</text>
+			<rect x="268" y="621" width="707" height="123" rx="12" ry="12" style="stroke: rgb(87%,90%,89%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="290" y="708" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 18px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,1416) scale(1,-1)">Arriving after midnight, with my dog.</text>
+			<text x="290" y="679" style="font-family: Arial, Helvetica, sans-serif; font-size: 16px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,1358) scale(1,-1)">I need a quiet place to work until 14:00 after checkout.</text>
+			<text x="290" y="650" style="font-family: Arial, Helvetica, sans-serif; font-size: 16px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,1300) scale(1,-1)">Keep the total below CHF 220. Ask before confirming.</text>
+			<text x="274" y="569" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 20px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,1138) scale(1,-1)">Presence has an offer for your stay.</text>
+			<text x="274" y="537" style="font-family: Arial, Helvetica, sans-serif; font-size: 16px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,1074) scale(1,-1)">The owner can offer workspace after checkout instead</text>
+			<text x="274" y="512" style="font-family: Arial, Helvetica, sans-serif; font-size: 16px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,1024) scale(1,-1)">of late checkout, so your full request stays within budget.</text>
+			<rect x="269" y="383" width="705" height="95" rx="10" ry="10" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(90%,95%,93%); fill-rule: evenodd;"/>
+			<text x="289" y="446" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 16px;fill: rgb(4%,49%,43%); stroke:none;" transform="translate(0,892) scale(1,-1)">Owner reply received and approved</text>
+			<text x="289" y="417" style="font-family: Arial, Helvetica, sans-serif; font-size: 15px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,834) scale(1,-1)">Room, dog accommodation and workspace until 14:00.</text>
+			<text x="289" y="397" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;fill: rgb(4%,49%,43%); stroke:none;" transform="translate(0,794) scale(1,-1)">See the source email and approved terms</text>
+			<rect x="269" y="298" width="705" height="54" rx="8" ry="8" style="stroke: rgb(87%,90%,89%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="289" y="320" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,640) scale(1,-1)">View request steps and sources</text>
+			<text x="274" y="232" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 17px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,464) scale(1,-1)">Your approval is needed</text>
+			<text x="274" y="201" style="font-family: Arial, Helvetica, sans-serif; font-size: 15px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,402) scale(1,-1)">Review the complete offer on the right before accepting.</text>
+			<rect x="269" y="45" width="705" height="77" rx="14" ry="14" style="stroke: rgb(87%,90%,89%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="292" y="88" style="font-family: Arial, Helvetica, sans-serif; font-size: 16px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,176) scale(1,-1)">Ask about this offer...</text>
+			<rect x="914" y="65" width="38" height="38" rx="9" ry="9" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(4%,49%,43%); fill-rule: evenodd;"/>
+			<path d="M 925,84 L 940,84 Z" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 934,90 L 940,84 Z" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 2;"/>
+			<path d="M 934,78 L 940,84 Z" style="stroke: rgb(100%,100%,100%); stroke-linecap: butt; stroke-width: 2;"/>
+			<rect x="1006" y="45" width="402" height="739" rx="14" ry="14" style="stroke: rgb(87%,90%,89%); stroke-linecap: butt; stroke-width: 1; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="1031" y="739" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 22px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,1478) scale(1,-1)">Hotel Linden Basel</text>
+			<text x="1031" y="714" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,1428) scale(1,-1)">Fictional hotel  /  Owner-approved offer</text>
+			<rect x="1031" y="652" width="351" height="37" rx="7" ry="7" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(90%,95%,93%); fill-rule: evenodd;"/>
+			<text x="1047" y="665" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 14px;fill: rgb(4%,49%,43%); stroke:none;" transform="translate(0,1330) scale(1,-1)">Fits your stated requirements</text>
+			<text x="1031" y="611" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 11px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,1222) scale(1,-1)">YOUR STAY</text>
+			<text x="1031" y="574" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 18px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,1148) scale(1,-1)">12-13 November 2030</text>
+			<text x="1031" y="549" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,1098) scale(1,-1)">1 guest  /  Late arrival  /  Dog welcome</text>
+			<path d="M 1031,521 L 1382,521 Z" style="stroke: rgb(87%,90%,89%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="1031" y="484" style="font-family: Arial, Helvetica, sans-serif; font-size: 15px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,968) scale(1,-1)">Room</text>
+			<text x="1290" y="484" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,968) scale(1,-1)">CHF 175</text>
+			<text x="1031" y="447" style="font-family: Arial, Helvetica, sans-serif; font-size: 15px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,894) scale(1,-1)">Dog accommodation</text>
+			<text x="1290" y="447" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,894) scale(1,-1)">CHF 20</text>
+			<text x="1031" y="410" style="font-family: Arial, Helvetica, sans-serif; font-size: 15px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,820) scale(1,-1)">Workspace until 14:00</text>
+			<text x="1290" y="410" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 15px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,820) scale(1,-1)">CHF 10</text>
+			<path d="M 1031,381 L 1382,381 Z" style="stroke: rgb(87%,90%,89%); stroke-linecap: butt; stroke-width: 1;"/>
+			<text x="1031" y="340" style="font-family: Arial, Helvetica, sans-serif; font-size: 15px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,680) scale(1,-1)">Total, taxes included</text>
+			<text x="1214" y="337" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 28px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,674) scale(1,-1)">CHF 205</text>
+			<text x="1031" y="285" style="font-family: Arial, Helvetica, sans-serif; font-size: 13px;fill: rgb(9%,17%,20%); stroke:none;" transform="translate(0,570) scale(1,-1)">Checkout 11:00. Workspace until 14:00.</text>
+			<text x="1031" y="258" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,516) scale(1,-1)">Cancel free until 11 November, 18:00 CET.</text>
+			<text x="1031" y="234" style="font-family: Arial, Helvetica, sans-serif; font-size: 12px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,468) scale(1,-1)">Offer valid for 10 minutes after issue.</text>
+			<rect x="1031" y="160" width="351" height="53" rx="9" ry="9" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(4%,49%,43%); fill-rule: evenodd;"/>
+			<text x="1081" y="180" style="font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 17px;fill: rgb(100%,100%,100%); stroke:none;" transform="translate(0,360) scale(1,-1)">Approve CHF 205 offer</text>
+			<text x="1094" y="124" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,248) scale(1,-1)">Ask a question first</text>
+			<text x="1031" y="83" style="font-family: Arial, Helvetica, sans-serif; font-size: 11px;fill: rgb(40%,46%,48%); stroke:none;" transform="translate(0,166) scale(1,-1)">Exact offer revision is preserved on acceptance.</text>
+		</g>
+	</g>
+</svg>

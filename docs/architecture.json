@@ -1,0 +1,922 @@
+{
+  "version": 2,
+  "views": [
+    {
+      "level": 1,
+      "title": "C4 Level 1 - system context",
+      "description": "The running prototype includes its demo buyer. Future platforms are outside the boundary.",
+      "nodes": [
+        {
+          "id": "owner",
+          "title": "Hotel owner / staff",
+          "kind": "Person",
+          "description": "Reviews facts, terms and commercial approval",
+          "box": [
+            0,
+            405,
+            145,
+            67
+          ]
+        },
+        {
+          "id": "presenter",
+          "title": "Presenter",
+          "kind": "Person",
+          "description": "Operates seeded demo; cannot override actor scopes",
+          "box": [
+            175,
+            405,
+            150,
+            67
+          ]
+        },
+        {
+          "id": "traveller",
+          "title": "Traveller",
+          "kind": "Person",
+          "description": "Approves terms and consent; operated by presenter",
+          "box": [
+            350,
+            405,
+            145,
+            67
+          ]
+        },
+        {
+          "id": "presence",
+          "title": "Presence",
+          "kind": "Software system in scope",
+          "description": "Presentation UI, merchant service and demo buyer agent",
+          "box": [
+            175,
+            270,
+            150,
+            100
+          ],
+          "primary": true
+        },
+        {
+          "id": "source",
+          "title": "Merchant website",
+          "kind": "External software system",
+          "description": "Approved first-party source pages",
+          "box": [
+            0,
+            270,
+            140,
+            78
+          ]
+        },
+        {
+          "id": "mailbox",
+          "title": "Owner mailbox / client",
+          "kind": "External software system",
+          "description": "Actual owner email and reply",
+          "box": [
+            350,
+            270,
+            145,
+            78
+          ]
+        },
+        {
+          "id": "resend",
+          "title": "Resend",
+          "kind": "External software system",
+          "description": "Send, receive and notify",
+          "box": [
+            350,
+            140,
+            145,
+            78
+          ]
+        },
+        {
+          "id": "gateway",
+          "title": "AI Gateway / providers",
+          "kind": "External software systems",
+          "description": "Bounded buyer and parsing inference",
+          "box": [
+            0,
+            140,
+            145,
+            78
+          ]
+        },
+        {
+          "id": "codex",
+          "title": "Native Codex runtime",
+          "kind": "Host-side integration",
+          "description": "Bounded onboarding; fallback is disclosed",
+          "box": [
+            0,
+            25,
+            145,
+            78
+          ]
+        },
+        {
+          "id": "futurebuyer",
+          "title": "Independent buyer agents",
+          "kind": "Future external systems",
+          "description": "Use the same public API and callbacks",
+          "box": [
+            175,
+            25,
+            150,
+            78
+          ]
+        },
+        {
+          "id": "futureops",
+          "title": "PMS / POS / CRM / ERP",
+          "kind": "Future external systems",
+          "description": "Operational truth and fulfilled outcomes",
+          "box": [
+            350,
+            25,
+            145,
+            78
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "id": 1,
+          "from": "owner",
+          "to": "presence",
+          "fromPort": "b",
+          "toPort": "t",
+          "via": [
+            [
+              72,
+              387
+            ],
+            [
+              250,
+              387
+            ]
+          ],
+          "label": "Reviews and approves business facts and commercial offers",
+          "technology": "HTTPS session"
+        },
+        {
+          "id": 2,
+          "from": "traveller",
+          "to": "presence",
+          "fromPort": "b",
+          "toPort": "r",
+          "via": [
+            [
+              422,
+              387
+            ],
+            [
+              337,
+              387
+            ],
+            [
+              337,
+              320
+            ]
+          ],
+          "label": "Submits needs; approves exact terms and consent",
+          "technology": "HTTPS buyer-scoped actions"
+        },
+        {
+          "id": 3,
+          "from": "presence",
+          "to": "source",
+          "fromPort": "l",
+          "toPort": "r",
+          "label": "Fetches bounded source material",
+          "technology": "HTTP(S)"
+        },
+        {
+          "id": 4,
+          "from": "presence",
+          "to": "resend",
+          "fromPort": "r",
+          "toPort": "t",
+          "via": [
+            [
+              337,
+              320
+            ],
+            [
+              337,
+              236
+            ],
+            [
+              422,
+              236
+            ]
+          ],
+          "label": "Sends inquiries and retrieves received mail",
+          "technology": "Resend HTTPS API"
+        },
+        {
+          "id": 5,
+          "from": "resend",
+          "to": "mailbox",
+          "fromPort": "t",
+          "toPort": "b",
+          "bidirectional": true,
+          "label": "Delivers inquiry; owner sends an actual reply",
+          "technology": "Email transport"
+        },
+        {
+          "id": 6,
+          "from": "resend",
+          "to": "presence",
+          "fromPort": "l",
+          "toPort": "b",
+          "via": [
+            [
+              331,
+              179
+            ],
+            [
+              331,
+              244
+            ],
+            [
+              250,
+              244
+            ]
+          ],
+          "label": "Notifies of received mail",
+          "technology": "Signed HTTPS webhook"
+        },
+        {
+          "id": 7,
+          "from": "presence",
+          "to": "gateway",
+          "fromPort": "l",
+          "toPort": "r",
+          "via": [
+            [
+              157,
+              320
+            ],
+            [
+              157,
+              179
+            ]
+          ],
+          "label": "Runs bounded model calls",
+          "technology": "Authenticated HTTPS"
+        },
+        {
+          "id": 8,
+          "from": "presence",
+          "to": "codex",
+          "fromPort": "b",
+          "toPort": "t",
+          "via": [
+            [
+              185,
+              245
+            ],
+            [
+              185,
+              117
+            ],
+            [
+              72,
+              117
+            ]
+          ],
+          "label": "Requests configuration proposals; native credentials stay host-side",
+          "technology": "Authenticated local job boundary"
+        },
+        {
+          "id": 9,
+          "from": "futurebuyer",
+          "to": "presence",
+          "fromPort": "t",
+          "toPort": "b",
+          "via": [
+            [
+              250,
+              125
+            ]
+          ],
+          "future": true,
+          "label": "Requests offers; receives scoped callbacks",
+          "technology": "Public HTTPS API; future protocol adapters"
+        },
+        {
+          "id": 10,
+          "from": "presence",
+          "to": "futureops",
+          "fromPort": "b",
+          "toPort": "t",
+          "via": [
+            [
+              340,
+              250
+            ],
+            [
+              340,
+              118
+            ],
+            [
+              422,
+              118
+            ]
+          ],
+          "future": true,
+          "label": "Connects authorized operational adapters",
+          "technology": "Vendor APIs"
+        },
+        {
+          "id": 11,
+          "from": "presenter",
+          "to": "presence",
+          "fromPort": "b",
+          "toPort": "t",
+          "label": "Operates only seeded demo session; changes visible actor context",
+          "technology": "Authorized demo controls"
+        }
+      ]
+    },
+    {
+      "level": 2,
+      "title": "C4 Level 2 - containers",
+      "description": "One Next.js/TypeScript repository; pg-boss worker and database persist human waits.",
+      "boundary": {
+        "box": [
+          0,
+          130,
+          499,
+          257
+        ],
+        "label": "Presence system - shared Next.js / TypeScript repository"
+      },
+      "nodes": [
+        {
+          "id": "browser",
+          "title": "Presentation browser",
+          "kind": "Browser container",
+          "description": "Owner and traveller views; independent actor scopes",
+          "box": [
+            0,
+            406,
+            155,
+            67
+          ]
+        },
+        {
+          "id": "mail",
+          "title": "Resend + owner mailbox",
+          "kind": "External systems",
+          "description": "Actual email round trip",
+          "box": [
+            172,
+            406,
+            155,
+            67
+          ]
+        },
+        {
+          "id": "models",
+          "title": "Gateway / model services",
+          "kind": "External systems",
+          "description": "Buyer and parse inference",
+          "box": [
+            344,
+            406,
+            155,
+            67
+          ]
+        },
+        {
+          "id": "web",
+          "title": "Web and API",
+          "kind": "Container / Next.js Node",
+          "description": "Presentation UI, auth, REST/MCP, webhook and SSE endpoints",
+          "box": [
+            18,
+            267,
+            211,
+            90
+          ],
+          "primary": true,
+          "insideBoundary": true
+        },
+        {
+          "id": "worker",
+          "title": "Job + demo-agent worker",
+          "kind": "Container / Node TypeScript",
+          "description": "pg-boss, onboarding, demo buyer, mail and callback jobs",
+          "box": [
+            270,
+            267,
+            211,
+            90
+          ],
+          "primary": true,
+          "insideBoundary": true
+        },
+        {
+          "id": "db",
+          "title": "PostgreSQL",
+          "kind": "Database container",
+          "description": "Domain records, inbox/outbox, pg-boss jobs and messages",
+          "box": [
+            139,
+            145,
+            220,
+            79
+          ],
+          "insideBoundary": true
+        },
+        {
+          "id": "host",
+          "title": "Host-side Codex adapter",
+          "kind": "External integration process",
+          "description": "Narrow jobs; native auth stays on host",
+          "box": [
+            0,
+            23,
+            228,
+            78
+          ]
+        },
+        {
+          "id": "futurebuyer",
+          "title": "Independent buyer platform",
+          "kind": "Future external system",
+          "description": "Uses public merchant API; receives callbacks",
+          "box": [
+            270,
+            23,
+            229,
+            78
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "id": 1,
+          "from": "browser",
+          "to": "web",
+          "fromPort": "b",
+          "toPort": "t",
+          "label": "Uses presentation and owner/buyer-scoped actions",
+          "technology": "HTTPS; SSE snapshots/events"
+        },
+        {
+          "id": 2,
+          "from": "mail",
+          "to": "web",
+          "fromPort": "b",
+          "toPort": "r",
+          "via": [
+            [
+              249,
+              395
+            ],
+            [
+              241,
+              395
+            ],
+            [
+              241,
+              312
+            ]
+          ],
+          "label": "Delivers received-email notification",
+          "technology": "Signed HTTPS webhook"
+        },
+        {
+          "id": 3,
+          "from": "worker",
+          "to": "mail",
+          "fromPort": "t",
+          "toPort": "b",
+          "via": [
+            [
+              375,
+              394
+            ],
+            [
+              249,
+              394
+            ]
+          ],
+          "label": "Sends inquiry; fetches received reply content",
+          "technology": "Resend HTTPS API"
+        },
+        {
+          "id": 4,
+          "from": "worker",
+          "to": "models",
+          "fromPort": "t",
+          "toPort": "b",
+          "label": "Runs bounded buyer/parsing calls",
+          "technology": "AI SDK / HTTPS"
+        },
+        {
+          "id": 5,
+          "from": "web",
+          "to": "db",
+          "fromPort": "b",
+          "toPort": "t",
+          "via": [
+            [
+              123,
+              240
+            ],
+            [
+              249,
+              240
+            ]
+          ],
+          "label": "Commits domain state and outbox together",
+          "technology": "Tenant-scoped SQL transaction"
+        },
+        {
+          "id": 6,
+          "from": "worker",
+          "to": "db",
+          "fromPort": "b",
+          "toPort": "r",
+          "via": [
+            [
+              375,
+              184
+            ]
+          ],
+          "label": "Dispatches outbox; claims jobs; persists inbox/resume state",
+          "technology": "SQL / pg-boss"
+        },
+        {
+          "id": 7,
+          "from": "worker",
+          "to": "web",
+          "fromPort": "l",
+          "toPort": "r",
+          "label": "Demo buyer invokes public merchant tools and signed receiver",
+          "technology": "HTTP API + callback; no private shortcuts"
+        },
+        {
+          "id": 8,
+          "from": "worker",
+          "to": "host",
+          "fromPort": "b",
+          "toPort": "t",
+          "via": [
+            [
+              486,
+              118
+            ],
+            [
+              114,
+              118
+            ]
+          ],
+          "label": "Requests validated onboarding proposal",
+          "technology": "Authenticated local-only job boundary"
+        },
+        {
+          "id": 9,
+          "from": "futurebuyer",
+          "to": "web",
+          "fromPort": "t",
+          "toPort": "l",
+          "via": [
+            [
+              385,
+              113
+            ],
+            [
+              7,
+              113
+            ],
+            [
+              7,
+              312
+            ]
+          ],
+          "future": true,
+          "label": "Uses public commerce tools and task reads",
+          "technology": "HTTPS / MCP; later A2A or UCP adapter"
+        }
+      ]
+    },
+    {
+      "level": 3,
+      "title": "C4 Level 3 - web/API components",
+      "description": "This view decomposes the web/API container only. Worker execution is outside it.",
+      "boundary": {
+        "box": [
+          0,
+          130,
+          499,
+          350
+        ],
+        "label": "Web/API container - Next.js / Node"
+      },
+      "nodes": [
+        {
+          "id": "gate",
+          "title": "Identity and actor gate",
+          "kind": "Component",
+          "description": "Better Auth session, memberships, buyer scope, demo controls",
+          "box": [
+            105,
+            376,
+            289,
+            76
+          ],
+          "primary": true,
+          "insideBoundary": true
+        },
+        {
+          "id": "views",
+          "title": "Presentation + owner UI",
+          "kind": "Component",
+          "description": "Tailwind/shadcn; forms, chat, sourced cards",
+          "box": [
+            14,
+            263,
+            143,
+            86
+          ],
+          "insideBoundary": true
+        },
+        {
+          "id": "facade",
+          "title": "Merchant REST / MCP facade",
+          "kind": "Component",
+          "description": "Public tools and private task scope",
+          "box": [
+            178,
+            263,
+            143,
+            86
+          ],
+          "insideBoundary": true
+        },
+        {
+          "id": "delivery",
+          "title": "Webhook / event boundary",
+          "kind": "Component",
+          "description": "Signed inbox, buyer receiver and resumable SSE",
+          "box": [
+            342,
+            263,
+            143,
+            86
+          ],
+          "insideBoundary": true
+        },
+        {
+          "id": "publish",
+          "title": "Presence publication",
+          "kind": "Component",
+          "description": "Owner-approved immutable business versions",
+          "box": [
+            14,
+            148,
+            143,
+            86
+          ],
+          "insideBoundary": true
+        },
+        {
+          "id": "trade",
+          "title": "Commercial service",
+          "kind": "Component",
+          "description": "Inquiry, immutable offer and reservation rules",
+          "box": [
+            178,
+            148,
+            143,
+            86
+          ],
+          "primary": true,
+          "insideBoundary": true
+        },
+        {
+          "id": "consent",
+          "title": "Subscription service",
+          "kind": "Component",
+          "description": "Scope, expiry, frequency and revocation",
+          "box": [
+            342,
+            148,
+            143,
+            86
+          ],
+          "insideBoundary": true
+        },
+        {
+          "id": "db",
+          "title": "Postgres repositories",
+          "kind": "Adjacent database container",
+          "description": "Transactions, inbox/outbox and approved records",
+          "box": [
+            14,
+            15,
+            225,
+            83
+          ]
+        },
+        {
+          "id": "worker",
+          "title": "Job / demo-agent worker",
+          "kind": "Adjacent worker container",
+          "description": "Extraction, mail parsing, buyer resumption, delivery and evaluation",
+          "box": [
+            262,
+            15,
+            223,
+            83
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "id": 1,
+          "from": "gate",
+          "to": "views",
+          "fromPort": "b",
+          "toPort": "t",
+          "via": [
+            [
+              249,
+              363
+            ],
+            [
+              85,
+              363
+            ]
+          ],
+          "label": "Authorizes presenter/owner views",
+          "technology": "Server session and membership"
+        },
+        {
+          "id": 2,
+          "from": "gate",
+          "to": "facade",
+          "fromPort": "b",
+          "toPort": "t",
+          "label": "Authorizes merchant and buyer requests",
+          "technology": "Validated HTTP/MCP context"
+        },
+        {
+          "id": 3,
+          "from": "gate",
+          "to": "delivery",
+          "fromPort": "r",
+          "toPort": "t",
+          "via": [
+            [
+              413,
+              414
+            ]
+          ],
+          "label": "Checks provider signatures, buyer callback auth and SSE scope",
+          "technology": "HTTP boundary policy"
+        },
+        {
+          "id": 4,
+          "from": "views",
+          "to": "publish",
+          "fromPort": "b",
+          "toPort": "t",
+          "label": "Reviews and publishes sourced configuration",
+          "technology": "Authorized action / service call"
+        },
+        {
+          "id": 5,
+          "from": "facade",
+          "to": "trade",
+          "fromPort": "b",
+          "toPort": "t",
+          "label": "Validates inquiry, offer and acceptance",
+          "technology": "Typed service call"
+        },
+        {
+          "id": 6,
+          "from": "facade",
+          "to": "consent",
+          "fromPort": "r",
+          "toPort": "t",
+          "via": [
+            [
+              330,
+              306
+            ],
+            [
+              330,
+              246
+            ],
+            [
+              413,
+              246
+            ]
+          ],
+          "label": "Creates or revokes permitted subscription",
+          "technology": "Typed service call"
+        },
+        {
+          "id": 7,
+          "from": "publish",
+          "to": "db",
+          "fromPort": "b",
+          "toPort": "t",
+          "via": [
+            [
+              85,
+              116
+            ],
+            [
+              126,
+              116
+            ]
+          ],
+          "label": "Commits approved publication version",
+          "technology": "Tenant-scoped SQL"
+        },
+        {
+          "id": 8,
+          "from": "trade",
+          "to": "db",
+          "fromPort": "b",
+          "toPort": "t",
+          "via": [
+            [
+              249,
+              124
+            ],
+            [
+              126,
+              124
+            ]
+          ],
+          "label": "Commits commercial state and outbox atomically",
+          "technology": "SQL transaction"
+        },
+        {
+          "id": 9,
+          "from": "consent",
+          "to": "db",
+          "fromPort": "b",
+          "toPort": "t",
+          "via": [
+            [
+              413,
+              108
+            ],
+            [
+              126,
+              108
+            ]
+          ],
+          "label": "Persists consent and event outbox",
+          "technology": "Tenant-scoped SQL"
+        },
+        {
+          "id": 10,
+          "from": "delivery",
+          "to": "db",
+          "fromPort": "r",
+          "toPort": "l",
+          "via": [
+            [
+              493,
+              306
+            ],
+            [
+              493,
+              104
+            ],
+            [
+              5,
+              104
+            ],
+            [
+              5,
+              56
+            ]
+          ],
+          "label": "Persists deduplicated inbound events before acknowledgment",
+          "technology": "SQL inbox + authorized event reads"
+        },
+        {
+          "id": 11,
+          "from": "worker",
+          "to": "db",
+          "fromPort": "l",
+          "toPort": "r",
+          "label": "Runs committed jobs and records outcomes",
+          "technology": "SQL / pg-boss; shared service modules"
+        }
+      ]
+    }
+  ]
+}

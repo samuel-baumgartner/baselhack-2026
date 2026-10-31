@@ -21,3 +21,14 @@ The team reports that ideation began **30 October 2026 at 20:30, Europe/Zurich**
 ## Pending validation
 
 Pitch alignment, hotel interviews, authentication and integration smoke tests, application implementation, benchmark execution and pilot economics remain outstanding. See [the plan](plan.md) for exit criteria and fallback choices.
+
+## Review corrections on 31 October 2026
+
+- **Presentation-first interface:** the user clarified that the audience is the final presentation. Use a standalone Next.js demo with Tailwind v4 and shadcn/ui; do not add an embedded ChatGPT application.
+- **All three moments are live:** URL onboarding, booking through actual email and a consented agent follow-up are mandatory. A labelled preview or replay does not satisfy those gates.
+- **Selected durable runtime:** PostgreSQL plus pg-boss and explicit state/outbox records replace the unspecified Workflow World. No second workflow runtime is required.
+- **Separate actor and state boundaries:** our buyer simulator is part of the prototype; future independent assistants are external. Email receipt, owner-approved offer and confirmed reservation are different states.
+- **Implementation contract:** concrete routes, user flows, visual tokens, record invariants, jobs, module ownership and meaningful test/visual gates are documented in `implementation-spec.md`.
+- **Benchmark after the mechanism:** 72 core exploratory episodes precede the optional 432-episode expansion; bulk tests use fixtures, not real merchant emails.
+- **Private repository:** changed GitHub visibility to private at the user's explicit request and verified the returned state. Publication visibility must not be changed without a new request.
+- **No supplied deadline:** the user asked to proceed without giving a submission time. No deadline is assumed and no more product-choice questions are pending from this review.
