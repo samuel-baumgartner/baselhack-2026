@@ -21,6 +21,8 @@ services:
     env_file: .env.local
     environment:
       DATABASE_URL: postgresql://presence:presence-local-only@db:5432/presence
+      SPEECH_PYTHON: /opt/presence-speech/venv/bin/python
+      SPEECH_MODEL_PATH: /opt/presence-speech/model
     ports:
       - "127.0.0.1:3000:3000"
     depends_on:

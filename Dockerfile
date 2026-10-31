@@ -13,6 +13,12 @@ RUN pnpm build
 
 FROM node:22-bookworm-slim AS web
 WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends python3 python3-venv libgomp1 \
+    && rm -rf /var/lib/apt/lists/* \
+    && python3 -m venv /opt/presence-speech/venv \
+    && /opt/presence-speech/venv/bin/pip install --no-cache-dir faster-whisper==1.2.1 av==16.0.1 \
+    && /opt/presence-speech/venv/bin/python -c "from huggingface_hub import snapshot_download; snapshot_download('Systran/faster-whisper-tiny.en', local_dir='/opt/presence-speech/model', allow_patterns=['config.json','model.bin','tokenizer.json','vocabulary.*'])"
+ENV SPEECH_PYTHON=/opt/presence-speech/venv/bin/python SPEECH_MODEL_PATH=/opt/presence-speech/model
 ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 HOSTNAME=0.0.0.0 PORT=3000
 COPY --from=build --chown=node:node /app/dist/next/standalone ./
 COPY --from=build --chown=node:node /app/dist/next/static ./dist/next/static

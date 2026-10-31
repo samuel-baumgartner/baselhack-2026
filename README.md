@@ -33,6 +33,12 @@ The native Codex SDK reuses the existing host sign-in. No AI Gateway key is requ
 
 For production web packaging: `docker compose --profile app up -d --build web`. Keep the subscription worker on the authenticated host; do not copy Codex credentials into an image. The web service talks to the same Postgres instance. This is local demo packaging, not an internet-hardened multi-user service.
 
+## Voice requests
+
+In the traveller booking view, click **Speak your request**, allow the microphone, speak in English, then click **Stop recording**. Local CPU Whisper transcribes the recording into the editable request; nothing is sent to the booking agent until **Send to my agent**. The empty composer also shows a suggested request: click its arrow or focus the box and press **→** to insert it.
+
+For local setup, run `bash tools/setup-speech.sh` (requires `uv`) and add the two printed runtime paths to `.env.local`. Docker includes the speech runtime and model. No transcription API key is needed. Recordings are limited to one minute / 2 MB, authenticated, processed one at a time with two CPU threads, and removed from the temporary directory after processing. Transcription uses [faster-whisper](https://github.com/SYSTRAN/faster-whisper); microphone recording uses the browser’s [MediaRecorder API](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder).
+
 ## Real email
 
 Set `MAIL_TRANSPORT=resend`, `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_RECEIVING_DOMAIN` and `OWNER_EMAIL` in `.env.local`. Use a verified sending domain for the built-in reply composer. Resend’s test sender can send the inquiry only to the account owner's mailbox; that owner can reply from their actual mailbox to the generated `inquiry+…` receiving address. Changing an unverified From address does not bypass this restriction.

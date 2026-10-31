@@ -4,12 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  type OfferTerms,
-  DEFAULT_REPLY,
-  DEFAULT_REQUEST,
-  totalMinor,
-} from "@/lib/contracts";
+import { type OfferTerms, DEFAULT_REPLY, totalMinor } from "@/lib/contracts";
 import { cn, money } from "@/lib/utils";
 import type { DemoSnapshot } from "@/server/services/snapshot";
 import {
@@ -27,6 +22,7 @@ import { useState } from "react";
 import { Eyebrow } from "./components";
 
 import type { Act } from "./types";
+import { RequestComposer } from "./request-composer";
 export function BookingFlow({
   state,
   actor,
@@ -42,7 +38,6 @@ export function BookingFlow({
   pending: string | null;
   onNext: () => void;
 }) {
-  const [prompt, setPrompt] = useState(DEFAULT_REQUEST);
   const running = state.messages.some((m) => m.state === "running");
   const conversation = state.messages.filter((m) => m.chapter === "book");
   return (
@@ -189,52 +184,12 @@ export function BookingFlow({
             </div>
           )}
           {!state.inquiry && (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
+            <RequestComposer
+              disabled={running || !!pending}
+              onSend={(prompt) => {
                 void act({ action: "request", prompt });
               }}
-              className="mt-7 rounded-2xl border bg-white p-4"
-            >
-              <label
-                className="mb-3 block text-[10px] font-medium text-muted-foreground"
-                htmlFor="traveller-prompt"
-              >
-                What would you like your agent to arrange?
-              </label>
-              <Textarea
-                id="traveller-prompt"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                className="min-h-32 resize-none border-0 p-0 text-sm leading-7 shadow-none focus-visible:ring-0"
-                disabled={running}
-                onKeyDown={(e) => {
-                  if (
-                    e.key === "Enter" &&
-                    !e.shiftKey &&
-                    !e.nativeEvent.isComposing
-                  ) {
-                    e.preventDefault();
-                    if (!running && !pending)
-                      e.currentTarget.form?.requestSubmit();
-                  }
-                }}
-              />
-              <div className="mt-4 flex items-center justify-between border-t pt-3">
-                <span className="text-[9px] text-muted-foreground">
-                  Approval required before booking
-                </span>
-                <Button
-                  type="submit"
-                  size="sm"
-                  disabled={running || !!pending}
-                  className="gap-2 text-xs"
-                >
-                  Send to my agent
-                  <Send className="size-3" />
-                </Button>
-              </div>
-            </form>
+            />
           )}
         </>
       )}

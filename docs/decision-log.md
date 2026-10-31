@@ -60,3 +60,10 @@ Public facts are sourced from the real hotel; offers, inventory and events remai
 The publication handoff now explicitly switches to the traveller’s personal agent. Merchant pages use warm violet tones; Alex’s assistant uses blue, its own identity/navigation and customer-facing copy. A persistent role banner explains the active persona. Switching personas returns to the top so the new identity is visible, and only the traveller sees reservation acceptance controls.
 
 Verified the publication handoff and reverse switch in the production browser, including the 390px mobile layout and navigation drawer. Typecheck, focused lint and the remote production build passed. No inquiry or reservation state was changed during these UI checks.
+
+
+## 31 October — voice and suggested traveller request
+
+The traveller composer starts empty, with a visible example that can be inserted by its arrow button or by pressing ArrowRight in the empty text field. A microphone button records up to one minute, then sends the recording to an authenticated same-origin Next.js route. Local CPU faster-whisper transcribes it into editable text. Sending to the booking agent remains a separate action. Microphone tracks stop on completion or navigation; temporary audio files are removed after processing. Runtime/model setup is documented and included in Docker.
+
+Verified both suggestion controls in an isolated browser workspace without resetting the active rehearsal. A synthesized spoken request retained midnight arrival, dog, workspace, CHF 220 and approval requirements in transcription (735 ms on this host). HTTP checks passed for real transcription, silence, missing session, foreign origin, incorrect media type and oversized input; no temporary recording directories remained. The presenter's microphone was not recorded during these checks. Typecheck, focused lint, Compose validation and remote production builds passed. Pinned PyAV 16.0.1 after the speech check exposed an incompatibility with PyAV 19.
