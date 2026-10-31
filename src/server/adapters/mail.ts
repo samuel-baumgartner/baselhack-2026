@@ -27,6 +27,42 @@ export function replyAddress(token: string) {
   return `inquiry+${token}@${config().RESEND_RECEIVING_DOMAIN}`;
 }
 
+export async function retryInquiryEmail(tenantId: string, inquiryId: string) {
+  await db.transaction(async (tx) => {
+    const [inquiry] = await tx
+      .select()
+      .from(inquiries)
+      .where(and(eq(inquiries.id, inquiryId), eq(inquiries.tenantId, tenantId)))
+      .for("update");
+    if (!inquiry) throw new AppError("NOT_FOUND", "Inquiry not found.", 404);
+    if (
+      inquiry.mailStatus !== "queued" ||
+      !inquiry.error ||
+      inquiry.status === "closed"
+    )
+      throw new AppError(
+        "MAIL_NOT_RETRYABLE",
+        "Only a failed pending inquiry email can be retried.",
+        409,
+      );
+    await tx
+      .update(inquiries)
+      .set({ error: null })
+      .where(eq(inquiries.id, inquiryId));
+    await tx
+      .insert(outbox)
+      .values({ tenantId, type: "merchant.send_inquiry", recordId: inquiryId });
+  });
+  await recordEvent(
+    tenantId,
+    "email",
+    "owner",
+    "Inquiry email retry requested",
+    "The saved inquiry is queued again with the same provider idempotency key.",
+  );
+  return { queued: true };
+}
+
 export async function sendInquiry(id: string) {
   const [inquiry] = await db
     .select()

@@ -46,6 +46,17 @@ export function RequestComposer({
     setError(null);
     input.current?.focus();
   };
+  const cancelMicrophoneRequest = (
+    message = "Microphone request cancelled. You can type or use the suggestion.",
+  ) => {
+    const session = recording.current;
+    if (!session) return;
+    session.cancelled = true;
+    clearTimeout(session.timer);
+    session.stream?.getTracks().forEach((track) => track.stop());
+    setVoice("idle");
+    setError(message);
+  };
 
   async function startVoice() {
     if (disabled || busy) return;
@@ -68,10 +79,17 @@ export function RequestComposer({
     };
     recording.current = session;
     setVoice("starting");
+    session.timer = setTimeout(() => {
+      if (!session.cancelled)
+        cancelMicrophoneRequest(
+          "Microphone permission is still pending. Allow it in your browser and try again, or use the suggestion.",
+        );
+    }, 15_000);
     try {
       session.stream = await navigator.mediaDevices.getUserMedia({
         audio: true,
       });
+      clearTimeout(session.timer);
       if (session.cancelled) {
         session.stream.getTracks().forEach((track) => track.stop());
         return;
@@ -152,6 +170,7 @@ export function RequestComposer({
         if (recorder.state === "recording") recorder.stop();
       }, 60_000);
     } catch (cause) {
+      clearTimeout(session.timer);
       session.stream?.getTracks().forEach((track) => track.stop());
       if (!session.cancelled) {
         setVoice("idle");
@@ -184,15 +203,13 @@ export function RequestComposer({
           variant="outline"
           size="sm"
           className="gap-2 text-xs"
-          disabled={
-            disabled || voice === "starting" || voice === "transcribing"
-          }
+          disabled={disabled || voice === "transcribing"}
           aria-pressed={voice === "recording"}
-          onClick={() =>
-            voice === "recording"
-              ? recording.current?.recorder?.stop()
-              : void startVoice()
-          }
+          onClick={() => {
+            if (voice === "starting") cancelMicrophoneRequest();
+            else if (voice === "recording") recording.current?.recorder?.stop();
+            else void startVoice();
+          }}
         >
           {voice === "recording" ? (
             <Square className="size-3 fill-current" />
@@ -205,7 +222,9 @@ export function RequestComposer({
             ? "Stop recording"
             : voice === "transcribing"
               ? "Transcribing…"
-              : "Speak your request"}
+              : voice === "starting"
+                ? "Cancel microphone request"
+                : "Speak your request"}
         </Button>
       </div>
       <Textarea

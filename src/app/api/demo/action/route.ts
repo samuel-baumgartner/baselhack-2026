@@ -1,5 +1,5 @@
 import { actionSchema, DEMO_BUYER, DEMO_TENANT } from "@/lib/contracts";
-import { sendOwnerReply } from "@/server/adapters/mail";
+import { retryInquiryEmail, sendOwnerReply } from "@/server/adapters/mail";
 import {
   AppError,
   errorResponse,
@@ -72,6 +72,11 @@ export async function POST(request: Request) {
         });
         return Response.json(message, { status: 202 });
       }
+      case "retry-email":
+        return Response.json(
+          await retryInquiryEmail(DEMO_TENANT, input.inquiryId),
+          { status: 202 },
+        );
       case "reply":
         return Response.json(
           await sendOwnerReply(DEMO_TENANT, input.inquiryId, input.text),

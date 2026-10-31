@@ -15,6 +15,7 @@ import {
 import { parseStructuredReply } from "@/server/adapters/ai";
 import { isPublicAddress, fetchSource } from "@/server/adapters/source";
 import { signedHeaders, verifyCallback } from "@/server/adapters/callback";
+import { retryInquiryEmail } from "@/server/adapters/mail";
 import {
   DEFAULT_REPLY,
   requirementsSchema,
@@ -140,6 +141,44 @@ it("serializes duplicate concurrent inquiries without duplicate email jobs", asy
   await expect(
     createInquiry(tenant, buyer, key, "Different request", requirements),
   ).rejects.toThrow(/different requirements/);
+});
+it("recovers one failed inquiry send, rejects duplicate retries and protects tenant boundaries", async () => {
+  const inquiry = await createInquiry(
+    tenant,
+    buyer,
+    randomUUID(),
+    "Retry test",
+    requirements,
+  );
+  await db
+    .update(s.inquiries)
+    .set({ error: "Transient provider connection failure" })
+    .where(eq(s.inquiries.id, inquiry.id));
+  await expect(retryInquiryEmail(randomUUID(), inquiry.id)).rejects.toThrow(
+    /not found/,
+  );
+  const results = await Promise.allSettled([
+    retryInquiryEmail(tenant, inquiry.id),
+    retryInquiryEmail(tenant, inquiry.id),
+  ]);
+  expect(results.filter((r) => r.status === "fulfilled")).toHaveLength(1);
+  const jobs = await db
+    .select()
+    .from(s.outbox)
+    .where(eq(s.outbox.recordId, inquiry.id));
+  expect(jobs).toHaveLength(2); // Original attempt plus exactly one recovery job.
+  const [saved] = await db
+    .select()
+    .from(s.inquiries)
+    .where(eq(s.inquiries.id, inquiry.id));
+  expect(saved!.error).toBeNull();
+  await db
+    .update(s.inquiries)
+    .set({ mailStatus: "sent", error: "Old error" })
+    .where(eq(s.inquiries.id, inquiry.id));
+  await expect(retryInquiryEmail(tenant, inquiry.id)).rejects.toThrow(
+    /failed pending/,
+  );
 });
 it("rejects foreign buyers, foreign tenants, wrong totals and expired offers", async () => {
   const { offered, approval } = await offer();
@@ -288,14 +327,12 @@ it("publishes source-backed unknown policies without inventing workspace access,
     dogsWelcome: null,
     lateArrival: null,
   };
-  await db
-    .insert(s.onboardingRuns)
-    .values({
-      tenantId: tenant,
-      sourceUrl: "https://example.com/hotel",
-      status: "needs_review",
-      profile: draft,
-    });
+  await db.insert(s.onboardingRuns).values({
+    tenantId: tenant,
+    sourceUrl: "https://example.com/hotel",
+    status: "needs_review",
+    profile: draft,
+  });
   const published = await publishPresence(tenant, draft, "test-owner");
   expect(published.profile.quietWorkspace).toBeNull();
   expect(published.profile.workspaceUntil).toBeNull();

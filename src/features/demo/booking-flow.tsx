@@ -161,7 +161,9 @@ export function BookingFlow({
               <div className="flex items-center gap-2 text-xs font-medium">
                 <Mail className="size-4 text-primary" />
                 {state.inquiry.mailStatus === "queued"
-                  ? "Owner email is queued"
+                  ? state.inquiry.error
+                    ? "Email sending needs attention"
+                    : "Owner email is queued"
                   : state.inquiry.mailStatus === "reply_received"
                     ? "Owner reply received"
                     : "Waiting for the owner to reply"}
@@ -172,6 +174,7 @@ export function BookingFlow({
                   : "Local practice transport is active. Connect Resend for real email."}{" "}
                 No reservation exists yet.
               </p>
+              <EmailRecovery state={state} act={act} pending={pending} />
               <Button
                 variant="outline"
                 size="sm"
@@ -217,6 +220,7 @@ function OwnerInbox({
     );
   return (
     <div className="mt-7 space-y-5">
+      <EmailRecovery state={state} act={act} pending={pending} />
       <div className="overflow-hidden rounded-2xl border bg-white">
         <div className="flex items-center justify-between border-b bg-muted/50 px-5 py-3">
           <span className="flex items-center gap-2 text-xs font-medium">
@@ -371,6 +375,44 @@ function OwnerInbox({
           the exact terms.
         </div>
       )}
+    </div>
+  );
+}
+
+function EmailRecovery({
+  state,
+  act,
+  pending,
+}: {
+  state: DemoSnapshot;
+  act: Act;
+  pending: string | null;
+}) {
+  const inquiry = state.inquiry;
+  if (inquiry?.mailStatus !== "queued" || !inquiry.error) return null;
+  return (
+    <div
+      className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-4"
+      role="alert"
+    >
+      <p className="text-xs font-semibold text-amber-900">
+        Email sending failed. Your request is saved.
+      </p>
+      <p className="mt-2 text-xs leading-relaxed text-amber-800">
+        {inquiry.error}
+      </p>
+      <Button
+        type="button"
+        size="sm"
+        variant="outline"
+        className="mt-3 text-xs"
+        disabled={!!pending}
+        onClick={() => {
+          void act({ action: "retry-email", inquiryId: inquiry.id });
+        }}
+      >
+        Retry sending email
+      </Button>
     </div>
   );
 }

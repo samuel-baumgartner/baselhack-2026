@@ -75,6 +75,7 @@ export const actionSchema = z.discriminatedUnion("action", [
     action: z.literal("request"),
     prompt: z.string().min(5).max(4000),
   }),
+  z.object({ action: z.literal("retry-email"), inquiryId: z.uuid() }),
   z.object({
     action: z.literal("reply"),
     inquiryId: z.uuid(),

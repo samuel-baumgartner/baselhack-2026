@@ -35,7 +35,7 @@ For production web packaging: `docker compose --profile app up -d --build web`. 
 
 ## Voice requests
 
-In the traveller booking view, click **Speak your request**, allow the microphone, speak in English, then click **Stop recording**. Local CPU Whisper transcribes the recording into the editable request; nothing is sent to the booking agent until **Send to my agent**. The empty composer also shows a suggested request: click its arrow or focus the box and press **→** to insert it.
+In the traveller booking view, click **Speak your request**, allow the microphone, speak in English, then click **Stop recording**. Local CPU Whisper transcribes the recording into the editable request; nothing is sent to the booking agent until **Send to my agent**. Pending microphone permission can be cancelled and times out after 15 seconds. The empty composer also shows a suggested request: click its arrow or focus the box and press **→** to insert it.
 
 For local setup, run `bash tools/setup-speech.sh` (requires `uv`) and add the two printed runtime paths to `.env.local`. Docker includes the speech runtime and model. No transcription API key is needed. Recordings are limited to one minute / 2 MB, authenticated, processed one at a time with two CPU threads, and removed from the temporary directory after processing. Transcription uses [faster-whisper](https://github.com/SYSTRAN/faster-whisper); microphone recording uses the browser’s [MediaRecorder API](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder).
 
@@ -46,6 +46,8 @@ Set `MAIL_TRANSPORT=resend`, `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_RECEIVING_
 The worker polls authenticated Resend receiving APIs every five seconds, so localhost needs no public tunnel. `/api/webhooks/resend` also supports signature-verified webhooks when reachable and configured with `RESEND_WEBHOOK_SECRET`. Provider message IDs and received receipts are shown in the activity evidence. The dashboard reply path is explicitly labelled and never described as an inbound email.
 
 `MAIL_TRANSPORT=local` is a labelled practice transport. AI Gateway is an optional alternative (`AGENT_RUNTIME=gateway`, `ONBOARDING_PROVIDER=gateway`); its billing is separate from the Codex subscription.
+
+If an inquiry email exhausts its automatic retries, **Retry sending email** queues the saved request again without creating another inquiry. The original provider idempotency key is preserved.
 
 ## Structure and safeguards
 
