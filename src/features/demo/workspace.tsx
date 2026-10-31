@@ -1,8 +1,11 @@
 "use client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import "./persona.css";
+
+import { BrandMark } from "@/features/brand/brand-mark";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import "./workspace.css";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -90,20 +93,19 @@ export function DemoWorkspace({
   const ownerSidebar = (
     <>
       <Link
-        href="/demo"
+        href="/"
+        aria-label="Presence home"
         className="flex items-center gap-2.5 px-6 pt-8 text-[25px] font-semibold tracking-[-1.4px] text-white"
       >
-        <span className="flex size-8 items-center justify-center rounded-xl border border-[#52746b] bg-[#294c43]">
-          <Leaf className="size-4 text-[#a9d6b4]" />
-        </span>
+        <BrandMark className="size-8 text-[#bca5ff]" />
         presence
-        <span className="mb-3 ml-0.5 size-1.5 rounded-full bg-[#a6d6b5]" />
+        <span className="mb-3 ml-0.5 size-1.5 rounded-full bg-[#d9f58a]" />
       </Link>
-      <p className="mt-3 px-6 text-[9px] font-medium tracking-[0.17em] text-[#99b3ac] uppercase">
+      <p className="mt-3 px-6 text-[9px] font-medium tracking-[0.17em] text-[#a99bb9] uppercase">
         The business side of agents
       </p>
       <div className="mt-16 px-6">
-        <p className="text-[9px] font-medium tracking-[0.17em] text-[#829e95] uppercase">
+        <p className="text-[9px] font-medium tracking-[0.17em] text-[#968aa7] uppercase">
           The next customer journey
         </p>
       </div>
@@ -111,18 +113,19 @@ export function DemoWorkspace({
         {chapters.map((step, i) => (
           <button
             key={step.id}
+            aria-current={chapter === step.id ? "step" : undefined}
             onClick={() => navigate(step.id)}
             className={cn(
               "group flex w-full items-center gap-3 rounded-xl px-3.5 py-3.5 text-left transition-colors",
-              chapter === step.id ? "bg-[#315d4d]" : "hover:bg-white/5",
+              chapter === step.id ? "bg-[#45385f]" : "hover:bg-white/5",
             )}
           >
             <span
               className={cn(
                 "flex size-7 shrink-0 items-center justify-center rounded-lg border text-[10px]",
                 chapter === step.id
-                  ? "border-[#87b89c]/40 bg-[#7bb38d]/15 text-[#c6ebcf]"
-                  : "border-[#3b574d] text-[#9eb6ac]",
+                  ? "border-[#bca5ff]/40 bg-[#a586ed]/15 text-[#e0d2ff]"
+                  : "border-[#484052] text-[#a49ab3]",
               )}
             >
               {complete[i] ? <Check className="size-3.5" /> : `0${i + 1}`}
@@ -131,44 +134,44 @@ export function DemoWorkspace({
               <p
                 className={cn(
                   "text-[13px] font-medium",
-                  chapter === step.id ? "text-white" : "text-[#afc4bb]",
+                  chapter === step.id ? "text-white" : "text-[#bcb3c9]",
                 )}
               >
                 {step.label}
               </p>
-              <p className="mt-1 text-[9px] text-[#8fae9f]">{step.subtitle}</p>
+              <p className="mt-1 text-[9px] text-[#a79bb8]">{step.subtitle}</p>
             </div>
             {chapter === step.id && (
-              <span className="ml-auto size-1 rounded-full bg-[#add7b3]" />
+              <span className="ml-auto size-1 rounded-full bg-[#d9f58a]" />
             )}
           </button>
         ))}
       </nav>
       <div className="mt-auto p-4">
-        <div className="rounded-xl border border-[#3b574d] bg-[#263f35] p-3.5">
+        <div className="rounded-xl border border-[#484052] bg-[#2d2936] p-3.5">
           <div className="flex items-center gap-2">
-            <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#3a5949]">
-              <Leaf className="size-3.5 text-[#bad5b5]" />
+            <div className="flex size-7 shrink-0 items-center justify-center rounded-lg bg-[#42384e]">
+              <Leaf className="size-3.5 text-[#c9b2ee]" />
             </div>
             <div className="min-w-0">
-              <p className="truncate text-[11px] font-medium text-[#e0eadd]">
+              <p className="truncate text-[11px] font-medium text-[#ece5f7]">
                 {state?.tenant.name ?? "Your business"}
               </p>
-              <p className="mt-0.5 text-[9px] text-[#91aa9a]">
+              <p className="mt-0.5 text-[9px] text-[#a397b3]">
                 Public website · demo workspace
               </p>
             </div>
           </div>
-          <div className="mt-3 border-t border-[#3b574d] pt-2.5 text-[9px] text-[#91aa9a]">
+          <div className="mt-3 border-t border-[#484052] pt-2.5 text-[9px] text-[#a397b3]">
             BaselHack 2026 <span className="float-right">Adobe challenge</span>
           </div>
         </div>
         <div className="mt-5 flex items-center justify-between px-1">
-          <span className="flex items-center gap-1.5 text-[9px] text-[#a5bbad]">
+          <span className="flex items-center gap-1.5 text-[9px] text-[#b1a6be]">
             <span
               className={cn(
                 "size-1.5 rounded-full",
-                connected ? "bg-[#9dcda7]" : "bg-amber-400",
+                connected ? "bg-[#d9f58a]" : "bg-amber-400",
               )}
             />
             {connected ? "Connected to your local app" : "Connecting…"}
@@ -177,7 +180,7 @@ export function DemoWorkspace({
             onClick={() => setResetOpen(true)}
             aria-label="Reset demo"
             title="Reset demo"
-            className="text-[#8da598] hover:text-white"
+            className="text-[#a99bb9] hover:text-white"
           >
             <RotateCcw className="size-3" />
           </button>
@@ -191,7 +194,7 @@ export function DemoWorkspace({
       className="demo-workspace flex min-h-screen bg-background"
       data-persona="owner"
     >
-      <aside className="sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col bg-[#203b30] lg:flex">
+      <aside className="sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col bg-[#24212d] lg:flex">
         {sidebar}
       </aside>
       <div className="min-w-0 flex-1">
@@ -299,7 +302,7 @@ export function DemoWorkspace({
                 ))}
               </div>
               <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_300px] 2xl:gap-12">
-                <section className="min-w-0">
+                <section key={chapter} className="demo-chapter min-w-0">
                   {chapter === "publish" ? (
                     <PublishFlow state={state} act={act} pending={pending} />
                   ) : chapter === "book" ? (

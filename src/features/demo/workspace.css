@@ -1,0 +1,91 @@
+.demo-workspace {
+  background-image: radial-gradient(#716a8812 0.65px, transparent 0.65px);
+  background-size: 18px 18px;
+}
+.demo-workspace > aside {
+  position: sticky;
+  isolation: isolate;
+}
+.demo-workspace > aside:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 280px;
+  height: 280px;
+  left: -90px;
+  top: 20px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #9470e51c, transparent 70%);
+  pointer-events: none;
+}
+.demo-workspace > aside nav button {
+  transition:
+    background 0.25s,
+    transform 0.25s;
+}
+.demo-workspace > aside nav button:hover {
+  transform: translateX(3px);
+}
+.demo-workspace > aside nav button[aria-current="step"] {
+  box-shadow: inset 2px 0 0 #ba9cef;
+}
+.demo-workspace header {
+  background: #ffffffc9;
+}
+.demo-workspace h1 {
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.12;
+}
+.demo-workspace h1 > .text-primary {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.08em;
+  letter-spacing: -0.055em;
+}
+.demo-workspace [data-slot="button"][data-variant="default"] {
+  border-radius: 7px;
+  box-shadow: 0 3px 10px #7255eb16;
+}
+.demo-workspace
+  [data-slot="button"][data-variant="default"]:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px #7255eb25;
+}
+.demo-workspace [data-slot="button"] {
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+.demo-workspace input:focus,
+.demo-workspace textarea:focus {
+  background-color: #fff;
+}
+.demo-workspace section > form,
+.demo-workspace section > div > form {
+  box-shadow: 0 5px 24px #29212e04;
+}
+.demo-chapter {
+  animation: chapter-enter 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes chapter-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .demo-workspace *,
+  .demo-workspace *:before,
+  .demo-workspace *:after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

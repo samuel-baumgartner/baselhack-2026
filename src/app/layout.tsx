@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Presence — The business side of agents",
+  title: "Presence — Your next customer is an agent",
   description:
-    "A business-controlled presence for the agent economy. BaselHack 2026 presentation demo.",
+    "Your business. Your voice. Your rules. Turn your website into a presence agents can discover, understand, and do business with.",
   robots: { index: false, follow: false },
 };
 export default function RootLayout({
