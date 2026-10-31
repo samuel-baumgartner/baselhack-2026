@@ -61,7 +61,7 @@ pnpm test
 pnpm exec tsx --env-file=.env.local scripts/check-protocols.ts
 ```
 
-Tests never send provider mail. They use a separate database and isolated tenant data. They cover price/conditions validation, concurrent idempotency, buyer/tenant isolation, expiry, last-room races, SSRF, callback authenticity, monthly limits and revocation. `scripts/check-protocols.ts` calls real MCP/REST endpoints and verifies callback replay. Manual browser verification covers publish, real outgoing inquiry, dashboard proposal, both approvals, reservation and a live Codex follow-up. Real incoming email is tracked separately from the dashboard path.
+Tests never send provider mail. They use a separate database and isolated tenant data. They cover price/conditions validation, concurrent idempotency, buyer/tenant isolation, expiry, last-room races, SSRF, callback authenticity, monthly limits and revocation. `scripts/check-protocols.ts` calls real MCP/REST endpoints and verifies callback replay. Manual browser verification covers publish, a real outgoing Resend inquiry, an actual Proton email reply received by Resend and parsed into a proposal, both approvals, a capacity-backed reservation and a live Codex follow-up. The real email path and the labelled dashboard alternative were tested separately.
 
 Substantial production builds run through the machine's shared `remote-work` helper using `tools/remote-build.sh`; runtime `.env` and Codex credentials are excluded. The build uses explicit placeholders and returns a standalone artifact. Avoid running a heavy build on the desktop when it would cause lag.
 
