@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { RoleSwitcher } from "./role-switcher";
 
 import "./persona.css";
 
@@ -231,10 +230,6 @@ export function DemoWorkspace({
             <span className="hidden rounded-full border bg-background px-2.5 py-1 text-[9px] font-medium tracking-wide text-muted-foreground md:block">
               BASELHACK 2026
             </span>
-            <RoleSwitcher
-              actor="owner"
-              ownerHref={`/owner?chapter=${chapter}`}
-            />
           </div>
         </header>
         <main className="mx-auto max-w-[1350px] px-5 pt-8 pb-12 md:px-9 xl:px-11 xl:pt-10">
@@ -306,12 +301,7 @@ export function DemoWorkspace({
               <div className="grid items-start gap-8 xl:grid-cols-[minmax(0,1fr)_300px] 2xl:gap-12">
                 <section className="min-w-0">
                   {chapter === "publish" ? (
-                    <PublishFlow
-                      state={state}
-                      act={act}
-                      pending={pending}
-                      onNext={() => router.push("/traveller")}
-                    />
+                    <PublishFlow state={state} act={act} pending={pending} />
                   ) : chapter === "book" ? (
                     <BookingFlow
                       state={state}

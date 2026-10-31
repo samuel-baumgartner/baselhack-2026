@@ -18,7 +18,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { OfferCard } from "./components";
 import { RequestComposer } from "./request-composer";
-import { RoleSwitcher } from "./role-switcher";
 import type { Act } from "./types";
 import { useDemo } from "./use-demo";
 
@@ -71,11 +70,6 @@ export function GrokWorkspace() {
     state?.messages.filter((message) => message.chapter === "book") ?? [];
   const updates =
     state?.messages.filter((message) => message.chapter === "reconnect") ?? [];
-  const ownerHref = state?.reservation
-    ? "/owner?chapter=reconnect"
-    : state?.inquiry
-      ? "/owner?chapter=book"
-      : "/owner";
   const progress = [
     state?.messages.length,
     state?.offer?.id,
@@ -133,7 +127,12 @@ export function GrokWorkspace() {
               Demo mock
             </span>
           </div>
-          <RoleSwitcher actor="traveller" ownerHref={ownerHref} />
+          <div className="ml-auto flex items-center gap-2.5 text-sm text-muted-foreground">
+            <span>Alex</span>
+            <span className="flex size-8 items-center justify-center rounded-full bg-secondary text-xs font-medium text-foreground">
+              A
+            </span>
+          </div>
         </header>
         <div
           ref={scroll}
@@ -189,12 +188,8 @@ export function GrokWorkspace() {
                 )}
                 {!state.version ? (
                   <div className="mt-7 rounded-2xl border bg-card p-5 text-sm leading-7 text-muted-foreground">
-                    Start with{" "}
-                    <span className="font-medium text-foreground">
-                      Hotel owner
-                    </span>{" "}
-                    at the top right and connect a website. Then come back here
-                    to arrange your stay.
+                    I’m waiting for the hotel to finish connecting. Once it’s
+                    ready, tell me what you’d like to arrange.
                   </div>
                 ) : (
                   <>

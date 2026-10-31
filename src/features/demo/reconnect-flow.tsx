@@ -214,17 +214,6 @@ export function ReconnectFlow({
             <Send className="size-3.5" />
             Publish event to subscribed agents
           </Button>
-          {state.events.length > 0 && (
-            <Button
-              type="button"
-              variant="ghost"
-              className="mt-3 w-full text-xs"
-              onClick={() => setActor("traveller")}
-            >
-              See the traveller&apos;s agent
-              <ArrowRight className="size-3" />
-            </Button>
-          )}
         </form>
       )}
     </>

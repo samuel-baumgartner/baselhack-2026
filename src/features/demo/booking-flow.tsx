@@ -215,7 +215,7 @@ function OwnerInbox({
   if (!inquiry)
     return (
       <div className="mt-8 rounded-xl border bg-white p-6 text-sm text-muted-foreground">
-        No requests yet. Switch to Traveller and send the agent a request.
+        No requests yet. New agent requests will appear here.
       </div>
     );
   return (
@@ -371,8 +371,8 @@ function OwnerInbox({
       {inquiry.status === "offered" && (
         <div className="rounded-xl bg-accent p-5 text-xs leading-relaxed text-primary">
           <ShieldCheck className="mr-2 inline size-4" />
-          Offer approved and shared. Switch to Traveller to review and accept
-          the exact terms.
+          Offer approved and shared with the traveller’s agent. The traveller
+          will review and approve the exact terms before booking.
         </div>
       )}
     </div>

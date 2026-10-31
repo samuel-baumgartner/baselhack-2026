@@ -29,12 +29,10 @@ export function PublishFlow({
   state,
   act,
   pending,
-  onNext,
 }: {
   state: DemoSnapshot;
   act: Act;
   pending: string | null;
-  onNext: () => void;
 }) {
   const [url, setUrl] = useState("");
   const busy =
@@ -94,12 +92,8 @@ export function PublishFlow({
               );
             })}
           </div>
-          <Button onClick={onNext} className="mt-6 h-11 gap-3 px-5">
-            Open the traveller’s Grok chat
-            <ArrowRight className="size-4" />
-          </Button>
-          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-            Next, continue as Alex, the traveller, in the Grok demo.
+          <p role="status" className="mt-6 text-sm font-medium text-primary">
+            Everything looks good here.
           </p>
           <p className="mt-4 text-[10px] text-muted-foreground">
             Approved version {state.version.id.slice(0, 8)} ·{" "}

@@ -94,3 +94,10 @@ Replaced the shared persona page with two distinct presentation surfaces. `/owne
 A fresh isolated browser run scraped Hotel Rheinfelderhof, published reviewed facts, switched routes, submitted the suggested request, handled a clearly labelled practice email reply, obtained both approvals, saved fictional reservation `PL-A93180` for CHF 205, recorded consent and displayed a delivered follow-up inside Grok. The main rehearsal data and verified Resend configuration were preserved. Desktop/mobile layouts, keyboard suggestion insertion, legacy redirects, focused lint, typecheck, nine isolated tests and remote production builds passed. Initial chat scrolling was corrected so the opening screen is not clipped; role controls stay right-aligned when the mobile header wraps.
 
 The previous terminal-launched web and worker processes were no longer running. Started the final local app under transient systemd user services `baselhack-demo-web` and `baselhack-demo-worker`, both bound/configured for the existing local demo. An actual Codex structured-output check passed under the same service-manager environment. Services can be restarted with `systemctl --user restart baselhack-demo-web baselhack-demo-worker`; these transient units do not survive a host reboot.
+
+
+## 31 October — fixed roles in separate tabs
+
+The owner publication screen now ends with “Everything looks good here.” instead of a button that opens Grok. Removed the top-right role chooser from both interfaces, the owner’s event-to-traveller navigation button, and owner copy instructing the presenter to switch personas. Grok shows Alex’s fixed traveller identity. The presenter opens `/owner` and `/traveller` independently in separate tabs. Updated the README to match.
+
+Focused lint, typecheck and remote production build passed. Browser verification on the running owner page confirmed the completion text, zero role choosers and no Grok-opening button. The Grok header also has no role chooser. Replaced the production artifact and restarted only the managed web service; the worker and current rehearsal records were preserved.
