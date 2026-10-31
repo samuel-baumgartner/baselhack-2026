@@ -101,3 +101,8 @@ The previous terminal-launched web and worker processes were no longer running. 
 The owner publication screen now ends with “Everything looks good here.” instead of a button that opens Grok. Removed the top-right role chooser from both interfaces, the owner’s event-to-traveller navigation button, and owner copy instructing the presenter to switch personas. Grok shows Alex’s fixed traveller identity. The presenter opens `/owner` and `/traveller` independently in separate tabs. Updated the README to match.
 
 Focused lint, typecheck and remote production build passed. Browser verification on the running owner page confirmed the completion text, zero role choosers and no Grok-opening button. The Grok header also has no role chooser. Replaced the production artifact and restarted only the managed web service; the worker and current rehearsal records were preserved.
+
+
+## 31 October — simpler Grok presentation chrome
+
+Removed the visible “Demo mock” header badge and the matching Grok mock prefix in the footer, renamed the browser title to “Grok”, and simplified the home link’s accessible name. The interface remains a presentation mock using the existing backend. Focused lint, typecheck and the remote production build passed. Browser verification on the running app confirmed zero badge/footer mock labels and the updated title. Saved the resulting header screenshot in ignored `test-results/`.

@@ -91,7 +91,7 @@ export function GrokWorkspace() {
         <Link
           href="/traveller"
           className="flex items-center gap-3 px-3 text-2xl font-semibold tracking-tight"
-          aria-label="Grok demo home"
+          aria-label="Grok home"
         >
           <GrokMark className="size-8" />
           Grok
@@ -123,9 +123,6 @@ export function GrokWorkspace() {
           <div className="flex items-center gap-2.5">
             <GrokMark className="size-6 lg:hidden" />
             <span className="text-lg font-semibold tracking-tight">Grok</span>
-            <span className="rounded-full border px-2 py-0.5 text-[10px] text-muted-foreground">
-              Demo mock
-            </span>
           </div>
           <div className="ml-auto flex items-center gap-2.5 text-sm text-muted-foreground">
             <span>Alex</span>
@@ -335,7 +332,7 @@ export function GrokWorkspace() {
           </main>
         </div>
         <footer className="flex shrink-0 flex-wrap items-center justify-center gap-x-4 gap-y-1 border-t border-white/5 px-4 py-3 text-center text-[10px] text-muted-foreground">
-          <span>Grok demo mock · Fictional inventory · No real payment</span>
+          <span>Fictional inventory · No real payment</span>
           <span className="inline-flex items-center gap-1.5">
             <span
               className={cn(
