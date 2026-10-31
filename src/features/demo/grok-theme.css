@@ -1,0 +1,27 @@
+.grok-demo {
+  color-scheme: dark;
+  --background: #171719;
+  --foreground: #f1f1f3;
+  --card: #202023;
+  --card-foreground: #f1f1f3;
+  --popover: #202023;
+  --popover-foreground: #f1f1f3;
+  --primary: #f1f1f3;
+  --primary-foreground: #171719;
+  --secondary: #343438;
+  --secondary-foreground: #fff;
+  --accent: #2b2b30;
+  --accent-foreground: #f1f1f3;
+  --muted: #252528;
+  --muted-foreground: #a6a6b0;
+  --border: #37373e;
+  --input: #46464f;
+  --ring: #a6a6b0;
+  --destructive: #ffaba8;
+}
+.grok-demo input[type="checkbox"] {
+  accent-color: #f1f1f3;
+}
+.grok-demo textarea::placeholder {
+  color: #a6a6b0;
+}

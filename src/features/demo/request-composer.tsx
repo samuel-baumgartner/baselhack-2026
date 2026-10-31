@@ -9,8 +9,10 @@ import { useEffect, useRef, useState } from "react";
 export function RequestComposer({
   disabled,
   onSend,
+  submitLabel = "Send to my agent",
 }: {
   disabled: boolean;
+  submitLabel?: string;
   onSend: (prompt: string) => void;
 }) {
   const [prompt, setPrompt] = useState("");
@@ -189,7 +191,7 @@ export function RequestComposer({
         event.preventDefault();
         if (prompt.trim() && !disabled && !busy) onSend(prompt.trim());
       }}
-      className="mt-7 rounded-2xl border bg-white p-4"
+      className="mt-7 rounded-2xl border bg-card p-4"
     >
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <label
@@ -273,7 +275,7 @@ export function RequestComposer({
               {DEFAULT_REQUEST}
             </span>
           </span>
-          <span className="flex size-7 shrink-0 items-center justify-center rounded-lg border bg-white text-primary">
+          <span className="flex size-7 shrink-0 items-center justify-center rounded-lg border bg-card text-primary">
             <ArrowRight className="size-4" />
           </span>
         </button>
@@ -310,7 +312,7 @@ export function RequestComposer({
           disabled={disabled || busy || !prompt.trim()}
           className="gap-2 text-xs"
         >
-          Send to my agent <Send className="size-3" />
+          {submitLabel} <Send className="size-3" />
         </Button>
       </div>
       <p className="mt-3 text-[9px] text-muted-foreground">

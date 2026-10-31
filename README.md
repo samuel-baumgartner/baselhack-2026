@@ -12,7 +12,7 @@ The default stage source is the real [Hotel Rheinfelderhof website](https://www.
 
 On the Publish screen, click **Try Hotel Rheinfelderhof’s website**, then **Read website**. Review the extracted facts and check the review acknowledgement before publishing. Unknown policies stay unknown; the demo email offer supplies its own simulated commercial terms. All email is routed to the configured demo mailbox, never to contact addresses scraped from the website. A local fictional source remains available at `/fixtures/hotel-linden` for development checks. Published customer routes follow the reviewed business name.
 
-After publication, **Switch to the traveller’s personal agent** changes the perspective to Alex’s blue personal-agent site. The hotel owner workspace uses warm violet colors. The header, navigation and identity banner change together, and the handoff returns to the top of the page. Switching back to **Hotel owner** restores the merchant view; reservation acceptance controls appear only in the traveller view.
+The presentation uses two separate routes. **`/traveller`** is a dark Grok bot mock: the traveller requests a stay, approves the offer, subscribes and receives follow-ups in one conversation. **`/owner`** is the violet hotel workspace with Website, Inbox and Updates sections. Use the top-right **Traveller / Hotel owner** switch to move between them. Owner section navigation stays on the owner route. The Grok interface is explicitly labelled as a demo mock; the existing Codex-backed workflow remains the actual runtime. Legacy `/demo?chapter=…&actor=…` links redirect to the appropriate route.
 
 ## Run locally
 

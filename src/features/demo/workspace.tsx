@@ -1,5 +1,7 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { RoleSwitcher } from "./role-switcher";
 
 import "./persona.css";
 
@@ -22,15 +24,12 @@ import { cn } from "@/lib/utils";
 import {
   Bell,
   Check,
-  ChevronRight,
-  Compass,
   Globe,
   Leaf,
   Menu,
   MessageSquare,
   RotateCcw,
   ShieldCheck,
-  UserRound,
   X,
 } from "lucide-react";
 import { useState } from "react";
@@ -51,19 +50,19 @@ type Chapter = "publish" | "book" | "reconnect";
 const chapters = [
   {
     id: "publish" as const,
-    label: "Publish",
+    label: "Website",
     subtitle: "Your business, agent-ready",
     icon: Globe,
   },
   {
     id: "book" as const,
-    label: "Book",
+    label: "Inbox",
     subtitle: "Turn intent into a booking",
     icon: MessageSquare,
   },
   {
     id: "reconnect" as const,
-    label: "Reconnect",
+    label: "Updates",
     subtitle: "A relationship that continues",
     icon: Bell,
   },
@@ -71,39 +70,23 @@ const chapters = [
 
 export function DemoWorkspace({
   initialChapter = "publish",
-  initialActor = "traveller",
 }: {
   initialChapter?: Chapter;
-  initialActor?: "owner" | "traveller";
 }) {
   const { state, error, connected, pending, act, clearError } = useDemo();
-  const [chapter, setChapter] = useState<Chapter>(initialChapter);
-  const [actor, updateActor] = useState<"owner" | "traveller">(initialActor);
+  const chapter = initialChapter;
+  const router = useRouter();
   const [resetOpen, setResetOpen] = useState(false);
-  const isTraveller = chapter !== "publish" && actor === "traveller";
   const complete = [
     !!state?.version,
     !!state?.reservation,
     state?.deliveries.some((d) => d.status === "delivered") ?? false,
   ];
   const setActor = (next: "owner" | "traveller") => {
-    const nextChapter =
-      next === "traveller" && chapter === "publish" ? "book" : chapter;
-    setChapter(nextChapter);
-    updateActor(next);
-    window.scrollTo({ top: 0, behavior: "instant" });
-    window.history.replaceState(
-      null,
-      "",
-      `?chapter=${nextChapter}&actor=${next}`,
-    );
+    if (next === "traveller") router.push("/traveller");
   };
   const navigate = (next: Chapter) => {
-    setChapter(next);
-    window.scrollTo({ top: 0, behavior: "instant" });
-    const a = next === "publish" ? "owner" : "traveller";
-    updateActor(a);
-    window.history.replaceState(null, "", `?chapter=${next}&actor=${a}`);
+    router.push(`/owner?chapter=${next}`);
   };
   const ownerSidebar = (
     <>
@@ -203,73 +186,11 @@ export function DemoWorkspace({
       </div>
     </>
   );
-  const sidebar = isTraveller ? (
-    <>
-      <button
-        type="button"
-        onClick={() => navigate("book")}
-        className="flex items-center gap-3 px-6 pt-8 text-left text-white"
-      >
-        <span className="flex size-10 items-center justify-center rounded-2xl bg-white/10">
-          <Compass className="size-6" />
-        </span>
-        <span>
-          <span className="block text-xl font-semibold tracking-tight">
-            Personal agent
-          </span>
-          <span className="mt-1 block text-[10px] text-blue-200">
-            Alex’s travel companion
-          </span>
-        </span>
-      </button>
-      <div className="mt-16 px-6">
-        <p className="text-[10px] font-semibold tracking-widest text-blue-200 uppercase">
-          Your plans
-        </p>
-      </div>
-      <nav className="mt-5 space-y-2 px-3">
-        {(
-          [
-            { id: "book", label: "Arrange a stay", icon: MessageSquare },
-            { id: "reconnect", label: "My updates", icon: Bell },
-          ] as const
-        ).map(({ id, label, icon: Icon }) => (
-          <button
-            key={id}
-            type="button"
-            aria-current={chapter === id ? "step" : undefined}
-            onClick={() => navigate(id)}
-            className={cn(
-              "flex w-full items-center gap-3 rounded-xl px-4 py-4 text-left text-sm text-blue-100",
-              chapter === id ? "bg-white/15 font-semibold" : "hover:bg-white/5",
-            )}
-          >
-            <Icon className="size-4" />
-            {label}
-          </button>
-        ))}
-      </nav>
-      <div className="mt-auto p-5">
-        <div className="flex items-center gap-3 rounded-2xl border border-white/15 bg-white/5 p-4">
-          <span className="flex size-9 items-center justify-center rounded-full bg-blue-100 font-semibold text-blue-900">
-            A
-          </span>
-          <div>
-            <p className="text-sm font-semibold text-white">Alex</p>
-            <p className="mt-1 text-[10px] text-blue-200">
-              Traveller · approval required
-            </p>
-          </div>
-        </div>
-      </div>
-    </>
-  ) : (
-    ownerSidebar
-  );
+  const sidebar = ownerSidebar;
   return (
     <div
       className="demo-workspace flex min-h-screen bg-background"
-      data-persona={isTraveller ? "traveller" : "owner"}
+      data-persona="owner"
     >
       <aside className="sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col bg-[#203b30] lg:flex">
         {sidebar}
@@ -290,103 +211,47 @@ export function DemoWorkspace({
               </SheetTrigger>
               <SheetContent
                 side="left"
-                className={cn(
-                  "flex w-[250px] flex-col border-0 p-0",
-                  isTraveller ? "bg-[#102b4c]" : "bg-[#24212d]",
-                )}
+                className="flex w-[250px] flex-col border-0 bg-[#24212d] p-0"
               >
                 <SheetTitle className="sr-only">Demo chapters</SheetTitle>
                 {sidebar}
               </SheetContent>
             </Sheet>
-            {isTraveller ? (
-              <div className="flex items-center gap-3">
-                <span className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <Compass className="size-5" />
-                </span>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">
-                    Personal agent
-                  </p>
-                  <p className="mt-0.5 text-[10px] text-muted-foreground">
-                    Alex’s travel companion
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <>
-                {" "}
-                <p className="hidden text-[11px] text-muted-foreground sm:block">
-                  Workspace{" "}
-                  <ChevronRight className="mx-2 inline size-3 text-border" />
-                  <span className="font-medium text-foreground">
-                    Live demonstration
-                  </span>
-                </p>
-                <span className="text-sm font-semibold sm:hidden">
-                  presence
-                </span>
-              </>
-            )}
+            <Link
+              href="/owner"
+              className="text-sm font-semibold text-foreground"
+            >
+              Presence{" "}
+              <span className="ml-2 hidden font-normal text-muted-foreground sm:inline">
+                Hotel owner
+              </span>
+            </Link>
           </div>
           <div className="ml-auto flex items-center gap-4">
             <span className="hidden rounded-full border bg-background px-2.5 py-1 text-[9px] font-medium tracking-wide text-muted-foreground md:block">
               BASELHACK 2026
             </span>
-            <div className="flex items-center gap-2 rounded-lg border bg-white p-1">
-              <Button
-                variant={
-                  actor === "traveller" && chapter !== "publish"
-                    ? "secondary"
-                    : "ghost"
-                }
-                size="sm"
-                className="h-7 px-2.5 text-[10px]"
-                onClick={() => setActor("traveller")}
-              >
-                <UserRound className="size-3" />
-                Traveller
-              </Button>
-              <Button
-                variant={
-                  actor === "owner" || chapter === "publish"
-                    ? "secondary"
-                    : "ghost"
-                }
-                size="sm"
-                className="h-7 px-2.5 text-[10px]"
-                onClick={() => setActor("owner")}
-              >
-                <Leaf className="size-3" />
-                Hotel owner
-              </Button>
-            </div>
+            <RoleSwitcher
+              actor="owner"
+              ownerHref={`/owner?chapter=${chapter}`}
+            />
           </div>
         </header>
         <main className="mx-auto max-w-[1350px] px-5 pt-8 pb-12 md:px-9 xl:px-11 xl:pt-10">
           <div
-            key={isTraveller ? "traveller" : "owner"}
             className="persona-banner mb-7 flex items-center gap-3 rounded-2xl border p-4"
             role="status"
             aria-live="polite"
           >
             <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              {isTraveller ? (
-                <UserRound className="size-5" />
-              ) : (
-                <Leaf className="size-5" />
-              )}
+              <Leaf className="size-5" />
             </span>
             <div>
               <p className="text-[10px] font-semibold tracking-widest text-primary uppercase">
-                {isTraveller
-                  ? "Traveller’s personal agent"
-                  : "Hotel owner workspace"}
+                Hotel owner workspace
               </p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                {isTraveller
-                  ? `You are now Alex, the traveller. Your agent is arranging a stay with ${state?.tenant.name ?? "the hotel"}.`
-                  : `You are managing ${state?.tenant.name ?? "your business"}. Publish facts and approve what the hotel offers.`}
+                {`You are managing ${state?.tenant.name ?? "your business"}. Publish facts and approve what the hotel offers.`}
               </p>
             </div>
           </div>
@@ -445,12 +310,12 @@ export function DemoWorkspace({
                       state={state}
                       act={act}
                       pending={pending}
-                      onNext={() => navigate("book")}
+                      onNext={() => router.push("/traveller")}
                     />
                   ) : chapter === "book" ? (
                     <BookingFlow
                       state={state}
-                      actor={actor}
+                      actor="owner"
                       setActor={setActor}
                       act={act}
                       pending={pending}
@@ -459,7 +324,7 @@ export function DemoWorkspace({
                   ) : (
                     <ReconnectFlow
                       state={state}
-                      actor={actor}
+                      actor="owner"
                       setActor={setActor}
                       act={act}
                       pending={pending}
@@ -474,7 +339,7 @@ export function DemoWorkspace({
                     <OfferCard
                       key={state.offer.id}
                       state={state}
-                      canAccept={isTraveller}
+                      canAccept={false}
                       pending={pending === "accept"}
                       onAccept={() => {
                         void act({
@@ -504,11 +369,7 @@ export function DemoWorkspace({
           )}
         </main>
         <footer className="mx-5 flex flex-wrap items-center justify-between gap-3 border-t py-5 text-[9px] text-muted-foreground md:mx-9">
-          <span>
-            {isTraveller
-              ? "Personal agent · Alex’s travel companion"
-              : "Presence · The business side of personal agents"}
-          </span>
+          <span>Presence · The business side of personal agents</span>
           <span>Public website facts. Demo inventory. No payment taken.</span>
         </footer>
       </div>

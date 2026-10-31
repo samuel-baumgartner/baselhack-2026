@@ -1,4 +1,4 @@
-import { DemoWorkspace } from "@/features/demo/workspace";
+import { redirect } from "next/navigation";
 export default async function DemoPage({
   searchParams,
 }: {
@@ -9,10 +9,9 @@ export default async function DemoPage({
     query.chapter === "book" || query.chapter === "reconnect"
       ? query.chapter
       : "publish";
-  return (
-    <DemoWorkspace
-      initialChapter={chapter}
-      initialActor={query.actor === "owner" ? "owner" : "traveller"}
-    />
+  redirect(
+    query.actor === "traveller" && chapter !== "publish"
+      ? "/traveller"
+      : `/owner?chapter=${chapter}`,
   );
 }
