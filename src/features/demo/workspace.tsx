@@ -1,4 +1,7 @@
 "use client";
+import Link from "next/link";
+
+import "./persona.css";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +23,7 @@ import {
   Bell,
   Check,
   ChevronRight,
+  Compass,
   Globe,
   Leaf,
   Menu,
@@ -76,6 +80,7 @@ export function DemoWorkspace({
   const [chapter, setChapter] = useState<Chapter>(initialChapter);
   const [actor, updateActor] = useState<"owner" | "traveller">(initialActor);
   const [resetOpen, setResetOpen] = useState(false);
+  const isTraveller = chapter !== "publish" && actor === "traveller";
   const complete = [
     !!state?.version,
     !!state?.reservation,
@@ -83,17 +88,19 @@ export function DemoWorkspace({
   ];
   const setActor = (next: "owner" | "traveller") => {
     updateActor(next);
+    window.scrollTo({ top: 0, behavior: "instant" });
     window.history.replaceState(null, "", `?chapter=${chapter}&actor=${next}`);
   };
   const navigate = (next: Chapter) => {
     setChapter(next);
+    window.scrollTo({ top: 0, behavior: "instant" });
     const a = next === "publish" ? "owner" : "traveller";
     updateActor(a);
     window.history.replaceState(null, "", `?chapter=${next}&actor=${a}`);
   };
-  const sidebar = (
+  const ownerSidebar = (
     <>
-      <a
+      <Link
         href="/demo"
         className="flex items-center gap-2.5 px-6 pt-8 text-[25px] font-semibold tracking-[-1.4px] text-white"
       >
@@ -102,7 +109,7 @@ export function DemoWorkspace({
         </span>
         presence
         <span className="mb-3 ml-0.5 size-1.5 rounded-full bg-[#a6d6b5]" />
-      </a>
+      </Link>
       <p className="mt-3 px-6 text-[9px] font-medium tracking-[0.17em] text-[#99b3ac] uppercase">
         The business side of agents
       </p>
@@ -189,13 +196,79 @@ export function DemoWorkspace({
       </div>
     </>
   );
+  const sidebar = isTraveller ? (
+    <>
+      <button
+        type="button"
+        onClick={() => navigate("book")}
+        className="flex items-center gap-3 px-6 pt-8 text-left text-white"
+      >
+        <span className="flex size-10 items-center justify-center rounded-2xl bg-white/10">
+          <Compass className="size-6" />
+        </span>
+        <span>
+          <span className="block text-xl font-semibold tracking-tight">
+            Personal agent
+          </span>
+          <span className="mt-1 block text-[10px] text-blue-200">
+            Alex’s travel companion
+          </span>
+        </span>
+      </button>
+      <div className="mt-16 px-6">
+        <p className="text-[10px] font-semibold tracking-widest text-blue-200 uppercase">
+          Your plans
+        </p>
+      </div>
+      <nav className="mt-5 space-y-2 px-3">
+        {(
+          [
+            { id: "book", label: "Arrange a stay", icon: MessageSquare },
+            { id: "reconnect", label: "My updates", icon: Bell },
+          ] as const
+        ).map(({ id, label, icon: Icon }) => (
+          <button
+            key={id}
+            type="button"
+            aria-current={chapter === id ? "step" : undefined}
+            onClick={() => navigate(id)}
+            className={cn(
+              "flex w-full items-center gap-3 rounded-xl px-4 py-4 text-left text-sm text-blue-100",
+              chapter === id ? "bg-white/15 font-semibold" : "hover:bg-white/5",
+            )}
+          >
+            <Icon className="size-4" />
+            {label}
+          </button>
+        ))}
+      </nav>
+      <div className="mt-auto p-5">
+        <div className="flex items-center gap-3 rounded-2xl border border-white/15 bg-white/5 p-4">
+          <span className="flex size-9 items-center justify-center rounded-full bg-blue-100 font-semibold text-blue-900">
+            A
+          </span>
+          <div>
+            <p className="text-sm font-semibold text-white">Alex</p>
+            <p className="mt-1 text-[10px] text-blue-200">
+              Traveller · approval required
+            </p>
+          </div>
+        </div>
+      </div>
+    </>
+  ) : (
+    ownerSidebar
+  );
   return (
-    <div className="flex min-h-screen bg-background">
+    <div
+      className="demo-workspace flex min-h-screen bg-background"
+      data-persona={isTraveller ? "traveller" : "owner"}
+    >
       <aside className="sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col bg-[#203b30] lg:flex">
         {sidebar}
       </aside>
       <div className="min-w-0 flex-1">
-        <header className="flex h-[76px] items-center justify-between border-b bg-white px-5 md:px-9">
+        <header className="flex min-h-[76px] flex-wrap items-center justify-between gap-x-3 gap-y-3 border-b bg-white px-5 py-3 md:h-[76px] md:flex-nowrap md:px-9 md:py-0">
           <div className="flex items-center gap-3">
             <Sheet>
               <SheetTrigger asChild>
@@ -210,22 +283,46 @@ export function DemoWorkspace({
               </SheetTrigger>
               <SheetContent
                 side="left"
-                className="flex w-[250px] flex-col border-0 bg-[#203b30] p-0"
+                className={cn(
+                  "flex w-[250px] flex-col border-0 p-0",
+                  isTraveller ? "bg-[#102b4c]" : "bg-[#24212d]",
+                )}
               >
                 <SheetTitle className="sr-only">Demo chapters</SheetTitle>
                 {sidebar}
               </SheetContent>
             </Sheet>
-            <p className="hidden text-[11px] text-muted-foreground sm:block">
-              Workspace{" "}
-              <ChevronRight className="mx-2 inline size-3 text-border" />
-              <span className="font-medium text-foreground">
-                Live demonstration
-              </span>
-            </p>
-            <span className="text-sm font-semibold sm:hidden">presence</span>
+            {isTraveller ? (
+              <div className="flex items-center gap-3">
+                <span className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Compass className="size-5" />
+                </span>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">
+                    Personal agent
+                  </p>
+                  <p className="mt-0.5 text-[10px] text-muted-foreground">
+                    Alex’s travel companion
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <>
+                {" "}
+                <p className="hidden text-[11px] text-muted-foreground sm:block">
+                  Workspace{" "}
+                  <ChevronRight className="mx-2 inline size-3 text-border" />
+                  <span className="font-medium text-foreground">
+                    Live demonstration
+                  </span>
+                </p>
+                <span className="text-sm font-semibold sm:hidden">
+                  presence
+                </span>
+              </>
+            )}
           </div>
-          <div className="flex items-center gap-4">
+          <div className="ml-auto flex items-center gap-4">
             <span className="hidden rounded-full border bg-background px-2.5 py-1 text-[9px] font-medium tracking-wide text-muted-foreground md:block">
               BASELHACK 2026
             </span>
@@ -261,6 +358,32 @@ export function DemoWorkspace({
           </div>
         </header>
         <main className="mx-auto max-w-[1350px] px-5 pt-8 pb-12 md:px-9 xl:px-11 xl:pt-10">
+          <div
+            key={isTraveller ? "traveller" : "owner"}
+            className="persona-banner mb-7 flex items-center gap-3 rounded-2xl border p-4"
+            role="status"
+            aria-live="polite"
+          >
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              {isTraveller ? (
+                <UserRound className="size-5" />
+              ) : (
+                <Leaf className="size-5" />
+              )}
+            </span>
+            <div>
+              <p className="text-[10px] font-semibold tracking-widest text-primary uppercase">
+                {isTraveller
+                  ? "Traveller’s personal agent"
+                  : "Hotel owner workspace"}
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                {isTraveller
+                  ? `You are now Alex, the traveller. Your agent is arranging a stay with ${state?.tenant.name ?? "the hotel"}.`
+                  : `You are managing ${state?.tenant.name ?? "your business"}. Publish facts and approve what the hotel offers.`}
+              </p>
+            </div>
+          </div>
           {error && (
             <div
               role="alert"
@@ -345,6 +468,7 @@ export function DemoWorkspace({
                     <OfferCard
                       key={state.offer.id}
                       state={state}
+                      canAccept={isTraveller}
                       pending={pending === "accept"}
                       onAccept={() => {
                         void act({
@@ -374,7 +498,11 @@ export function DemoWorkspace({
           )}
         </main>
         <footer className="mx-5 flex flex-wrap items-center justify-between gap-3 border-t py-5 text-[9px] text-muted-foreground md:mx-9">
-          <span>Presence · The business side of personal agents</span>
+          <span>
+            {isTraveller
+              ? "Personal agent · Alex’s travel companion"
+              : "Presence · The business side of personal agents"}
+          </span>
           <span>Public website facts. Demo inventory. No payment taken.</span>
         </footer>
       </div>

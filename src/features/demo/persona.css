@@ -1,0 +1,82 @@
+/* Each perspective owns its Tailwind/shadcn tokens; the public marketing site is unaffected. */
+.demo-workspace[data-persona="owner"] {
+  --background: #f6f5ef;
+  --foreground: #26252b;
+  --primary: #7255eb;
+  --primary-foreground: #fff;
+  --secondary: #eeebf8;
+  --secondary-foreground: #6144ce;
+  --accent: #eeebf8;
+  --accent-foreground: #6144ce;
+  --muted: #eeeee7;
+  --muted-foreground: #77776e;
+  --border: #e2e1d9;
+  --input: #dad8e1;
+  --ring: #8d70ef;
+}
+.demo-workspace[data-persona="traveller"] {
+  --background: #f0f6ff;
+  --foreground: #152d4b;
+  --card: #fff;
+  --card-foreground: #152d4b;
+  --primary: #205dd5;
+  --primary-foreground: #fff;
+  --secondary: #e2edff;
+  --secondary-foreground: #184da9;
+  --accent: #e2edff;
+  --accent-foreground: #184da9;
+  --muted: #e8eff9;
+  --muted-foreground: #52677f;
+  --border: #ccdbef;
+  --input: #bdd0e9;
+  --ring: #5687e7;
+  background-image: radial-gradient(#426da91a 0.65px, transparent 0.65px);
+  background-size: 18px 18px;
+}
+.demo-workspace[data-persona="traveller"] > aside {
+  background: #102b4c;
+}
+.demo-workspace[data-persona="traveller"] > aside::before {
+  background: radial-gradient(ellipse, #5c9bff24, transparent 70%);
+}
+.demo-workspace[data-persona="traveller"]
+  > aside
+  nav
+  button[aria-current="step"] {
+  box-shadow: inset 2px 0 0 #a5cbff;
+}
+.demo-workspace[data-persona="traveller"] h1,
+.demo-workspace[data-persona="traveller"] h1 > .text-primary {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  font-size: inherit;
+}
+.demo-workspace[data-persona="traveller"] h1 {
+  font-size: 2.25rem;
+}
+.demo-workspace[data-persona="traveller"] .persona-banner {
+  background: #e2edff;
+  border-color: #bfd2f1;
+}
+.demo-workspace[data-persona="owner"] .persona-banner {
+  background: #eeebf8;
+  border-color: #d9d1ef;
+}
+.demo-workspace input[type="checkbox"] {
+  accent-color: var(--primary);
+}
+@media (min-width: 768px) {
+  .demo-workspace[data-persona="traveller"] h1 {
+    font-size: 2.5rem;
+  }
+}
+.demo-workspace[data-persona="owner"] > aside {
+  background: #24212d;
+}
+.demo-workspace[data-persona="owner"] h1 > .text-primary {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-weight: 400;
+}

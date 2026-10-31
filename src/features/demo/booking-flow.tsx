@@ -57,16 +57,16 @@ export function BookingFlow({
           </>
         ) : (
           <>
-            A customer sends an agent.
+            Your next stay.
             <br />
-            <span className="text-primary">You stay in the conversation.</span>
+            <span className="text-primary">Let’s get the details right.</span>
           </>
         )}
       </h1>
       <p className="mt-4 text-sm leading-7 text-muted-foreground">
         {actor === "owner"
           ? "Reply by email, review the structured offer, and decide what your business can promise."
-          : "A tailored request. Your existing inbox. One offer approved by both sides."}
+          : "Your agent checks the hotel, requests an offer and asks you before booking."}
       </p>
       {!state.version ? (
         <div className="mt-8 rounded-xl border bg-white p-6 text-sm text-muted-foreground">

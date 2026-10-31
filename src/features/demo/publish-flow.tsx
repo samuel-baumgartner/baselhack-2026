@@ -95,9 +95,13 @@ export function PublishFlow({
             })}
           </div>
           <Button onClick={onNext} className="mt-6 h-11 gap-3 px-5">
-            Meet your next customer
+            Switch to the traveller’s personal agent
             <ArrowRight className="size-4" />
           </Button>
+          <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+            Next, continue as Alex, the traveller, on the personal agent’s
+            website.
+          </p>
           <p className="mt-4 text-[10px] text-muted-foreground">
             Approved version {state.version.id.slice(0, 8)} ·{" "}
             {state.run?.provider}

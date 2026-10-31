@@ -226,8 +226,10 @@ export function OfferCard({
   state,
   onAccept,
   pending,
+  canAccept = true,
 }: {
   state: DemoSnapshot;
+  canAccept?: boolean;
   onAccept: () => void;
   pending: boolean;
 }) {
@@ -302,7 +304,7 @@ export function OfferCard({
               : `Valid until ${new Date(offer.expiresAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`}
         </p>
       </div>
-      {!booked && (
+      {!booked && canAccept && (
         <>
           <label className="mt-5 flex cursor-pointer items-start gap-2 text-[10px] leading-relaxed text-muted-foreground">
             <input

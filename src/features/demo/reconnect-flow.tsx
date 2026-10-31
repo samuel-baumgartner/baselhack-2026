@@ -40,15 +40,18 @@ export function ReconnectFlow({
     <>
       <Eyebrow>03 / Keep the relationship</Eyebrow>
       <h1 className="mt-3 text-[34px] leading-[1.14] font-semibold tracking-[-1.2px] md:text-[40px]">
-        A good stay ends.
+        {actor === "traveller" ? "Good places." : "A good stay ends."}
         <br />
         <span className="text-primary">
-          The connection doesn&apos;t have to.
+          {actor === "traveller"
+            ? "Worth coming back to."
+            : "The connection doesn’t have to."}
         </span>
       </h1>
       <p className="mt-4 max-w-lg text-sm leading-7 text-muted-foreground">
-        With permission, your business can reach the customer&apos;s agent
-        again. Relevant moments, not another unread newsletter.
+        {actor === "traveller"
+          ? "Choose which hotels your agent can hear from. It only shares updates that match your interests."
+          : "With permission, your business can reach the customer’s agent again. Relevant moments, not another unread newsletter."}
       </p>
       {!state.reservation ? (
         <div className="mt-8 rounded-xl border bg-white p-6 text-sm text-muted-foreground">

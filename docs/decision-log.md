@@ -53,3 +53,10 @@ The fresh run also completed category-specific opt-in, signed event delivery and
 Switched the suggested source to Hotel Rheinfelderhof’s official homepage, https://www.rheinfelderhof.ch/en/. The running scraper fetched 2,682 readable characters from the actual public HTTPS site, including the contact address in its footer. Codex produced seven source-backed claims. The profile retains dated renovation notices and leaves dog acceptance, after-midnight arrival and quiet workspace access unknown. Removed the fixture-specific publication override that forced workspace access until 14:00. Publication now derives its customer route from the reviewed business name, and acceptance uses that actual route.
 
 Public facts are sourced from the real hotel; offers, inventory and events remain demo data and all email remains routed to the configured demo mailbox. No hotel contact address is used as an outbound recipient. Source fetch, browser extraction/review/publication, eight isolated tests and real MCP/REST checks passed.
+
+
+## 31 October — explicit owner-to-traveller handoff
+
+The publication handoff now explicitly switches to the traveller’s personal agent. Merchant pages use warm violet tones; Alex’s assistant uses blue, its own identity/navigation and customer-facing copy. A persistent role banner explains the active persona. Switching personas returns to the top so the new identity is visible, and only the traveller sees reservation acceptance controls.
+
+Verified the publication handoff and reverse switch in the production browser, including the 390px mobile layout and navigation drawer. Typecheck, focused lint and the remote production build passed. No inquiry or reservation state was changed during these UI checks.
