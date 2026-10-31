@@ -1,0 +1,4 @@
+import { DemoWorkspace } from "@/features/demo/workspace";
+export default function PresenceWorkspace() {
+  return <DemoWorkspace initialActor="owner" />;
+}

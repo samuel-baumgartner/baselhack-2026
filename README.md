@@ -1,46 +1,76 @@
-# Presence - BaselHack 2026
+# Presence — BaselHack 2026
 
-Research, pitch and reviewed implementation specification for Adobe's **The Post-Website Business** challenge. Planning only: application implementation has not started. This repository is private.
+**Your next customer is an agent. Your business should be ready.**
 
-> Your next customer is an agent. Your business should be ready.
+A working, local Next.js application for Adobe’s _The Post-Website Business_ challenge. Tailwind v4 and shadcn/ui power a presentation interface with three chapters:
 
-Presence proposes a business-controlled commerce layer for independent hotels: publish approved facts and capabilities, handle agent requests through the merchant's existing inbox, and reconnect with customers through explicit subscriptions. The clarified scope is one fictional Basel hotel and **three live demo moments: publish, transact through real email, reconnect with permission**. A standalone Next.js presentation interface uses Tailwind v4 and shadcn/ui. The presenter operates the flow; owner and traveller authority remain distinct.
+1. **Publish:** fetch a website, extract source-backed facts with Codex, review missing policies, then publish a versioned human page, business JSON, OpenAPI contract and MCP tools.
+2. **Book:** the buyer reads the public merchant API and requests an offer. Resend emails the owner. An email reply or authenticated dashboard reply becomes a proposal; owner approval publishes exact terms, a signed callback resumes the buyer, and explicit traveller approval reserves fictional inventory.
+3. **Reconnect:** the traveller explicitly subscribes to a category, frequency and expiry. An owner event sends a signed callback; Codex evaluates relevance before suggesting a return. Revocation, expiry, category mismatch and the monthly limit suppress delivery.
 
-The team reports that ideation began on **30 October 2026 at 20:30 Europe/Zurich**. The [decision log](docs/decision-log.md) preserves that timeline and the reasons behind the scope. Git history records the actual commits.
+This is a fictional hotel and inventory. No payment is collected or real accommodation booked. The presenter switches between owner and traveller views; these views demonstrate separate approvals inside a single authenticated presentation session. The repository remains private.
 
-## What exists
+## Run locally
 
-- [Complete plan](docs/plan.md): preserved concept, evidence, market sizing, seven-slide / three-minute pitch, demo storyboard, milestones, stack, API and benchmark design.
-- [Critical review](docs/plan-review.md): concrete weaknesses in version 1 and their corrections.
-- [Implementation specification](docs/implementation-spec.md): actors, screen flows, visual contract, selected stack, data/state invariants, module ownership and acceptance gates.
-- [Design preview](output/design/presence-demo-preview.svg): native-vector visual direction, not a screenshot of working software.
-- [Architecture](docs/architecture.md): editable C4 context, container and component diagrams, plus asynchronous booking sequence.
-- [Sources](docs/sources.md): primary sources and evidence limitations.
-- [Challenge brief](docs/challenge-brief.md): recovered challenge content, without participant/contact data.
-- [PDF](output/pdf/presence-hackathon-plan.pdf): shareable plan including rendered architecture diagrams and source register.
-
-Generated on 31 October 2026. No measured prototype results or revenue uplift are claimed. Prices and financial scenarios are explicitly hypothetical.
-
-## Proposed implementation
-
-One shared Next.js/TypeScript application with Tailwind v4/shadcn/ui, Better Auth, Postgres/Drizzle/Zod, pg-boss, Vercel AI SDK/Gateway, Codex-backed onboarding and Resend. Customer onboarding produces versioned configuration, not customer-specific applications. Docker Compose packages web, worker and database; native Codex credentials remain in an explicitly host-side integration. These are selected architecture decisions, not installed or tested integrations.
-
-## Reproduce the PDF
-
-The only executable code currently in this repository is documentation and design generation. Use Python 3.10 or later:
+Requires Node 22, Corepack/pnpm, Docker, and an authenticated Codex CLI on the host (`codex login`).
 
 ```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r docs/requirements.txt
-.venv/bin/python docs/render_plan.py
+corepack pnpm install --frozen-lockfile
+node scripts/init-env.mjs
+docker compose up -d db
+pnpm db:migrate
+pnpm db:seed
+pnpm dev
 ```
 
-Outputs: `output/pdf/presence-hackathon-plan.pdf` and the design SVG. The PDF includes the critical review, plan, implementation specification, rendered C4 views and source register. `docs/architecture.json` supplies both Mermaid and PDF diagrams; the renderer regenerates the Mermaid blocks automatically. Hand-edited sequence views remain in `docs/architecture.md`.
+In a second terminal run `pnpm worker`. Open **http://127.0.0.1:3000/demo** (use this exact origin). Bootstrap sign-in is restricted to loopback and the seeded demo; the generated password and secrets stay in ignored `.env.local`. The worker must remain running for extraction, emails and callbacks.
 
-## Evaluation status
+The native Codex SDK reuses the existing host sign-in. No AI Gateway key is required for the default Codex runtime. App/provider credentials are excluded from the subprocess environment. Native model calls run in private temporary directories with read-only sandboxing, disabled shell/apps/plugins/MCP tools and structured schemas; unexpected tool actions cause result rejection. Business facts and email content remain untrusted data. Codex limits still apply.
 
-Planning version 2 was critically reviewed. The PDF is rendered and visually inspected before publication; documentation checks verify graph endpoints, shared diagram generation, local links and required content. No application tests, model benchmarks, live email round trips, hotel integrations or customer interviews have run. The next build gate is a real email round trip plus model/harness and job-restart checks, followed by the styled shell and connected flow.
+For production web packaging: `docker compose --profile app up -d --build web`. Keep the subscription worker on the authenticated host; do not copy Codex credentials into an image. The web service talks to the same Postgres instance. This is local demo packaging, not an internet-hardened multi-user service.
 
-## License and attribution
+## Real email
 
-Original project code and documentation are provided under the [MIT license](LICENSE). The recovered Adobe challenge brief and linked third-party material retain their respective ownership and terms; their inclusion is not a claim of authorship or Adobe affiliation.
+Set `MAIL_TRANSPORT=resend`, `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_RECEIVING_DOMAIN` and `OWNER_EMAIL` in `.env.local`. Use a verified sending domain for the built-in reply composer. Resend’s test sender can send the inquiry only to the account owner's mailbox; that owner can reply from their actual mailbox to the generated `inquiry+…` receiving address. Changing an unverified From address does not bypass this restriction.
+
+The worker polls authenticated Resend receiving APIs every five seconds, so localhost needs no public tunnel. `/api/webhooks/resend` also supports signature-verified webhooks when reachable and configured with `RESEND_WEBHOOK_SECRET`. Provider message IDs and received receipts are shown in the activity evidence. The dashboard reply path is explicitly labelled and never described as an inbound email.
+
+`MAIL_TRANSPORT=local` is a labelled practice transport. AI Gateway is an optional alternative (`AGENT_RUNTIME=gateway`, `ONBOARDING_PROVIDER=gateway`); its billing is separate from the Codex subscription.
+
+## Structure and safeguards
+
+- `src/features/demo`: chapter components and resumable server-event state.
+- `src/server/services`: versioned publication, inquiries, exact-term approvals, atomic inventory reservations and consent.
+- `src/server/adapters`: bounded SSRF-protected source fetching, model runtimes, mail and signed callbacks.
+- `src/server/jobs` and `src/worker.ts`: Postgres outbox/inbox plus pg-boss retries; state survives browser and worker restarts.
+- `src/app/customers/[slug]`: public human page, JSON, OpenAPI, bearer-protected commerce API and MCP discovery/request tools.
+- `migrations`: SQL with inventory and idempotency constraints. No separate app is generated per customer.
+
+Anonymous access can read published facts. Private tasks/offers require a buyer credential and are tenant/buyer scoped. Operator mutations require a Better Auth session and same-origin requests. Offer revisions are immutable; both approvals refer to the exact offer and total. Transaction locks serialize duplicate requests and last-room acceptance. Callbacks use timestamped HMAC and a deduplicated inbox. Current seeded UI and buyer identity are intentionally demo-specific; production identity, billing, real PMS inventory and third-party agent distribution remain future work.
+
+## Verify
+
+```bash
+pnpm lint
+pnpm typecheck
+# Create the isolated test database once:
+docker exec presence-postgres psql -U presence -d postgres -c 'CREATE DATABASE presence_test'
+DATABASE_URL=postgresql://presence:presence-local-only@127.0.0.1:54329/presence_test pnpm db:migrate
+pnpm test
+# After publishing a business in the running app:
+pnpm exec tsx --env-file=.env.local scripts/check-protocols.ts
+```
+
+Tests never send provider mail. They use a separate database and isolated tenant data. They cover price/conditions validation, concurrent idempotency, buyer/tenant isolation, expiry, last-room races, SSRF, callback authenticity, monthly limits and revocation. `scripts/check-protocols.ts` calls real MCP/REST endpoints and verifies callback replay. Manual browser verification covers publish, real outgoing inquiry, dashboard proposal, both approvals, reservation and a live Codex follow-up. Real incoming email is tracked separately from the dashboard path.
+
+Substantial production builds run through the machine's shared `remote-work` helper using `tools/remote-build.sh`; runtime `.env` and Codex credentials are excluded. The build uses explicit placeholders and returns a standalone artifact. Avoid running a heavy build on the desktop when it would cause lag.
+
+## Research and pitch
+
+The [plan](docs/plan.md), [review](docs/plan-review.md), [implementation specification](docs/implementation-spec.md), [C4 architecture](docs/architecture.md), [sources](docs/sources.md) and [PDF](output/pdf/presence-hackathon-plan.pdf) preserve the reviewed concept and three-minute pitch. They precede implementation; this README describes current behavior. Broad model benchmarks and economic uplift are not claimed as measured results.
+
+The team reports ideation began on 30 October 2026 at 20:30 Europe/Zurich. The [decision log](docs/decision-log.md) preserves that report; Git commits use actual timestamps.
+
+## License
+
+[MIT](LICENSE) for original code and documentation. Adobe’s challenge and linked third-party materials retain their respective ownership.

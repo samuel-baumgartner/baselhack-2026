@@ -21,3 +21,9 @@ coverage/
 .codex/
 .vercel/
 .DS_Store
+*.tsbuildinfo
+playwright-report/
+test-results/
+/.presence/
+
+dist/

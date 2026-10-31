@@ -32,3 +32,10 @@ Pitch alignment, hotel interviews, authentication and integration smoke tests, a
 - **Benchmark after the mechanism:** 72 core exploratory episodes precede the optional 432-episode expansion; bulk tests use fixtures, not real merchant emails.
 - **Private repository:** changed GitHub visibility to private at the user's explicit request and verified the returned state. Publication visibility must not be changed without a new request.
 - **No supplied deadline:** the user asked to proceed without giving a submission time. No deadline is assumed and no more product-choice questions are pending from this review.
+
+
+## 31 October — implementation and subscription runtime
+
+Implemented the shared Next.js/Tailwind/shadcn demo with Postgres, durable jobs, versioned publication, public commerce API/MCP, Resend transport, two explicit approvals, fictional inventory and signed opt-in callbacks. The native Codex SDK reuses the host subscription for extraction and buyer decisions; AI Gateway remains optional after its inference endpoint required separate billing. The buyer exercises the public HTTP API rather than a private database shortcut. Onboarding generates versioned configuration, never new customer-specific application code.
+
+Manual browser checks completed URL extraction/publication, a real outgoing Resend inquiry, an explicitly labelled dashboard response, owner approval, Codex callback resumption, traveller approval/reservation, opt-in event suggestion and unsubscribe. Resend's test-sender restriction blocked the built-in email reply composer; real incoming mail remains a separate verification gate until mailbox access is connected. The UI includes a reply-from-mailbox link and does not describe dashboard responses as received email. Production build, lint/type checks, focused isolated database tests and real MCP/REST protocol checks were executed. No market-wide model visibility or revenue uplift is claimed from these checks.

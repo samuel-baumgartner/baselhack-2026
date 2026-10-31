@@ -1,0 +1,31 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: presence-postgres
+    environment:
+      POSTGRES_DB: presence
+      POSTGRES_USER: presence
+      POSTGRES_PASSWORD: presence-local-only
+    ports:
+      - "127.0.0.1:54329:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U presence -d presence"]
+      interval: 3s
+      timeout: 3s
+      retries: 15
+  web:
+    profiles: [app]
+    build: .
+    env_file: .env.local
+    environment:
+      DATABASE_URL: postgresql://presence:presence-local-only@db:5432/presence
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  pgdata:
+    name: presence-pgdata
