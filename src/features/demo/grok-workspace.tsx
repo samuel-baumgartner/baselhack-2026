@@ -20,25 +20,7 @@ import { OfferCard } from "./components";
 import { RequestComposer } from "./request-composer";
 import type { Act } from "./types";
 import { useDemo } from "./use-demo";
-
-function GrokMark({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden="true"
-      className={className}
-    >
-      <path
-        d="M25.6 6.7A13 13 0 1 0 28.8 20M25.5 3.5 13.2 18.8H21L8.5 29"
-        stroke="currentColor"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
+import { GrokLogo } from "./grok-logo";
 
 function GrokMessage({
   children,
@@ -49,7 +31,7 @@ function GrokMessage({
 }) {
   return (
     <article className="flex gap-3 sm:gap-4">
-      <GrokMark className="mt-0.5 size-7 shrink-0" />
+      <GrokLogo className="mt-0.5 size-7 shrink-0" />
       <div className="min-w-0 flex-1">
         <p className="mb-3 text-sm font-semibold">{label}</p>
         {children}
@@ -93,8 +75,7 @@ export function GrokWorkspace() {
           className="flex items-center gap-3 px-3 text-2xl font-semibold tracking-tight"
           aria-label="Grok home"
         >
-          <GrokMark className="size-8" />
-          Grok
+          <GrokLogo wordmark className="h-[33px] w-[88px]" />
         </Link>
         <p className="mt-12 px-3 text-xs text-muted-foreground">
           Your conversations
@@ -121,8 +102,8 @@ export function GrokWorkspace() {
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex min-h-[76px] shrink-0 flex-wrap items-center justify-between gap-3 border-b border-white/5 px-4 py-3 sm:px-8">
           <div className="flex items-center gap-2.5">
-            <GrokMark className="size-6 lg:hidden" />
-            <span className="text-lg font-semibold tracking-tight">Grok</span>
+            <span className="sr-only">Grok</span>
+            <GrokLogo wordmark className="h-[33px] w-[88px]" />
           </div>
           <div className="ml-auto flex items-center gap-2.5 text-sm text-muted-foreground">
             <span>Alex</span>
@@ -174,7 +155,7 @@ export function GrokWorkspace() {
               <>
                 {!hasConversation && (
                   <div className="mb-3 text-center">
-                    <GrokMark className="mx-auto mb-4 size-10" />
+                    <GrokLogo className="mx-auto mb-4 size-10" />
                     <h1 className="text-3xl font-medium tracking-tight sm:text-[40px]">
                       Where are we going?
                     </h1>

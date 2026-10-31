@@ -106,3 +106,8 @@ Focused lint, typecheck and remote production build passed. Browser verification
 ## 31 October — simpler Grok presentation chrome
 
 Removed the visible “Demo mock” header badge and the matching Grok mock prefix in the footer, renamed the browser title to “Grok”, and simplified the home link’s accessible name. The interface remains a presentation mock using the existing backend. Focused lint, typecheck and the remote production build passed. Browser verification on the running app confirmed zero badge/footer mock labels and the updated title. Saved the resulting header screenshot in ignored `test-results/`.
+
+
+## 31 October — official Grok logo artwork
+
+Replaced the hand-drawn placeholder with the actual SVG path data from the home-page logo at https://grok.com/. The sidebar and header use the full wordmark; conversation avatars and the opening view use its symbol. The artwork is bundled in a shared component, with no external asset request at runtime. This changes presentation only; the existing backend remains unchanged. Focused lint, typecheck and remote production build passed. Updated the local managed web service and visually verified the logo in the running traveller view. Screenshot: ignored `test-results/grok-real-logo.jpg`.
