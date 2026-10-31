@@ -4,7 +4,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { type BusinessProfile } from "@/lib/contracts";
+import {
+  DEMO_SOURCE_URL,
+  DEMO_SOURCE_NAME,
+  type BusinessProfile,
+} from "@/lib/contracts";
 import type { DemoSnapshot } from "@/server/services/snapshot";
 import {
   ArrowRight,
@@ -106,7 +110,7 @@ export function PublishFlow({
               e.preventDefault();
               void act({
                 action: "onboard",
-                url: url || `${window.location.origin}/fixtures/hotel-linden`,
+                url: url || DEMO_SOURCE_URL,
               });
             }}
             className="mt-8 rounded-2xl border bg-white p-5 md:p-6"
@@ -143,12 +147,10 @@ export function PublishFlow({
             </div>
             <button
               type="button"
-              onClick={() =>
-                setUrl(`${window.location.origin}/fixtures/hotel-linden`)
-              }
+              onClick={() => setUrl(DEMO_SOURCE_URL)}
               className="mt-3 text-[10px] text-primary underline-offset-4 hover:underline"
             >
-              Try the fictional Hotel Linden Basel website
+              Try {DEMO_SOURCE_NAME}’s website
               <ArrowUpRight className="ml-1 inline size-3" />
             </button>
             {busy && (
@@ -260,12 +262,12 @@ function PublishReview({
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold">Your presence, for review</h2>
         <Badge variant="secondary" className="text-[9px]">
-          Owner control
+          Review before publishing
         </Badge>
       </div>
       <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
-        Facts were extracted from your page. Confirm the missing policy before
-        publishing.
+        Facts were scraped from the public website. Review them before
+        publishing this demo presence.
       </p>
       <div className="mt-5 space-y-4">
         <label className="block space-y-2 text-xs font-medium">
@@ -290,11 +292,12 @@ function PublishReview({
         </label>
         <div className="rounded-xl border border-amber-200/70 bg-amber-50/60 p-4">
           <p className="text-xs font-semibold text-amber-900">
-            One policy needs your confirmation
+            Unknown policies stay unknown
           </p>
           <p className="mt-2 text-[11px] leading-relaxed text-amber-800">
-            Your page mentions a quiet workspace, but does not confirm access
-            after checkout.
+            A meeting room or desk does not establish quiet workspace access
+            after checkout. Unconfirmed dog, arrival and workspace policies must
+            be requested in the demo offer.
           </p>
           <label className="mt-3 flex cursor-pointer items-start gap-2 text-xs leading-relaxed">
             <input
@@ -303,8 +306,8 @@ function PublishReview({
               checked={confirmed}
               onChange={(e) => setConfirmed(e.target.checked)}
             />
-            As the owner, I confirm quiet workspace access can be offered until
-            14:00. Exact price and availability require an offer.
+            I have reviewed the extracted facts. Unconfirmed policies will be
+            requested from the demo operator.
           </label>
         </div>
         <Button
@@ -313,11 +316,7 @@ function PublishReview({
           onClick={() => {
             void act({
               action: "publish",
-              profile: {
-                ...profile,
-                quietWorkspace: true,
-                workspaceUntil: "14:00",
-              },
+              profile,
             });
           }}
         >

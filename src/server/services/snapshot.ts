@@ -203,7 +203,11 @@ export async function resetDemo(tenantId: string) {
   await db.transaction(async (tx) => {
     await tx
       .update(s.tenants)
-      .set({ publishedVersion: null, name: "Hotel Linden Basel" })
+      .set({
+        publishedVersion: null,
+        name: "Your business",
+        slug: "demo-hotel",
+      })
       .where(eq(s.tenants.id, tenantId));
     for (const table of [
       s.outbox,

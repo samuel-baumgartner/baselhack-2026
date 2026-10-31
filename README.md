@@ -8,7 +8,9 @@ A working, local Next.js application for Adobe’s _The Post-Website Business_ c
 2. **Book:** the buyer reads the public merchant API and requests an offer. Resend emails the owner. An email reply or authenticated dashboard reply becomes a proposal; owner approval publishes exact terms, a signed callback resumes the buyer, and explicit traveller approval reserves fictional inventory.
 3. **Reconnect:** the traveller explicitly subscribes to a category, frequency and expiry. An owner event sends a signed callback; Codex evaluates relevance before suggesting a return. Revocation, expiry, category mismatch and the monthly limit suppress delivery.
 
-This is a fictional hotel and inventory. No payment is collected or real accommodation booked. The presenter switches between owner and traveller views; these views demonstrate separate approvals inside a single authenticated presentation session. The repository remains private.
+The default stage source is the real [Hotel Rheinfelderhof website](https://www.rheinfelderhof.ch/en/), fetched live. Public facts and excerpts are real; commercial offers, events and inventory are demonstration data. This demo is not affiliated with the hotel. No payment is collected or real accommodation booked. The presenter switches between owner and traveller views; these views demonstrate separate approvals inside a single authenticated presentation session. The repository remains private.
+
+On the Publish screen, click **Try Hotel Rheinfelderhof’s website**, then **Read website**. Review the extracted facts and check the review acknowledgement before publishing. Unknown policies stay unknown; the demo email offer supplies its own simulated commercial terms. All email is routed to the configured demo mailbox, never to contact addresses scraped from the website. A local fictional source remains available at `/fixtures/hotel-linden` for development checks. Published customer routes follow the reviewed business name.
 
 ## Run locally
 

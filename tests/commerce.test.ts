@@ -1,3 +1,4 @@
+import { publishPresence } from "@/server/services/onboarding";
 import { beforeAll, afterAll, it, expect, vi } from "vitest";
 import { handlers } from "@/server/jobs/handlers";
 import { randomUUID } from "node:crypto";
@@ -87,6 +88,7 @@ afterAll(async () => {
     s.offers,
     s.inquiries,
     s.inventory,
+    s.onboardingRuns,
     s.businessVersions,
   ])
     await db.delete(table).where(eq(table.tenantId, tenant));
@@ -275,4 +277,32 @@ it("atomically limits concurrent events and suppresses a queued event after revo
     .from(s.deliveries)
     .where(eq(s.deliveries.id, queued.id));
   expect(revoked!.status).toBe("suppressed");
+});
+
+it("publishes source-backed unknown policies without inventing workspace access, using the business name in its route", async () => {
+  const draft = {
+    ...profile,
+    name: `Real source hotel ${tenant.slice(0, 8)}`,
+    quietWorkspace: null,
+    workspaceUntil: null,
+    dogsWelcome: null,
+    lateArrival: null,
+  };
+  await db
+    .insert(s.onboardingRuns)
+    .values({
+      tenantId: tenant,
+      sourceUrl: "https://example.com/hotel",
+      status: "needs_review",
+      profile: draft,
+    });
+  const published = await publishPresence(tenant, draft, "test-owner");
+  expect(published.profile.quietWorkspace).toBeNull();
+  expect(published.profile.workspaceUntil).toBeNull();
+  expect(published.profile.lateArrival).toBeNull();
+  const [updated] = await db
+    .select()
+    .from(s.tenants)
+    .where(eq(s.tenants.id, tenant));
+  expect(updated!.slug).toBe(`real-source-hotel-${tenant.slice(0, 8)}`);
 });

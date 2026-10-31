@@ -108,7 +108,7 @@ export async function fetchSource(input: string) {
         html += chunk.toString();
       }
       const $ = load(html);
-      $("script,style,noscript,svg,nav,footer").remove();
+      $("script,style,noscript,svg,nav").remove();
       const text = $("body").text().replace(/\s+/g, " ").trim().slice(0, 18000);
       if (text.length < 40)
         throw new AppError(

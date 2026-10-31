@@ -46,3 +46,10 @@ Manual browser checks completed URL extraction/publication, a real outgoing Rese
 Created a dedicated free Proton demo mailbox, with user-assisted verification. A fresh production-app run extracted and published the website through Codex, then requested an offer through the public API. Resend sent the inquiry (provider message `01a192f6-19d0-75b5-a9d9-56e3c8abf3c4`). The reply was sent from the Proton webmail UI, received by Resend as `029d7775-295f-4eb8-a292-4366570ef7f1`, and parsed into CHF 175 room + CHF 20 dog + CHF 10 workspace. Both approvals completed and reservation `PL-EB6F91` was saved against fictional inventory. No dashboard reply was used in this run. Mailbox credentials are kept outside the repository. The test-sender restriction remains correctly represented in the UI; the external mailbox provides the actual SMTP reply.
 
 The fresh run also completed category-specific opt-in, signed event delivery and a Codex relevance check that produced a return-visit suggestion. Public MCP/REST and callback replay checks passed again against the running production app.
+
+
+## 31 October — real hotel website as the stage source
+
+Switched the suggested source to Hotel Rheinfelderhof’s official homepage, https://www.rheinfelderhof.ch/en/. The running scraper fetched 2,682 readable characters from the actual public HTTPS site, including the contact address in its footer. Codex produced seven source-backed claims. The profile retains dated renovation notices and leaves dog acceptance, after-midnight arrival and quiet workspace access unknown. Removed the fixture-specific publication override that forced workspace access until 14:00. Publication now derives its customer route from the reviewed business name, and acceptance uses that actual route.
+
+Public facts are sourced from the real hotel; offers, inventory and events remain demo data and all email remains routed to the configured demo mailbox. No hotel contact address is used as an outbound recipient. Source fetch, browser extraction/review/publication, eight isolated tests and real MCP/REST checks passed.

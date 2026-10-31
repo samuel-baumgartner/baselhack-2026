@@ -1,7 +1,9 @@
+import { BrandMark } from "@/features/brand/brand-mark";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getPublishedBusiness } from "@/server/services/commerce";
-import { ArrowUpRight, Leaf, MapPin, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, MapPin, ShieldCheck } from "lucide-react";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
@@ -17,16 +19,19 @@ export default async function BusinessPage({
   return (
     <main className="min-h-screen">
       <nav className="mx-auto flex max-w-5xl items-center justify-between px-6 py-7">
-        <span className="flex items-center gap-2 font-semibold">
-          <Leaf className="size-5 text-primary" />
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-xl font-semibold tracking-tight"
+        >
+          <BrandMark className="size-6 text-primary" />
           presence
-        </span>
-        <Badge variant="secondary">Fictional BaselHack hotel</Badge>
+        </Link>
+        <Badge variant="secondary">BaselHack demo presence</Badge>
       </nav>
       <section className="mx-auto max-w-5xl px-6 py-20">
         <Badge variant="outline" className="mb-8">
           <ShieldCheck className="mr-2 size-3" />
-          Owner-approved presence
+          Reviewed website facts
         </Badge>
         <h1 className="max-w-3xl text-5xl font-semibold tracking-tight md:text-7xl">
           {p.name}
@@ -51,7 +56,11 @@ export default async function BusinessPage({
             ["Check-out", p.checkOut],
             [
               "After-midnight arrival",
-              p.lateArrival ? "Self check-in available" : "Ask the owner",
+              p.lateArrival === true
+                ? "Published as available"
+                : p.lateArrival === false
+                  ? "Not published as available"
+                  : "Ask the owner",
             ],
           ].map(([label, value]) => (
             <div key={label} className="rounded-2xl border bg-card p-6">
@@ -76,8 +85,9 @@ export default async function BusinessPage({
         </div>
         <p className="mt-10 max-w-2xl text-xs leading-relaxed text-muted-foreground">
           One approved record serves both people and agents. Prices and
-          availability require an owner-approved offer. This is a fictional
-          business; no real accommodation is sold. Version{" "}
+          availability require an offer. Website facts are sourced; commercial
+          offers and reservations are simulated. This demo is not affiliated
+          with the hotel. No real accommodation is sold. Version{" "}
           {result.version.id.slice(0, 8)}.
         </p>
       </section>

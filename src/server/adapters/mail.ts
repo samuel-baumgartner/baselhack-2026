@@ -60,7 +60,7 @@ export async function sendInquiry(id: string) {
       to: env.OWNER_EMAIL,
       replyTo: replyAddress(inquiry.replyToken),
       subject: `[Presence ${id.slice(0, 8)}] New stay request`,
-      text: `A traveller's agent is requesting an offer.\n\n${inquiry.prompt}\n\nReply with the room, dog, workspace prices and conditions. This is a fictional BaselHack demo. A reply is a proposed offer; the owner must approve the terms in the app.\n\nReview: ${env.APP_URL}/demo?chapter=book&actor=owner`,
+      text: `A traveller's agent is requesting an offer.\n\n${inquiry.prompt}\n\nReply with the room, dog, workspace prices and conditions. This is a BaselHack simulation using public website facts; offers and inventory are demonstration data. No actual hotel is contacted or booked. A reply is a proposed offer; the owner must approve the terms in the app.\n\nReview: ${env.APP_URL}/demo?chapter=book&actor=owner`,
     },
     { idempotencyKey: `presence-inquiry-${id}` },
   );

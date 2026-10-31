@@ -51,8 +51,8 @@ export function SourceEvidence({ state }: { state: DemoSnapshot }) {
         <SheetHeader>
           <SheetTitle>Facts with a source</SheetTitle>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            Web excerpts support extracted facts. Owner-approved policies are
-            recorded in the published version.
+            Web excerpts support extracted facts. Reviewed policies are recorded
+            in the published version.
           </p>
         </SheetHeader>
         <div className="space-y-4 p-5">
@@ -137,7 +137,7 @@ export function HotelArt({ compact = false }: { compact?: boolean }) {
         <circle cx="293" cy="65" r="5" fill="white" />
       </svg>
       <span className="absolute bottom-3 left-4 rounded-full border border-white/60 bg-white/90 px-2.5 py-1 text-[9px] font-medium tracking-wide text-[#4b6d5b]">
-        BASEL, SWITZERLAND · FICTIONAL HOTEL
+        BASEL · DEMO WORKSPACE
       </span>
     </div>
   );
@@ -289,7 +289,7 @@ export function OfferCard({
         <p>
           Checkout {terms.checkOut}.{" "}
           {terms.lateArrival
-            ? "Self check-in after midnight."
+            ? "After-midnight arrival included in this demo offer."
             : "Standard check-in."}
         </p>
         <p>{terms.cancellation}</p>

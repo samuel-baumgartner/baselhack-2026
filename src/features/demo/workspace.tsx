@@ -156,10 +156,10 @@ export function DemoWorkspace({
             </div>
             <div className="min-w-0">
               <p className="truncate text-[11px] font-medium text-[#e0eadd]">
-                {state?.tenant.name ?? "Hotel Linden Basel"}
+                {state?.tenant.name ?? "Your business"}
               </p>
               <p className="mt-0.5 text-[9px] text-[#91aa9a]">
-                Fictional Basel demonstration
+                Public website · demo workspace
               </p>
             </div>
           </div>
@@ -375,7 +375,7 @@ export function DemoWorkspace({
         </main>
         <footer className="mx-5 flex flex-wrap items-center justify-between gap-3 border-t py-5 text-[9px] text-muted-foreground md:mx-9">
           <span>Presence · The business side of personal agents</span>
-          <span>Fictional hotel. Real workflows. No payment taken.</span>
+          <span>Public website facts. Demo inventory. No payment taken.</span>
         </footer>
       </div>
       <Dialog open={resetOpen} onOpenChange={setResetOpen}>
@@ -383,8 +383,8 @@ export function DemoWorkspace({
           <DialogHeader>
             <DialogTitle>Start a fresh demo?</DialogTitle>
             <DialogDescription>
-              This clears only this fictional hotel&apos;s demo records and
-              restores its seeded inventory. Live work must finish first.
+              This clears this workspace’s demo records and restores its seeded
+              inventory. Live work must finish first.
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-end gap-2">
@@ -400,7 +400,7 @@ export function DemoWorkspace({
               }}
               disabled={!!pending}
             >
-              Reset fictional demo
+              Reset demo workspace
             </Button>
           </div>
         </DialogContent>

@@ -14,6 +14,7 @@ import {
   offers,
   outbox,
   subscriptions,
+  tenants,
 } from "@/server/db/schema";
 import {
   approveAsTraveller,
@@ -129,6 +130,12 @@ export async function POST(request: Request) {
             and(eq(offers.id, input.offerId), eq(offers.tenantId, DEMO_TENANT)),
           );
         if (!offer) throw new AppError("NOT_FOUND", "Offer not found.", 404);
+        const [tenant] = await db
+          .select()
+          .from(tenants)
+          .where(eq(tenants.id, DEMO_TENANT));
+        if (!tenant)
+          throw new AppError("NOT_FOUND", "Business not found.", 404);
         const approval = await approveAsTraveller(
           DEMO_TENANT,
           DEMO_BUYER,
@@ -137,7 +144,7 @@ export async function POST(request: Request) {
         // Exercise the public buyer interface; do not bypass it from presentation controls.
         const response = await fetch(
           new URL(
-            `/customers/hotel-linden-basel/api/v1/offers/${offer.id}/accept`,
+            `/customers/${tenant.slug}/api/v1/offers/${offer.id}/accept`,
             config().APP_URL,
           ),
           {

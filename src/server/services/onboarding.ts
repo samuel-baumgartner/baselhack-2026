@@ -40,6 +40,14 @@ export async function publishPresence(
   ownerId: string,
 ) {
   profileSchema.parse(profile);
+  const slug =
+    profile.name
+      .normalize("NFKD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")
+      .slice(0, 80) || "demo-hotel";
   const version = await db.transaction(async (tx) => {
     const [run] = await tx
       .select()
@@ -70,7 +78,7 @@ export async function publishPresence(
       .returning();
     await tx
       .update(tenants)
-      .set({ publishedVersion: row!.id, name: profile.name })
+      .set({ publishedVersion: row!.id, name: profile.name, slug })
       .where(eq(tenants.id, tenantId));
     await tx
       .update(onboardingRuns)

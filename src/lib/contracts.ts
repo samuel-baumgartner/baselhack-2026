@@ -1,5 +1,8 @@
 import { z } from "zod";
 
+export const DEMO_SOURCE_URL = "https://www.rheinfelderhof.ch/en/";
+export const DEMO_SOURCE_NAME = "Hotel Rheinfelderhof";
+
 export const DEMO_TENANT = "11111111-1111-4111-8111-111111111111";
 export const DEMO_BUYER = "22222222-2222-4222-8222-222222222222";
 export const DEMO_EMAIL = "presenter@presence.local";

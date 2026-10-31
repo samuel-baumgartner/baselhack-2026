@@ -23,7 +23,7 @@ try {
   );
   await client.query(
     "INSERT INTO tenants (id,slug,name,seeded) VALUES ($1,$2,$3,true) ON CONFLICT (id) DO NOTHING",
-    [DEMO_TENANT, "hotel-linden-basel", "Hotel Linden Basel"],
+    [DEMO_TENANT, "demo-hotel", "Your business"],
   );
   await client.query(
     "INSERT INTO owner_memberships (user_id,tenant_id,role) VALUES ($1,$2,$3) ON CONFLICT (user_id,tenant_id) DO NOTHING",
@@ -35,7 +35,9 @@ try {
       [DEMO_TENANT, day],
     );
   await client.query("COMMIT");
-  console.log("Fictional hotel, scoped presenter and inventory are ready.");
+  console.log(
+    "Demo workspace, scoped presenter and simulated inventory are ready.",
+  );
 } catch (error) {
   await client.query("ROLLBACK");
   throw error;
