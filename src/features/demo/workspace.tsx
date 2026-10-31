@@ -87,9 +87,16 @@ export function DemoWorkspace({
     state?.deliveries.some((d) => d.status === "delivered") ?? false,
   ];
   const setActor = (next: "owner" | "traveller") => {
+    const nextChapter =
+      next === "traveller" && chapter === "publish" ? "book" : chapter;
+    setChapter(nextChapter);
     updateActor(next);
     window.scrollTo({ top: 0, behavior: "instant" });
-    window.history.replaceState(null, "", `?chapter=${chapter}&actor=${next}`);
+    window.history.replaceState(
+      null,
+      "",
+      `?chapter=${nextChapter}&actor=${next}`,
+    );
   };
   const navigate = (next: Chapter) => {
     setChapter(next);
@@ -336,7 +343,6 @@ export function DemoWorkspace({
                 size="sm"
                 className="h-7 px-2.5 text-[10px]"
                 onClick={() => setActor("traveller")}
-                disabled={chapter === "publish"}
               >
                 <UserRound className="size-3" />
                 Traveller
