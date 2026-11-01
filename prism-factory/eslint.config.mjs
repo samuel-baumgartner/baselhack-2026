@@ -8,6 +8,7 @@ const eslintConfig = defineConfig([
   // Override default ignores of eslint-config-next.
   globalIgnores([
     "public/widget-runtime.js",
+    "public/hotel-widget-runtime.js",
     ".runs/**",
     "templates/**",
     // Default ignores of eslint-config-next:

@@ -5,13 +5,10 @@ node_modules
 *.tsbuildinfo
 .runs
 
-# Private working notes, generated runs and local tooling
-/docs/
-/output/
-.runs/
+# Runtime sessions, local caches and private key material
+.data/
+coverage/
 *.log
+*.pem
 *.key
-.codex/
-.claude/
-playwright-report/
-test-results/
+.DS_Store

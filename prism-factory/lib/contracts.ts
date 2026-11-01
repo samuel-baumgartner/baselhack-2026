@@ -30,7 +30,7 @@ export const profileSchema = z.object({
   accent: z.string().regex(/^#[a-fA-F0-9]{6}$/),
   source: z.enum(["website", "curated-demo"]),
   evidence: z.array(z.string().max(250)).max(5),
-  recommendedFlows: z.array(z.enum(flowIds)).optional(),
+  recommendedFlows: z.array(z.enum(flowIds)).min(1),
 });
 export type Profile = z.infer<typeof profileSchema>;
 export const configSchema = z.object({
@@ -106,7 +106,18 @@ export const flows = [
     icon: "bell",
   },
 ];
-export function toolsFor(flows: readonly FlowId[]) {
+export const hotelFlows = [
+  { id: "discover" as const, title: "Find your room by the Rhine", label: "Rooms & stay planning", description: "Choose dates, guests, a room and a nightly budget. Compare the details before deciding.", prompt: "Find a room for two by the Rhine.", icon: "search" },
+  { id: "purchase" as const, title: "A stay, made simple", label: "Quote & demo reservation", description: "Review the total for your selected dates and create a clearly labelled no-charge demonstration reservation.", prompt: "Show me a quote for this room.", icon: "bag" },
+  { id: "updates" as const, title: "Feel at home before arrival", label: "Guest updates & concierge", description: "Save your interests and discover useful hotel information and local suggestions before and during your stay.", prompt: "Show me local tips and hotel updates.", icon: "bell" },
+];
+export function flowsFor(industry?: Profile["industry"]) { return industry === "hotel" ? hotelFlows : flows; }
+export function toolsFor(flows: readonly FlowId[], industry: string = "retail") {
+  if (industry === "hotel") return [
+    "search_rooms", "get_stay_session", "update_stay_filters", "get_room",
+    ...(flows.includes("purchase") ? ["get_booking_quote", "reserve_demo_stay", "get_reservation"] : []),
+    ...(flows.includes("updates") ? ["get_guest_updates", "get_guest_preferences", "set_guest_preferences"] : []),
+  ];
   return [
     "search_products",
     "get_shopping_session",

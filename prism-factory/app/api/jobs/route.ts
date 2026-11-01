@@ -2,13 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { randomBytes } from "node:crypto";
 import { createJob } from "@/lib/db";
 import { normalizeUrl } from "@/lib/url";
-import { failure } from "@/lib/http";
+import { failure, isSameOrigin } from "@/lib/http";
 export async function POST(req: NextRequest) {
   try {
-    if (
-      req.headers.get("origin") &&
-      req.headers.get("origin") !== new URL(req.url).origin
-    )
+    if (!isSameOrigin(req))
       return failure(Error("Request origin is not allowed"), 403);
     const body = await req.json();
     if (typeof body.url !== "string" || body.url.length > 2000)

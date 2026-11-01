@@ -17,3 +17,5 @@ await writeFile(
     css.slice(css.indexOf(".retail{"), css.indexOf(".copy-button{")) +
     "@media(max-width:480px){.products{padding:0 15px 20px;gap:12px}.product-photo{height:140px}.product-photo>img{height:120px}.product-actions{flex-wrap:wrap;gap:10px}.merchant-wordmark{font-size:24px}}",
 );
+await build({ entryPoints: ["components/hotel-widget-entry.tsx"], bundle: true, minify: true, format: "iife", platform: "browser", outfile: "public/hotel-widget-runtime.js", jsx: "automatic", loader: { ".css": "empty" }, define: { "process.env.NODE_ENV": '"production"' } });
+await writeFile("public/hotel-widget.css", await readFile("components/hotel.css", "utf8"));

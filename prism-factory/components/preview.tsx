@@ -11,13 +11,22 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { RetailView } from "./retail";
-import { PlatformMark, platformName, platforms, type PlatformId } from "./platforms";
+import {
+  PlatformMark,
+  platformName,
+  platforms,
+  type PlatformId,
+} from "./platforms";
 import { requestJson, errorText } from "./request";
 import { readStored, removeStored, writeStored } from "./storage";
 import type { Job } from "@/lib/contracts";
 import type { Command, Snapshot } from "@/lib/retail/shopping";
 
-type Message = { role: "user" | "assistant"; content: string; calls?: string[] };
+type Message = {
+  role: "user" | "assistant";
+  content: string;
+  calls?: string[];
+};
 /** What failed last, so “Try again” replays exactly that and nothing else. */
 type Failure =
   | { kind: "open" }
@@ -30,7 +39,58 @@ const reducedMotion = () =>
   typeof window !== "undefined" &&
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-export function Preview({
+export function Preview(props: {
+  job: Job;
+  platform?: string;
+  widgetOnly?: boolean;
+}) {
+  if (props.job.profile?.industry === "hotel")
+    return <HotelPreview {...props} />;
+  return <RetailPreview {...props} />;
+}
+function HotelPreview({
+  job,
+  platform = "chatgpt",
+  widgetOnly = false,
+}: {
+  job: Job;
+  platform?: string;
+  widgetOnly?: boolean;
+}) {
+  if (widgetOnly)
+    return (
+      <p className="preview-error">
+        This hotel view must be opened through its hotel runtime.
+      </p>
+    );
+  const selected = platforms.find((p) => p.id === platform) ?? platforms[0];
+  return (
+    <div className="hotel-host-preview">
+      <header>
+        <Link href={`/build/${job.id}`} className="back-link">
+          <ArrowLeft size={16} />
+          Back to factory
+        </Link>
+        <span>
+          <PlatformMark platform={selected.id} size={18} />
+          {selected.name} · browser rehearsal
+        </span>
+        <Link href={`/companies/${job.profile?.slug}?build=${job.id}`}>
+          Connection packages
+        </Link>
+      </header>
+      <p className="host-notice">
+        This is the real hotel app in a browser frame. It is not a verified
+        connection inside your {selected.name} account.
+      </p>
+      <iframe
+        title={`${job.profile?.name} hotel experience`}
+        src={`/apps/${job.id}/widget`}
+      />
+    </div>
+  );
+}
+function RetailPreview({
   job,
   platform = "chatgpt",
   widgetOnly = false,
@@ -53,7 +113,9 @@ export function Preview({
   const mainRef = useRef<HTMLElement>(null);
   const composerWrapRef = useRef<HTMLDivElement>(null);
   const storageKey = `prism-retail-${job.id}`;
-  const id = (platforms.some((p) => p.id === platform) ? platform : "chatgpt") as PlatformId;
+  const id = (
+    platforms.some((p) => p.id === platform) ? platform : "chatgpt"
+  ) as PlatformId;
   const name = platformName(id);
 
   const commit = useCallback(
@@ -99,7 +161,12 @@ export function Preview({
         try {
           if (saved) {
             try {
-              commit(await retail({ name: "get_shopping_session", sessionId: saved }));
+              commit(
+                await retail({
+                  name: "get_shopping_session",
+                  sessionId: saved,
+                }),
+              );
               return;
             } catch {
               // An expired or foreign session: start fresh instead of failing.
@@ -137,11 +204,18 @@ export function Preview({
         // is reviewed against the latest state instead of failing again.
         if (/state changed/i.test(message) && current) {
           try {
-            commit(await retail({ name: "get_shopping_session", sessionId: current.sessionId }));
+            commit(
+              await retail({
+                name: "get_shopping_session",
+                sessionId: current.sessionId,
+              }),
+            );
           } catch {
             // Keep the original error.
           }
-          setError("This experience changed in the meantime. Review it and try again.");
+          setError(
+            "This experience changed in the meantime. Review it and try again.",
+          );
         } else setError(message);
         setFailure({ kind: "action", name, args });
       }
@@ -160,15 +234,19 @@ export function Preview({
     setMessages((m) => [...m, { role: "user", content: text }]);
     await exclusive("chat", async () => {
       try {
-        const data = await requestJson<{ text: string; state: Snapshot; calls?: string[] }>(
-          `/api/chat/${job.id}`,
-          {
-            method: "POST",
-            body: { message: text, sessionId: current.sessionId, history },
-          },
-        );
+        const data = await requestJson<{
+          text: string;
+          state: Snapshot;
+          calls?: string[];
+        }>(`/api/chat/${job.id}`, {
+          method: "POST",
+          body: { message: text, sessionId: current.sessionId, history },
+        });
         commit(data.state);
-        setMessages((m) => [...m, { role: "assistant", content: data.text, calls: data.calls }]);
+        setMessages((m) => [
+          ...m,
+          { role: "assistant", content: data.text, calls: data.calls },
+        ]);
       } catch (e) {
         // Take the unanswered message back out of the transcript and return
         // it to the composer, so nothing is lost and nothing is duplicated.
@@ -238,7 +316,10 @@ export function Preview({
     // Already visible below the sticky host header: leave the page alone.
     const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
     if (el.getBoundingClientRect().top >= margin - 1) return;
-    el.scrollIntoView({ behavior: reducedMotion() ? "auto" : "smooth", block: "start" });
+    el.scrollIntoView({
+      behavior: reducedMotion() ? "auto" : "smooth",
+      block: "start",
+    });
   }, [view]);
 
   const retailView = state ? (
@@ -292,7 +373,12 @@ export function Preview({
           <ArrowLeft size={16} aria-hidden="true" />
           Back to factory
         </Link>
-        <button type="button" className="host-new" onClick={reset} disabled={!!busy}>
+        <button
+          type="button"
+          className="host-new"
+          onClick={reset}
+          disabled={!!busy}
+        >
           <SquarePen size={16} aria-hidden="true" />
           New conversation
         </button>
@@ -338,7 +424,17 @@ export function Preview({
         )}
         <div className="conversation">
           <p className="preview-intro">
-            {job.profile?.name.toLowerCase() === "galaxus" ? <img className="conversation-merchant-logo" src="/merchants/galaxus/icon.svg" alt="" width={22} height={22} /> : <span className="integration-dot" aria-hidden="true" />}
+            {job.profile?.name.toLowerCase() === "galaxus" ? (
+              <img
+                className="conversation-merchant-logo"
+                src="/merchants/galaxus/icon.svg"
+                alt=""
+                width={22}
+                height={22}
+              />
+            ) : (
+              <span className="integration-dot" aria-hidden="true" />
+            )}
             {job.profile?.name} is part of this conversation
           </p>
           {messages.length === 0 && (
@@ -368,7 +464,8 @@ export function Preview({
                   {!!m.calls?.length && (
                     <span className="tool-call">
                       <Check size={12} aria-hidden="true" />
-                      Used {m.calls.map((n) => n.replaceAll("_", " ")).join(", ")}
+                      Used{" "}
+                      {m.calls.map((n) => n.replaceAll("_", " ")).join(", ")}
                     </span>
                   )}
                 </div>
@@ -425,7 +522,11 @@ export function Preview({
               rows={1}
               enterKeyHint="send"
               onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
+                if (
+                  e.key === "Enter" &&
+                  !e.shiftKey &&
+                  !e.nativeEvent.isComposing
+                ) {
                   e.preventDefault();
                   void send(message);
                 }
@@ -433,7 +534,9 @@ export function Preview({
             />
             <button
               type="submit"
-              aria-label={busy === "chat" ? `${name} is replying` : "Send message"}
+              aria-label={
+                busy === "chat" ? `${name} is replying` : "Send message"
+              }
               disabled={!state || !!busy || !message.trim()}
             >
               {busy === "chat" ? (

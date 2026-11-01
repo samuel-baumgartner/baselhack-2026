@@ -22,14 +22,14 @@ const handler = createMcpHandler(async server => {
       inputSchema: definition.schema.shape,
       annotations: { readOnlyHint: !definition.write, destructiveHint: name === "place_demo_order", openWorldHint: false },
       _meta: { ui: { resourceUri: uri }, "openai/outputTemplate": uri, "openai/widgetAccessible": true },
-    }, async args => {
+    }, async (args: Record<string, unknown>) => {
       try {
         const parsed = definition.schema.parse(args) as Command & { sessionId?: string };
         const state = name === "search_products" && !parsed.sessionId ? await openSession() : await runCommand(parsed.sessionId!, { ...parsed, name });
-        return { content: [{ type: "text", text: JSON.stringify({ ok: true, state }) }], structuredContent: { ok: true, state } };
+        return { content: [{ type: "text" as const, text: JSON.stringify({ ok: true, state }) }], structuredContent: { ok: true, state } };
       } catch (error) {
         const result = { ok: false, error: { code: error instanceof DomainError ? error.code : "REQUEST_FAILED", message: error instanceof DomainError ? error.message : "The operation could not be completed. Reload your session before retrying." } };
-        return { isError: true, content: [{ type: "text", text: JSON.stringify(result) }], structuredContent: result };
+        return { isError: true, content: [{ type: "text" as const, text: JSON.stringify(result) }], structuredContent: result };
       }
     });
   }

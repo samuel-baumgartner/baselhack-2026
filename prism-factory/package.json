@@ -7,9 +7,9 @@
     "build": "node scripts/widget.mjs && next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsx --test lib/*.test.ts lib/retail/*.test.ts",
+    "test": "tsx --test lib/*.test.ts lib/retail/*.test.ts lib/hotel/*.test.ts",
     "db:migrate": "tsx scripts/migrate.ts",
-    "worker": "tsx worker/main.ts"
+    "worker": "mkdir -p .runs && flock -n .runs/worker.lock tsx worker/main.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/ext-apps": "^1.0.1",
@@ -40,6 +40,7 @@
     "esbuild": "^0.28.2",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "postcss": "^8.5.6",
     "tailwindcss": "^4",
     "tsx": "4.20.6",
     "typescript": "^5"

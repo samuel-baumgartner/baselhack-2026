@@ -2,13 +2,13 @@ import manifest from "../../data/galaxus-products.json";
 export const merchant = {
   id: "galaxus",
   name: "Galaxus",
-  logo: "/merchants/galaxus/logo.svg",
+  logo: "https://prism.mvps.ch/merchants/galaxus/logo.svg",
   snapshot: manifest.capturedOn,
 };
 export const products = manifest.products.map((p) => ({
   ...p,
   id: p.productId,
-  image: `/merchants/galaxus/${p.referenceImagePath.split("/").pop()}`,
+  image: `https://prism.mvps.ch/merchants/galaxus/${p.referenceImagePath.split("/").pop()}`,
   sourcePriceMinor: p.priceMinor,
   currentDemoPriceMinor: p.priceMinor,
   sourceCapturedAt: p.capturedAt,

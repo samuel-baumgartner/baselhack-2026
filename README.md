@@ -26,8 +26,8 @@ A website gives people pages to browse. An agent also needs explicit facts, avai
 ## From website to conversation
 
 1. **Start with a website.** PRISM reads bounded website metadata and prepares a business profile.
-2. **Choose the capabilities.** Enable product discovery, purchasing and updates. The selection controls the available tools.
-3. **Build the experience.** A planner, reviewer and revision pass produce a configuration. The new local builder also generates a merchant view and stylesheet from a retailer template.
+2. **Choose the capabilities.** Enable product discovery, purchasing and updates, or hotel room search, demo reservations and guest guidance. The selection controls the available tools.
+3. **Build the experience.** A planner, reviewer and revision pass produce a configuration. The local builder generates a merchant view and stylesheet from the retail or hotel template, compiles it in Docker and verifies its MCP endpoint.
 4. **Connect the agent.** MCP tools expose the operations; an MCP Apps widget supplies the visual interface. The server owns the commerce state.
 
 The factory and retail output make this concrete. The repository also retains **Presence**, a hospitality prototype that explores owner-approved offers and consent-based follow-up.
@@ -115,11 +115,14 @@ For the standalone storefront, follow the [Galaxus setup](galaxus-demo/README.md
 
 ## Evidence and current limits
 
-- **Snapshot tests:** 10 Galaxus tests and 10 factory tests passed before the v1 commit. These cover domain and selected resource/source-validation behavior, not every browser or host interaction.
-- **Source builder:** included in v1 while development was underway. Its full generation → Docker build → running-app path had not completed end-to-end validation at snapshot time.
-- **Retail data:** captured product images and prices from 31 October 2026. Availability, orders and payment are simulated. Other retailer brands currently reuse this prepared demo catalogue.
-- **Host support:** MCP transport and a working browser widget do not establish native rendering in every assistant. Claude, Gemini and Grok previews are visual demonstrations, not verified native integrations.
+- **Validation:** 19 factory tests, TypeScript, lint and production build passed. The Krafft source output passed seven domain/store/render tests, an isolated production build and actual MCP acceptance checks.
+- **Source builder:** the full Krafft URL → recommendation → planning/review → generated source → Docker build → running app path was verified. Local sessions survived a real output-container restart.
+- **Hotel data:** Krafft Basel uses its official logo, room categories and photographs. Rates, capacities, availability and reservations are simulated. Room/date/guest filtering, quotes, retry-safe demo reservations, latest receipts and guest interests are implemented. The public MCP runtime uses Neon; the independently generated source app remains local with its own file sessions.
+- **Retail data:** captured product images and prices from 31 October 2026. Availability, orders and payment are simulated. Other retailer brands currently reuse this prepared demo catalogue. Public Galaxus regression checks passed.
+- **Host support:** connection packages cover ChatGPT, Claude, Perplexity, Mistral, Cursor, VS Code Copilot, Goose and restricted-preview Gemini. Perplexity/Mistral are tools-only; Cursor/VS Code/Goose are developer/desktop channels. Grok remains visual-only. Actual provider-account installation/rendering remains unverified; a controlled MCP Apps bridge passed a 390px hotel checkout. [Capabilities and official sources →](docs/prism-platforms.md)
 - **Follow-up:** retail uses a pull feed. Presence's separate consent and callback workflow does not establish proactive delivery into third-party assistant hosts.
+
+Try the hotel with `https://www.krafftbasel.ch/en/` in PRISM. [Open the built Krafft browser example](https://prism.mvps.ch/apps/62d9b46320cf841b120e5f35fea685a9694486df/widget).
 
 The Galaxus and hotel examples are independent demonstrations, with no claimed affiliation. No real purchase or accommodation booking is made. Secrets, generated job directories and private verification captures are excluded; only selected screenshots are published here.
 

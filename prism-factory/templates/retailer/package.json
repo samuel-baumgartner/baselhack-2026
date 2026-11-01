@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "node scripts/widget.mjs && next build",
     "start": "next start",
-    "test": "tsx --test lib/*.test.ts lib/retail/*.test.ts"
+    "test": "tsx --test lib/*.test.ts lib/retail/*.test.ts components/*.test.tsx"
   },
   "dependencies": {
     "@modelcontextprotocol/ext-apps": "^1.0.1",

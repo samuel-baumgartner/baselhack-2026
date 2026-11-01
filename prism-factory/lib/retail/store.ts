@@ -19,6 +19,7 @@ export async function retail(
   const job = await getJob(jobId);
   if (!job?.config || job.stage !== "ready")
     throw new DomainError("NOT_READY", "This experience is not published yet.");
+  if (job.profile?.industry === "hotel") throw new DomainError("WRONG_TEMPLATE", "This is a hotel app. Use its room and reservation tools.");
   if (!toolsFor(job.selected).includes(command.name))
     throw new DomainError(
       "FLOW_DISABLED",
@@ -38,7 +39,7 @@ export async function retail(
       merchant: {
         id: jobId,
         name: job.config.company.name,
-        logo: "/merchants/galaxus/logo.svg",
+        logo: "https://prism.mvps.ch/merchants/galaxus/logo.svg",
         snapshot: "2026-10-31",
       },
     };
@@ -59,7 +60,7 @@ export async function retail(
       merchant: {
         id: jobId,
         name: job.config.company.name,
-        logo: "/merchants/galaxus/logo.svg",
+        logo: "https://prism.mvps.ch/merchants/galaxus/logo.svg",
         snapshot: "2026-10-31",
       },
     };

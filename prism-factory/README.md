@@ -1,73 +1,66 @@
 # PRISM factory
 
-**A website becomes a branded experience inside an agent conversation.**
-
-[Live interface](https://prism.mvps.ch) · [Project story](../README.md) · [Retail example](../galaxus-demo/README.md)
-
-PRISM reads website metadata, lets an owner select capabilities, and prepares a retail MCP Apps experience. The factory manages build jobs; the output exposes tools and a visual storefront backed by server-owned shopping state.
-
-## Build flow
-
-1. Submit a business URL and review the extracted profile.
-2. Select discovery, purchasing and/or updates. Purchasing requires discovery.
-3. A Codex planner proposes a plan, a separate review checks it, and the planner revises it.
-4. Generate validated configuration for the shared runtime.
-5. The new source-building path copies `templates/retailer`, generates a merchant TSX view, CSS and README, and uses Docker to compile and run the result locally.
-
-**v1 status:** the source-building worker is included as work in progress. Its complete generation-to-running-app path had not finished end-to-end validation when this snapshot was taken. The existing shared runtime and a newly generated local application are distinct outputs.
+PRISM accepts a retailer or hotel website URL, recommends supported flows, plans/reviews the implementation, generates merchant React/CSS source, builds a separate Next.js application and starts it locally. The deployed factory is https://prism.mvps.ch. Its original reference output is https://galaxus.prism.mvps.ch.
 
 ## Run locally
 
-Requires Node.js 24+, pnpm, Docker and a host with an authenticated Codex CLI. The worker uses the Codex SDK with ChatGPT subscription authentication forced. It does not fall back to API billing.
+Requirements: Node 24+, pnpm, Docker, a native Codex ChatGPT subscription login, and `DATABASE_URL` in `.env.local` for the factory's Neon job database. No API-billing fallback is enabled for the builder. Preview chat in the optional host-style shells uses Vercel AI Gateway separately.
 
-Create an ignored `.env.local` with `DATABASE_URL` for the Neon-backed store. Preview chat uses Vercel AI Gateway and requires its own authentication; the worker's subscription login does not authenticate Gateway.
-
-```bash
-pnpm install --frozen-lockfile
+```sh
+pnpm install
 pnpm db:migrate
-pnpm dev --port 3040
+docker pull node:24-bookworm
+pnpm dev --hostname 0.0.0.0 --port 3040
+# Another terminal; set this to the host reachable from your browser:
+PRISM_PREVIEW_HOST=127.0.0.1 pnpm worker
 ```
 
-In a second terminal, from this folder:
+The local factory is http://127.0.0.1:3040. On this host it also runs through Tailscale at http://100.98.187.105:3040. Generated outputs use free ports 3200–3299.
 
-```bash
-pnpm worker
+Two enabled user services keep the local interface and worker running:
+
+```sh
+systemctl --user status prism-factory-web prism-factory-worker
+journalctl --user -u prism-factory-worker -n 30
 ```
 
-Open **http://localhost:3040**. New builds need the worker running. The existing hosted configuration runtime runs separately from the local worker.
+Keep this machine awake/networked for builds and local outputs. Docker output containers restart unless explicitly stopped.
 
-| Setting | Purpose |
-| --- | --- |
-| `DATABASE_URL` | Required database connection. |
-| `PRISM_CHAT_MODEL` | Optional Gateway model override for preview chat. |
-| `PRISM_BUILD_IMAGE` | Optional Docker build image; defaults to `node:24-bookworm`. |
-| `PRISM_PREVIEW_HOST` | Optional hostname in generated preview URLs; defaults to `127.0.0.1`. |
+## What a build actually does
 
-## Outputs and boundaries
+1. Fetch bounded public website metadata/text. The native agent classifies the company and recommends discovery, purchasing and/or updates. Galaxus and Krafft Basel have prepared research fallbacks if scraping is blocked. Retail and hotel templates are implemented; restaurants/services fail explicitly.
+2. Save the user's selected flows. Purchasing includes discovery.
+3. Create a planner thread, run one independent review, and resume the original planner to revise its plan.
+4. Copy the versioned `templates/retailer` or `templates/hotel` source into `.runs/<job>/source`. The template content hash is recorded.
+5. Resume the planner to generate **actual TSX, CSS and README source files**. The trusted controller writes only those three allowed paths. The agent does not get a host shell or deployment credentials. Protocol, persistence and domain logic remain shared template code.
+6. Validate source imports and CSS boundaries. Build in Docker with no network, no credentials, resource limits, only the job source mounted writable and dependencies mounted read-only. TypeScript, domain/store tests, a real generated-component render test and a production Next build must pass. A bounded repair attempt gets real compiler/test feedback.
+7. Start an independent Docker app and test its MCP tools, selected capabilities, widget assets, student filtering or room/date/guest filters, synthetic order/reservation replay and latest receipt, preferences and session isolation.
+8. Save the source hash, checks, output directory, container, local widget URL and MCP endpoint. Only then mark ready. Cancellation/failure cleans up unpublished output containers.
 
-Configured outputs expose `/apps/<id>/mcp` and `/apps/<id>/widget` through the shared application. The local source builder has a separate source directory, build process and application port. It does not deploy a new Vercel project.
+The SDK emits structured source files; it does not execute arbitrary agent-proposed shell commands. Native subscription credentials stay in the controller's normal host auth store and are not copied into source or Docker.
 
-MCP Apps resources use the official App bridge. Host-style previews reuse `RetailView` and the server commerce functions. Free-form preview chat uses Vercel AI SDK through Gateway. Disabled capabilities are removed from the tool list and rejected server-side.
+## Outputs and limitations
 
-Galaxus products use captured images and frozen prices from 31 October 2026. Other brands currently reuse that labelled demo catalogue. Orders, inventory and payments are synthetic. Updates are a pull feed. Restaurant and hotel templates are not implemented here; the repository's separate Presence app covers hospitality.
+A successful source job has `generatedApp` metadata and an **Open built app** link. Its local MCP endpoint is `http://<preview-host>:<port>/mcp`. ChatGPT's remote service cannot connect directly to this private HTTP URL: a public HTTPS deployment is a separate, unimplemented publishing step for source outputs. Existing `/apps/<id>/mcp` routes remain the shared configuration-runtime previews; they are not the independently generated source output.
 
-Claude, Gemini and Grok previews are interactive visual demonstrations. They do not establish native integration. Native host rendering requires separate verification.
+The generated app stores synthetic sessions atomically in its own `.data/sessions` directory on the mounted job workspace. State survives container restarts. This local file store is not suitable for Vercel's ephemeral filesystem or a multi-replica production deployment; production publishing should use the existing Neon persistence adapter.
+
+Generation currently customizes an introduction/quick actions around a tested retail or hotel template. It does not invent new domain capabilities, scrape a complete live product catalogue or synthesize arbitrary websites. Other retailers can use their name/accent but still receive the clearly labelled prepared Galaxus demo catalogue. Hotels use the researched Krafft Basel room catalogue, logo and official photographs; nightly rates, availability and reservations are explicitly synthetic. Restaurant templates are not implemented. Prices are frozen snapshots; stock, orders and shipping are synthetic. Updates are pull-based. The native-provider connection artifacts and limitations are documented in [platform research](../docs/prism-platforms.md). ChatGPT, Claude, Cursor, VS Code Copilot and experimental Goose can use the MCP Apps resource protocol; Perplexity and Mistral are tools-only. Gemini is a restricted US preview. Grok remains visual-only: no consumer custom-app installation is claimed. Provider account-level behavior remains unverified.
 
 ## Verification
 
-```bash
+```sh
 pnpm test
 pnpm lint
 pnpm exec tsc --noEmit
 pnpm build
+pnpm exec tsx scripts/verify-generated-render.ts
 ```
 
-For a configured hosted output:
+The generated app's own tests/build output and source manifest are in `.runs/<job>/`. Factory verification reports are in `docs/verification/`. Never commit `.env.local`, native login stores or generated shopping-session capabilities.
 
-```bash
-CHECK_BASE=https://prism.mvps.ch CHECK_JOB=<published-job> pnpm exec tsx scripts/check.ts
-```
+## Krafft Basel example
 
-The 10 existing tests passed for the v1 snapshot. This is not an end-to-end verification of the new source builder.
+Paste `https://www.krafftbasel.ch/en/` and select room discovery, demo reservation and guest updates. The verified source build is recorded in `docs/verification/hotel-factory.json`. Its public configured runtime uses Neon and is reachable at `https://prism.mvps.ch/apps/62d9b46320cf841b120e5f35fea685a9694486df/mcp`. This public endpoint runs the shared hotel template, while **Open built app** opens the separate locally generated source application. These have separate session stores.
 
-Build changes require the creator cookie. Job and shopping-session identifiers are bearer capabilities, not production customer authentication. Keep them, `.env.local`, native login stores and generated `.runs` out of public logs and commits.
+Provider setup offers downloadable Cursor JSON, VS Code JSON, Goose YAML and cloud-provider instructions. Connectors are not automatically installed or approved inside personal accounts.

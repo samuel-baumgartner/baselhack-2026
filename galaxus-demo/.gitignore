@@ -39,14 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# Private working notes, generated runs and local tooling
-/docs/
-/output/
-.runs/
-*.log
-*.key
-.codex/
-.claude/
-playwright-report/
-test-results/

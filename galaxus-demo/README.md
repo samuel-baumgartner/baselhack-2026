@@ -1,60 +1,22 @@
-# Galaxus retail demo
+# Galaxus / PRISM MCP Apps demo
 
-**Product discovery, cart and synthetic checkout through MCP Apps.**
+Next.js application built from vercel-labs/mcp-apps-nextjs-starter commit `adca42ccaeda3c34a322808b51f70200f14e3c89`. The original docs/references remain research artifacts.
 
-[Browser preview](https://galaxus.prism.mvps.ch/widget) · [Connection page](https://galaxus.prism.mvps.ch) · [MCP endpoint](https://galaxus.prism.mvps.ch/mcp) · [Project story](../README.md)
+- Setup: https://galaxus.prism.mvps.ch
+- Browser preview: https://galaxus.prism.mvps.ch/widget
+- MCP: https://galaxus.prism.mvps.ch/mcp
 
-![Galaxus product discovery with a CHF 100 budget](../assets/screenshots/galaxus-catalog.png)
+`pnpm install --frozen-lockfile`, `pnpm dev`, `pnpm test`, `pnpm lint`, `pnpm build`.
+Copy database credentials into an ignored `.env.local` through `vercel env pull`, never into source. `pnpm db:migrate` creates the two dedicated tables and persists the frozen catalogue/editions; it does not change existing external tables. DATABASE_URL is mandatory; no ephemeral fallback.
 
-An independent PRISM retail demonstration. Ask an agent to find earbuds, refine filters, update a cart and record a demo order. The widget and model-facing tools use the same deterministic shopping functions and persistent sessions.
+`node scripts/verify-production.mjs` tests production with the maintained MCP SDK. It creates synthetic test sessions/orders only. Set TEST_ORIGIN to verify another deployment.
 
-## Try the flow
+Private operator publish control: `pnpm exec tsx scripts/publish-demo-update.ts <session-capability>` with local DB credentials. It publishes a clearly synthetic check-in edition to that session; refresh the pull feed. It sends no webhook or host wakeup. Keep capabilities out of shared logs.
 
-1. Search for wireless, in-ear, noise-cancelling earbuds.
-2. Set the budget to CHF 100. The frozen catalogue contains Nothing Ear (a) at CHF 55.00 and Samsung Galaxy Buds3 FE at CHF 91.90.
-3. Add Nothing Ear (a). Retrieve the cart through the agent and compare the item, quantity and total with the widget.
-4. Review the total and record a synthetic order. Repeating the same checkout operation must not create another order.
-5. Follow audio updates and refresh the feed.
+Server authority: lib/shopping.ts is deterministic domain logic; lib/db.ts persists each synthetic session using atomic compare-and-swap. The frozen catalogue is compiled from data/galaxus-products.json and also stored as an audit snapshot in prism_demo_catalog. Integer CHF cents, explicit revisions and idempotent order operation IDs are shared by model and UI through the same 12 MCP tools. No second model/LLM, live scraping, payments, Galaxus login or real order API.
 
-The browser preview is useful for testing the storefront. Rendering inside ChatGPT or another native host requires a separate connection and verification.
+Session identity is a 256-bit random bearer capability issued on search_products, not a caller-chosen customer ID. Reuse it across turns. Browser localStorage remembers only this capability, not authoritative commerce state. Anyone holding it can access that synthetic session. No OAuth or production customer authentication; use only synthetic data. Two independent capabilities isolate session state. Inventory is simulated per session, not a real shared Galaxus stock pool.
 
-## Run locally
+Transport, iframe bootstrap, absolute assets, App bridge listener ordering and resource self-fetch come from the starter. Modified hook recomputes connection truth and guards initialization; UI tool calls explicitly apply returned snapshots. The browser preview uses the maintained MCP client against /mcp, without a duplicate REST shopping API.
 
-Requires Node.js and pnpm. Set `DATABASE_URL` in an ignored `.env.local` for the Neon-backed database. There is no ephemeral database fallback.
-
-```bash
-pnpm install --frozen-lockfile
-pnpm db:migrate
-pnpm dev
-```
-
-Open **http://localhost:3000/widget**. The migration creates the dedicated demo tables and persists the frozen catalogue and editions.
-
-```bash
-pnpm test
-pnpm lint
-pnpm build
-```
-
-To check a deployed endpoint with the maintained MCP SDK:
-
-```bash
-TEST_ORIGIN=https://galaxus.prism.mvps.ch node scripts/verify-production.mjs
-```
-
-That check creates synthetic sessions and orders. The 10 existing tests passed for the v1 source snapshot; they do not prove every native host interaction works.
-
-## How it works
-
-- `lib/shopping.ts` owns deterministic commerce rules. Prices use integer CHF cents.
-- `lib/db.ts` persists sessions with atomic compare-and-swap. Revisions reject stale writes; operation IDs make checkout repeat-safe.
-- The 12 MCP tools and widget share the same server-owned state. Browser storage remembers a session capability, not the authoritative cart.
-- The standalone widget uses the official MCP Apps bridge. The browser preview uses an MCP client against `/mcp`.
-
-A search issues a random 256-bit session capability. Reuse it across turns; anyone holding it can access that synthetic session. This is demo access control, not OAuth or production customer identity.
-
-## Scope
-
-Product images and prices are captured catalogue data. Stock is simulated per session. No Galaxus login, live inventory, payment processing or real order API is connected. No product is purchased or dispatched. Updates require a pull; they do not wake an assistant in the background.
-
-Built from `vercel-labs/mcp-apps-nextjs-starter` commit `adca42ccaeda3c34a322808b51f70200f14e3c89`. Brand names and product images belong to their owners. This project is not affiliated with Galaxus.
+See docs/deployment-verification.md for tested claims, actual host blockers, exact connection instructions and brand compromises.

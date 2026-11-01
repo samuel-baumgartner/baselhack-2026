@@ -1,0 +1,67 @@
+{
+  "name": "Krafft Basel",
+  "website": "https://www.krafftbasel.ch/en/",
+  "capturedOn": "2026-11-01",
+  "address": "Rheingasse 12, 4058 Basel",
+  "accent": "#404848",
+  "background": "#ebebe6",
+  "logoSourceUrl": "https://www.krafftbasel.ch/assets/01_Krafft-Basel/Logos/Design-ohne-Titel-4.png",
+  "rooms": [
+    {
+      "id": "city-single",
+      "name": "Single Room City",
+      "view": "city",
+      "adults": 1,
+      "demoNightlyMinor": 18000,
+      "image": "city-single.jpg",
+      "sourceUrl": "https://www.krafftbasel.ch/en/rooms/city-rooms/",
+      "demoInventory": 2,
+      "imageSourceUrl": "https://www.krafftbasel.ch/assets/01_Krafft-Basel/Bilder/Hotel/Zimmer/City/SDR/DSCF0198.jpg"
+    },
+    {
+      "id": "city-double",
+      "name": "Double Room City",
+      "view": "city",
+      "adults": 2,
+      "demoNightlyMinor": 22000,
+      "image": "city-double.jpg",
+      "sourceUrl": "https://www.krafftbasel.ch/en/rooms/city-rooms/",
+      "demoInventory": 2,
+      "imageSourceUrl": "https://www.krafftbasel.ch/assets/01_Krafft-Basel/Bilder/Hotel/Zimmer/City/Timeless-Design-Double-Room/DSCF0130.jpg"
+    },
+    {
+      "id": "river-double",
+      "name": "Double Room River",
+      "view": "river",
+      "adults": 2,
+      "demoNightlyMinor": 27000,
+      "image": "river-double.jpg",
+      "sourceUrl": "https://www.krafftbasel.ch/en/rooms/river-rooms/",
+      "demoInventory": 2,
+      "imageSourceUrl": "https://www.krafftbasel.ch/assets/01_Krafft-Basel/Bilder/Hotel/Zimmer/River/DRR/DSCF0923.jpg"
+    },
+    {
+      "id": "river-suite",
+      "name": "Junior Suite River",
+      "view": "river",
+      "adults": 3,
+      "demoNightlyMinor": 34000,
+      "image": "river-suite.jpg",
+      "sourceUrl": "https://www.krafftbasel.ch/en/rooms/river-rooms/",
+      "demoInventory": 2,
+      "imageSourceUrl": "https://www.krafftbasel.ch/assets/01_Krafft-Basel/Bilder/Hotel/Zimmer/River/Junior-Suite/DSCF0031.jpg"
+    }
+  ],
+  "verifiedFacts": [
+    "Hotel and restaurant by the Rhine in Kleinbasel.",
+    "Official site lists city-facing and river-facing room categories.",
+    "Official rooms page lists water, tea and a coffee machine on every floor.",
+    "Official rooms page lists free bicycles subject to availability."
+  ],
+  "limitations": [
+    "All rates, inventory, availability and reservations in this prototype are simulated.",
+    "Room capacities are demonstration values, not verified hotel policies.",
+    "The English rooms page ambiguously states check-out at 12 a.m.; confirm checkout time directly with the hotel.",
+    "No real hotel booking, payment, room service or background notification is performed."
+  ]
+}

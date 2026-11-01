@@ -1,38 +1,6 @@
 import type { ReactNode } from "react";
-/**
- * The four conversation hosts PRISM previews. ChatGPT is the only published
- * MCP Apps target; the others are visual previews of the same runtime.
- * Marks are drawn on one 24px grid with one stroke weight so they read as a
- * set, in the spirit of each host's identity rather than as copied logos.
- */
-export const platforms = [
-  {
-    id: "chatgpt",
-    name: "ChatGPT",
-    kind: "Published MCP app",
-    line: "Find me something for studying.",
-  },
-  {
-    id: "claude",
-    name: "Claude",
-    kind: "Visual preview",
-    line: "Something quiet for the train?",
-  },
-  {
-    id: "gemini",
-    name: "Gemini",
-    kind: "Visual preview",
-    line: "Compare earbuds under CHF 100.",
-  },
-  {
-    id: "grok",
-    name: "Grok",
-    kind: "Visual preview",
-    line: "Cheapest noise cancelling pair.",
-  },
-] as const;
-
-export type PlatformId = (typeof platforms)[number]["id"];
+import { platforms, type PlatformId } from "@/lib/platform-targets";
+export { platforms, type PlatformId } from "@/lib/platform-targets";
 
 export const platformName = (id: string) =>
   platforms.find((p) => p.id === id)?.name ?? "ChatGPT";
@@ -65,6 +33,15 @@ const marks: Record<PlatformId, ReactNode> = {
       d="M12 2.5C12.4 7.6 16.4 11.6 21.5 12 16.4 12.4 12.4 16.4 12 21.5 11.6 16.4 7.6 12.4 2.5 12 7.6 11.6 11.6 7.6 12 2.5Z"
       strokeLinejoin="round"
     />
+  ),
+  perplexity: <path d="M12 2v20M4 5l16 14M20 5 4 19M4 5h16v14H4Z" />,
+  mistral: <path d="M3 19V5h4l5 7 5-7h4v14M3 9h5m8 0h5M3 14h7m4 0h7" />,
+  cursor: <path d="m5 3 15 9-7 2-3 7L5 3Z" />,
+  vscode: (
+    <path d="m15 3 6 3v12l-6 3-9-8-3 3V8l3 3 9-8Zm0 0v18M6 11l9 7M6 13l9-7" />
+  ),
+  goose: (
+    <path d="M8 20h9a4 4 0 0 0 4-4c0-3-3-4-6-4V6a3 3 0 0 0-6 0v8c-5 0-6 6-1 6ZM9 6H5m7-1h.01" />
   ),
   grok: (
     <g>

@@ -27,9 +27,26 @@ export async function requireOwner(req: Request, id: string) {
     .where(and(eq(jobs.id, id), eq(jobs.owner, owner)));
   if (!row)
     throw Error("Only the browser that started this build can change it.");
-  if (
-    req.headers.get("origin") &&
-    req.headers.get("origin") !== new URL(req.url).origin
-  )
-    throw Error("Request origin is not allowed");
+  if (!isSameOrigin(req)) throw Error("Request origin is not allowed");
+}
+
+export function isSameOrigin(req: Request) {
+  const origin = req.headers.get("origin");
+  if (!origin) return true;
+  try {
+    const actual = new URL(req.url);
+    const supplied = new URL(origin);
+    return (
+      supplied.host === (req.headers.get("host") ?? actual.host) &&
+      supplied.protocol === actual.protocol
+    );
+  } catch {
+    return false;
+  }
+}
+
+export function requestOrigin(req: Request) {
+  const url = new URL(req.url);
+  if (req.headers.get("host")) url.host = req.headers.get("host")!;
+  return url.origin;
 }
