@@ -6,7 +6,7 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 export const metadata: Metadata = {
   title: "PRISM — Your business. Inside their AI.",
   description:
-    "One website becomes a new way to connect. Create branded shopping experiences for personal agents.",
+    "Turn a hotel website into a branded guest experience for personal AI agents. Discover rooms, plan a demo stay and explore local guidance.",
   icons: {
     shortcut: "/favicon.ico?v=2",
     icon: [
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "PRISM — Your business. Inside their AI.",
-    description: "Turn your website into agent-native customer experiences.",
+    description: "From your hotel website to branded guest experiences inside personal AI.",
   },
 };
 export const viewport: Viewport = {

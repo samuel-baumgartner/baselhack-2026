@@ -6,7 +6,7 @@ export const platforms = [
     channel: "consumer",
     requiresPublicHttps: true,
     kind: "Embedded app",
-    line: "Find me something for studying.",
+    line: "Help me find the right option.",
     docsUrl: "https://developers.openai.com/apps-sdk/deploy/connect-chatgpt",
   },
   {
@@ -16,7 +16,7 @@ export const platforms = [
     channel: "consumer",
     requiresPublicHttps: true,
     kind: "Embedded app",
-    line: "Something quiet for the train?",
+    line: "Something that fits my plans?",
     docsUrl:
       "https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp",
   },
@@ -89,7 +89,7 @@ export const platforms = [
     channel: "consumer",
     requiresPublicHttps: false,
     kind: "Visual preview only",
-    line: "Cheapest noise cancelling pair.",
+    line: "Compare my best options.",
     docsUrl: "https://docs.x.ai/docs/guides/tools/remote-mcp-tools",
   },
 ] as const;

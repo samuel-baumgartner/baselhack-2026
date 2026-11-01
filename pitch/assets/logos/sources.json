@@ -1,0 +1,77 @@
+{
+  "channel3": {
+    "file": "assets/logos/channel3.svg",
+    "source": "https://trychannel3.com/logos/channel3/channel3-logo-small-dark.svg",
+    "site": "https://trychannel3.com"
+  },
+  "exa": {
+    "file": "assets/logos/exa.png",
+    "source": "https://exa.ai/images/favicon-32x32.png",
+    "site": "https://exa.ai"
+  },
+  "wizard": {
+    "file": "assets/logos/wizard.png",
+    "source": "https://cdn.prod.website-files.com/6886108d6991f33c6c6194dd/68c1925dae30bbb873d15269_android-chrome-512x512.png",
+    "site": "https://www.wizard.com"
+  },
+  "daydream": {
+    "file": "assets/logos/daydream.png",
+    "source": "https://www.daydream.ing/apple-touch-icon.png",
+    "site": "https://www.daydream.ing"
+  },
+  "phia": {
+    "file": "assets/logos/phia.svg",
+    "source": "https://phia.com/icon.svg?icon.44ixdos0eiz-5.svg",
+    "site": "https://phia.com"
+  },
+  "skyfire": {
+    "file": "assets/logos/skyfire.png",
+    "source": "https://docs.skyfire.xyz/apple-touch-icon.png?v=a01fb234ef48",
+    "site": "https://docs.skyfire.xyz"
+  },
+  "allowance": {
+    "file": "assets/logos/allowance.png",
+    "source": "https://useallowance.com/assets/favicon/apple-touch-icon.png",
+    "site": "https://useallowance.com"
+  },
+  "crossmint": {
+    "file": "assets/logos/crossmint.png",
+    "source": "https://cdn.prod.website-files.com/653a93effa45d5e5a3b8e1e8/680a7dc1551d14ee8c8f21f0_favicon%20256.png",
+    "site": "https://www.crossmint.com"
+  },
+  "rye": {
+    "file": "assets/logos/rye.png",
+    "source": "https://framerusercontent.com/images/U3WkckO773tUJMzI0Fu9vXQpg.png",
+    "site": "https://rye.com"
+  },
+  "zinc": {
+    "file": "assets/logos/zinc.ico",
+    "source": "https://www.zinc.com/favicon.ico",
+    "site": "https://www.zinc.com"
+  },
+  "firmly": {
+    "file": "assets/logos/firmly.svg",
+    "source": "https://www.firmly.ai/favicon.svg",
+    "site": "https://www.firmly.ai"
+  },
+  "browserbase": {
+    "file": "assets/logos/browserbase.ico",
+    "source": "https://www.browserbase.com/favicon.ico",
+    "site": "https://www.browserbase.com"
+  },
+  "composio": {
+    "file": "assets/logos/composio.png",
+    "source": "https://composio.dev/apple-touch-icon.png",
+    "site": "https://composio.dev"
+  },
+  "firecrawl": {
+    "file": "assets/logos/firecrawl.ico",
+    "source": "https://www.firecrawl.dev/favicon.ico",
+    "site": "https://www.firecrawl.dev"
+  },
+  "galaxus": {
+    "file": "assets/logos/galaxus.ico",
+    "source": "https://www.galaxus.ch/favicon.ico",
+    "site": "https://www.galaxus.ch"
+  }
+}

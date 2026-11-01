@@ -1,6 +1,6 @@
 # PRISM factory
 
-PRISM accepts a retailer or hotel website URL, recommends supported flows, plans/reviews the implementation, generates merchant React/CSS source, builds a separate Next.js application and starts it locally. The deployed factory is https://prism.mvps.ch. Its original reference output is https://galaxus.prism.mvps.ch.
+PRISM accepts a retailer or hotel website URL, recommends supported flows, plans/reviews the implementation, generates merchant React/CSS source, builds a separate Next.js application and starts it locally. The deployed factory is https://prism.mvps.ch. The featured output is Krafft Basel: https://krafft.prism.mvps.ch/widget. Retail templates and earlier outputs remain available, but the public demonstration now leads with the hotel.
 
 ## Run locally
 

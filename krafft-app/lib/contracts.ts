@@ -1,0 +1,3 @@
+export type FlowId = "discover" | "purchase" | "updates";
+export type OutputConfig = { company: { name: string; slug: string; description: string; industry: string; accent: string }; flows: FlowId[]; headline: string; welcome: string; suggestedPrompts: string[] };
+export function toolsFor(flows: readonly FlowId[]) { return ["search_rooms", "get_stay_session", "update_stay_filters", "get_room", ...(flows.includes("purchase") ? ["get_booking_quote", "reserve_demo_stay", "get_reservation"] : []), ...(flows.includes("updates") ? ["get_guest_updates", "get_guest_preferences", "set_guest_preferences"] : [])]; }

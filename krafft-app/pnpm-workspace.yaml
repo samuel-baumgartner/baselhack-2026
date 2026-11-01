@@ -1,0 +1,4 @@
+allowBuilds:
+  "@modelcontextprotocol/ext-apps": false
+  esbuild: true
+  sharp: true

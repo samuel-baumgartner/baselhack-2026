@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   ArrowUpRight,
@@ -19,6 +20,7 @@ import {
   X,
   CornerDownLeft,
 } from "lucide-react";
+import { hotelDemo } from "@/lib/demo";
 import { Prism } from "./prism";
 import { LandingPrism } from "./landing-prism";
 import { Button, Input } from "./ui";
@@ -33,7 +35,7 @@ import {
   type Stage,
 } from "@/lib/contracts";
 
-const LAST_BUILD = "prism-last-build";
+const LAST_BUILD = "prism-last-hotel-build";
 const plural = (n: number, one: string, many = `${one}s`) =>
   `${n} ${n === 1 ? one : many}`;
 
@@ -53,11 +55,11 @@ export function Header() {
       <span className="header-caption">A new dimension of commerce</span>
       <a
         className="header-link"
-        href="https://galaxus.prism.mvps.ch"
+        href={hotelDemo.app}
         target="_blank"
         rel="noreferrer"
       >
-        Explore the example
+        Explore the hotel app
         <ArrowUpRight size={14} aria-hidden="true" />
       </a>
     </header>
@@ -83,7 +85,7 @@ export function Landing() {
   async function create(value: string) {
     if (lock.current) return;
     if (!looksLikeWebsite(value)) {
-      setError("Enter a website address, like galaxus.ch.");
+      setError("Enter a website address, like krafftbasel.ch.");
       return;
     }
     lock.current = true;
@@ -117,11 +119,11 @@ export function Landing() {
               <span>Inside their AI.</span>
             </h1>
             <p className="landing-description">
-              Bring your brand into the conversation. Turn your website into
-              shopping experiences built for personal AI agents.
+              Turn your hotel website into a guest experience. Help people find
+              their room, plan a stay and feel at home—inside their personal AI.
             </p>
             <div className="landing-form-wrap">
-              <p className="landing-form-label">Start with your website</p>
+              <p className="landing-form-label">Start with your hotel website</p>
               <form
                 className="url-form"
                 data-busy={busy || undefined}
@@ -144,7 +146,7 @@ export function Landing() {
                   autoCorrect="off"
                   spellCheck={false}
                   enterKeyHint="go"
-                  placeholder="yourcompany.com"
+                  placeholder="krafftbasel.ch"
                   value={url}
                   onChange={(e) => {
                     setUrl(e.target.value);
@@ -192,25 +194,22 @@ export function Landing() {
                   type="button"
                   disabled={busy}
                   onClick={() => {
-                    setUrl("https://www.galaxus.ch");
-                    void create("https://www.galaxus.ch");
-                  }}
-                >
-                  Try Galaxus
-                  <ArrowUpRight size={12} aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  disabled={busy}
-                  onClick={() => {
-                    setUrl("https://www.krafftbasel.ch");
-                    void create("https://www.krafftbasel.ch");
+                    setUrl(hotelDemo.website);
+                    void create(hotelDemo.website);
                   }}
                 >
                   Try Krafft Basel
                   <ArrowUpRight size={12} aria-hidden="true" />
                 </button>
               </div>
+              <Link href={hotelDemo.workspace} className="landing-hotel-example">
+                <Image className="landing-hotel-photo" src="/merchants/krafft/river-double.jpg" alt="A room overlooking the Rhine at Krafft Basel" width={96} height={96} sizes="76px" />
+                <span className="landing-hotel-copy">
+                  <span className="landing-hotel-name"><img src="/merchants/krafft/logo.png" alt="" width={36} height={36} /><strong>Krafft Basel</strong></span>
+                  <span>Rooms. A stay. A little local knowledge.</span>
+                  <small>Explore the built hotel example <ArrowUpRight size={12} aria-hidden="true" /></small>
+                </span>
+              </Link>
             </div>
           </div>
           <LandingPrism active={busy} />
@@ -218,7 +217,7 @@ export function Landing() {
         <section className="platform-strip" aria-label="Conversation hosts">
           <p>One endpoint. Compatible hosts.</p>
           <ul>
-            {platforms.map((p) => (
+            {platforms.filter((p) => p.capability !== "preview").map((p) => (
               <li key={p.id}>
                 <PlatformMark platform={p.id} size={18} />
                 {p.name}
@@ -399,11 +398,15 @@ export function Build({ id }: { id: string }) {
                 setSelected(next);
                 setNotice(
                   !on && flow === "discover" && selected.includes("purchase")
-                    ? "Purchasing needs discovery, so it was removed too."
+                    ? job.profile?.industry === "hotel"
+                      ? "Demo reservations need room discovery, so they were removed too."
+                      : "Purchasing needs discovery, so it was removed too."
                     : on &&
                         flow === "purchase" &&
                         !selected.includes("discover")
-                      ? "Discovery was added. Purchasing builds on it."
+                      ? job.profile?.industry === "hotel"
+                        ? "Room discovery was added. Reservations build on it."
+                        : "Discovery was added. Purchasing builds on it."
                       : "",
                 );
               }}
@@ -484,7 +487,7 @@ function Selection({
       <div className="section-intro">
         <p className="eyebrow">A new perspective for {profile?.name}</p>
         <h1>
-          Your next customer.
+          {hotel ? "Your next guest." : "Your next customer."}
           <br />
           <span>Already in the conversation.</span>
         </h1>
