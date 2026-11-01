@@ -1,88 +1,135 @@
-# Presence — BaselHack 2026
+<p align="center"><strong>BASELHACK 2026 · ADOBE CHALLENGE</strong></p>
 
-**Your next customer is an agent. Your business should be ready.**
+<h1 align="center">PRISM</h1>
 
-A working, local Next.js application for Adobe’s _The Post-Website Business_ challenge. Tailwind v4 and shadcn/ui power a presentation interface with three chapters:
+<p align="center"><strong>Your business. Inside their AI.</strong></p>
 
-1. **Publish:** fetch a website, extract source-backed facts with Codex, review missing policies, then publish a versioned human page, business JSON, OpenAPI contract and MCP tools.
-2. **Book:** the buyer reads the public merchant API and requests an offer. Resend emails the owner. An email reply or authenticated dashboard reply becomes a proposal; owner approval publishes exact terms, a signed callback resumes the buyer, and explicit traveller approval reserves fictional inventory.
-3. **Reconnect:** the traveller explicitly subscribes to a category, frequency and expiry. An owner event sends a signed callback; Codex evaluates relevance before suggesting a return. Revocation, expiry, category mismatch and the monthly limit suppress delivery.
+<p align="center">Turn a business website into a branded experience an agent can discover and act on.</p>
 
-The default stage source is the real [Hotel Rheinfelderhof website](https://www.rheinfelderhof.ch/en/), fetched live. Public facts and excerpts are real; commercial offers, events and inventory are demonstration data. This demo is not affiliated with the hotel. No payment is collected or real accommodation booked. The presenter switches between owner and traveller views; these views demonstrate separate approvals inside a single authenticated presentation session. The repository remains private.
+<p align="center">
+  <a href="https://prism.mvps.ch">Explore PRISM</a> ·
+  <a href="https://galaxus.prism.mvps.ch/widget">Try the retail demo</a> ·
+  <a href="#the-challenge">The challenge</a> ·
+  <a href="#run-locally">Run locally</a>
+</p>
 
-On the Publish screen, click **Try Hotel Rheinfelderhof’s website**, then **Read website**. Review the extracted facts and check the review acknowledgement before publishing. Unknown policies stay unknown; the demo email offer supplies its own simulated commercial terms. All email is routed to the configured demo mailbox, never to contact addresses scraped from the website. A local fictional source remains available at `/fixtures/hotel-linden` for development checks. Published customer routes follow the reviewed business name.
+![PRISM website intake: Your business. Inside their AI.](assets/screenshots/prism-home.png)
 
-The presentation uses two separate routes. **`/traveller`** is a dark Grok bot mock: the traveller requests a stay, approves the offer, subscribes and receives follow-ups in one conversation. **`/owner`** is the violet hotel workspace with Website, Inbox and Updates sections. Open these in separate browser tabs; each page stays in its own role and has no role chooser. After publication the owner sees **Everything looks good here.** Owner section navigation stays on the owner route. The Grok interface is a presentation mock using the existing Codex-backed workflow as its actual runtime. Legacy `/demo?chapter=…&actor=…` links redirect to the appropriate route.
+## The challenge
+
+Built for **The Post-Website Business**, Adobe's challenge at **BaselHack 2026**. The brief asks how a local business establishes and controls its presence when its visitor is an AI agent. It calls for both a believable vision and a prototype that demonstrates a real part of it. [Read the archived challenge brief →](docs/challenge-brief.md)
+
+A website gives people pages to browse. An agent also needs explicit facts, available actions and reliable confirmations. If the customer stays inside their assistant, how does a business keep its identity, explain its offering and complete the interaction?
+
+**Our answer is a business-owned experience inside the conversation.** The owner starts with their website, chooses what customers can do, and publishes a branded interface alongside tools the agent can call. The customer can ask in natural language, inspect products visually and act on the same shopping session.
+
+## From website to conversation
+
+1. **Start with a website.** PRISM reads bounded website metadata and prepares a business profile.
+2. **Choose the capabilities.** Enable product discovery, purchasing and updates, or hotel room search, demo reservations and guest guidance. The selection controls the available tools.
+3. **Build the experience.** A planner, reviewer and revision pass produce a configuration. The local builder generates a merchant view and stylesheet from the retail or hotel template, compiles it in Docker and verifies its MCP endpoint.
+4. **Connect the agent.** MCP tools expose the operations; an MCP Apps widget supplies the visual interface. The server owns the commerce state.
+
+The factory and retail output make this concrete. The repository also retains **Presence**, a hospitality prototype that explores owner-approved offers and consent-based follow-up.
+
+| Challenge question | What we demonstrate |
+| --- | --- |
+| What does a business publish? | A branded widget and an MCP endpoint with explicit capabilities. |
+| How does the owner stay in control? | Capability selection in PRISM; reviewed facts and exact-offer approval in Presence. |
+| Can an agent do something useful? | Product filtering, cart changes and a persisted synthetic order; fictional hotel reservations in Presence. |
+| Can humans and agents share one presence? | The retail browser preview and agent tools use the same commerce functions. |
+| What happens after the transaction? | A pull-based retail updates feed; a separate consent and callback workflow in Presence. |
+
+## A working retail slice
+
+The Galaxus example follows a simple request:
+
+> Find wireless, in-ear, noise-cancelling earbuds for studying. Keep the budget under CHF 100.
+
+The frozen catalogue returns **Nothing Ear (a), CHF 55.00**, and **Samsung Galaxy Buds3 FE, CHF 91.90**. The customer can change filters, compare products, add an item to the cart and record a synthetic order. Model calls and button clicks operate on server-owned state, with revisions and idempotent checkout operations.
+
+<table>
+  <tr>
+    <td width="74%" valign="top">
+      <img src="assets/screenshots/galaxus-catalog.png" alt="Galaxus browser preview filtered to wireless noise-cancelling in-ear products under CHF 100" width="100%">
+      <p><sub>Product discovery with explicit filters and frozen catalogue prices.</sub></p>
+    </td>
+    <td width="26%" valign="top">
+      <img src="assets/screenshots/galaxus-receipt.png" alt="Mobile synthetic receipt for one Nothing Ear (a), total CHF 55.00, with no charge" width="100%">
+      <p><sub>A persistent demo receipt. No payment or dispatch.</sub></p>
+    </td>
+  </tr>
+</table>
+
+<details>
+<summary>See the retail updates feed</summary>
+
+![Galaxus audio updates feed with saved interests and product watch controls](assets/screenshots/galaxus-updates.png)
+
+The feed remembers interests and watched products. Refresh retrieves updates; it does not wake an assistant in the background.
+
+</details>
+
+Screenshots show the actual PRISM landing page and Galaxus browser preview. They are not screenshots of a native ChatGPT session. [Capture notes →](assets/screenshots/README.md)
+
+## The vision
+
+In five to ten years, a business could maintain one approved description of what it offers and what it can promise. Personal agents could query that presence, show the business's own interface when useful, and carry out actions within the customer's permission.
+
+PRISM explores the publishing side of that future. Presence explores the human decisions behind a transaction: ask an owner, approve exact terms, reserve capacity and reconnect only with consent. Together they test how a business can retain a direct relationship when the conversation starts elsewhere.
+
+Automatic discovery across assistant platforms, production identity, live merchant inventory and real payments remain future work.
+
+## What's in this repository
+
+These are **three separate applications**, with independent dependencies and environment configuration.
+
+| Application | Location | Purpose |
+| --- | --- | --- |
+| PRISM factory | [`prism-factory/`](prism-factory/README.md) | Website intake, capability selection, configured outputs and the new local source builder. |
+| Galaxus retail demo | [`galaxus-demo/`](galaxus-demo/README.md) | Standalone MCP Apps storefront with a frozen catalogue and synthetic commerce. |
+| Presence | Repository root | Hospitality publishing, owner-approved offers, fictional reservations and consent-based follow-up. [Full guide →](docs/presence-guide.md) |
+
+**Stack:** TypeScript, Next.js, React, MCP / MCP Apps, Postgres / Neon, the Codex SDK and Vercel AI SDK. Presence also uses Resend for its email workflow. The model interprets and plans; application code validates and applies commerce operations.
 
 ## Run locally
 
-Requires Node 22, Corepack/pnpm, Docker, and an authenticated Codex CLI on the host (`codex login`).
+For the PRISM factory, use **Node.js 24+, pnpm, Docker and a host authenticated with Codex**. Configure `DATABASE_URL` in `prism-factory/.env.local`. Preview chat also needs Vercel AI Gateway authentication. Credentials and native login stores are not included.
 
 ```bash
-corepack pnpm install --frozen-lockfile
-node scripts/init-env.mjs
-docker compose up -d db
+cd prism-factory
+pnpm install --frozen-lockfile
 pnpm db:migrate
-pnpm db:seed
-pnpm dev
+pnpm dev --port 3040
 ```
 
-In a second terminal run `pnpm worker`. Open **http://127.0.0.1:3000/demo** (use this exact origin). Bootstrap sign-in is restricted to loopback and the seeded demo; the generated password and secrets stay in ignored `.env.local`. The worker must remain running for extraction, emails and callbacks.
-
-The native Codex SDK reuses the existing host sign-in. No AI Gateway key is required for the default Codex runtime. App/provider credentials are excluded from the subprocess environment. Native model calls run in private temporary directories with read-only sandboxing, disabled shell/apps/plugins/MCP tools and structured schemas; unexpected tool actions cause result rejection. Business facts and email content remain untrusted data. Codex limits still apply.
-
-For production web packaging: `docker compose --profile app up -d --build web`. Keep the subscription worker on the authenticated host; do not copy Codex credentials into an image. The web service talks to the same Postgres instance. This is local demo packaging, not an internet-hardened multi-user service.
-
-## Voice requests
-
-In the traveller booking view, click **Speak your request**, allow the microphone, speak in English, then click **Stop recording**. Local CPU Whisper transcribes the recording into the editable request; nothing is sent to the booking agent until **Send to my agent**. Pending microphone permission can be cancelled and times out after 15 seconds. The empty composer also shows a suggested request: click its arrow or focus the box and press **→** to insert it.
-
-For local setup, run `bash tools/setup-speech.sh` (requires `uv`) and add the two printed runtime paths to `.env.local`. Docker includes the speech runtime and model. No transcription API key is needed. Recordings are limited to one minute / 2 MB, authenticated, processed one at a time with two CPU threads, and removed from the temporary directory after processing. Transcription uses [faster-whisper](https://github.com/SYSTRAN/faster-whisper); microphone recording uses the browser’s [MediaRecorder API](https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder).
-
-## Real email
-
-Set `MAIL_TRANSPORT=resend`, `RESEND_API_KEY`, `RESEND_FROM`, `RESEND_RECEIVING_DOMAIN` and `OWNER_EMAIL` in `.env.local`. Use a verified sending domain for the built-in reply composer. Resend’s test sender can send the inquiry only to the account owner's mailbox; that owner can reply from their actual mailbox to the generated `inquiry+…` receiving address. Changing an unverified From address does not bypass this restriction.
-
-The worker polls authenticated Resend receiving APIs every five seconds, so localhost needs no public tunnel. `/api/webhooks/resend` also supports signature-verified webhooks when reachable and configured with `RESEND_WEBHOOK_SECRET`. Provider message IDs and received receipts are shown in the activity evidence. The dashboard reply path is explicitly labelled and never described as an inbound email.
-
-`MAIL_TRANSPORT=local` is a labelled practice transport. AI Gateway is an optional alternative (`AGENT_RUNTIME=gateway`, `ONBOARDING_PROVIDER=gateway`); its billing is separate from the Codex subscription.
-
-If an inquiry email exhausts its automatic retries, **Retry sending email** queues the saved request again without creating another inquiry. The original provider idempotency key is preserved.
-
-## Structure and safeguards
-
-- `src/features/demo`: chapter components and resumable server-event state.
-- `src/server/services`: versioned publication, inquiries, exact-term approvals, atomic inventory reservations and consent.
-- `src/server/adapters`: bounded SSRF-protected source fetching, model runtimes, mail and signed callbacks.
-- `src/server/jobs` and `src/worker.ts`: Postgres outbox/inbox plus pg-boss retries; state survives browser and worker restarts.
-- `src/app/customers/[slug]`: public human page, JSON, OpenAPI, bearer-protected commerce API and MCP discovery/request tools.
-- `migrations`: SQL with inventory and idempotency constraints. No separate app is generated per customer.
-
-Anonymous access can read published facts. Private tasks/offers require a buyer credential and are tenant/buyer scoped. Operator mutations require a Better Auth session and same-origin requests. Offer revisions are immutable; both approvals refer to the exact offer and total. Transaction locks serialize duplicate requests and last-room acceptance. Callbacks use timestamped HMAC and a deduplicated inbox. Current seeded UI and buyer identity are intentionally demo-specific; production identity, billing, real PMS inventory and third-party agent distribution remain future work.
-
-## Verify
+In another terminal, from the same folder:
 
 ```bash
-pnpm lint
-pnpm typecheck
-# Create the isolated test database once:
-docker exec presence-postgres psql -U presence -d postgres -c 'CREATE DATABASE presence_test'
-DATABASE_URL=postgresql://presence:presence-local-only@127.0.0.1:54329/presence_test pnpm db:migrate
-pnpm test
-# After publishing a business in the running app:
-pnpm exec tsx --env-file=.env.local scripts/check-protocols.ts
+pnpm worker
 ```
 
-Tests never send provider mail. They use a separate database and isolated tenant data. They cover price/conditions validation, concurrent idempotency, buyer/tenant isolation, expiry, last-room races, SSRF, callback authenticity, monthly limits and revocation. `scripts/check-protocols.ts` calls real MCP/REST endpoints and verifies callback replay. Manual browser verification covers publish, a real outgoing Resend inquiry, an actual Proton email reply received by Resend and parsed into a proposal, both approvals, a capacity-backed reservation and a live Codex follow-up. The real email path and the labelled dashboard alternative were tested separately.
+Open **http://localhost:3040**. The worker handles queued jobs; the web server handles the interface. The new builder uses Docker for generated-app compilation and local execution.
 
-Substantial production builds run through the machine's shared `remote-work` helper using `tools/remote-build.sh`; runtime `.env` and Codex credentials are excluded. The build uses explicit placeholders and returns a standalone artifact. Avoid running a heavy build on the desktop when it would cause lag.
+For the standalone storefront, follow the [Galaxus setup](galaxus-demo/README.md). For hospitality, follow the [Presence setup](docs/presence-guide.md). Installing dependencies at the repository root installs Presence, not the PRISM factory.
 
-## Research and pitch
+## Evidence and current limits
 
-The [plan](docs/plan.md), [review](docs/plan-review.md), [implementation specification](docs/implementation-spec.md), [C4 architecture](docs/architecture.md), [sources](docs/sources.md) and [PDF](output/pdf/presence-hackathon-plan.pdf) preserve the reviewed concept and three-minute pitch. They precede implementation; this README describes current behavior. Broad model benchmarks and economic uplift are not claimed as measured results.
+- **Validation:** 19 factory tests, TypeScript, lint and production build passed. The Krafft source output passed seven domain/store/render tests, an isolated production build and actual MCP acceptance checks.
+- **Source builder:** the full Krafft URL → recommendation → planning/review → generated source → Docker build → running app path was verified. Local sessions survived a real output-container restart.
+- **Hotel data:** Krafft Basel uses its official logo, room categories and photographs. Rates, capacities, availability and reservations are simulated. Room/date/guest filtering, quotes, retry-safe demo reservations, latest receipts and guest interests are implemented. The public MCP runtime uses Neon; the independently generated source app remains local with its own file sessions.
+- **Retail data:** captured product images and prices from 31 October 2026. Availability, orders and payment are simulated. Other retailer brands currently reuse this prepared demo catalogue. Public Galaxus regression checks passed.
+- **Host support:** connection packages cover ChatGPT, Claude, Perplexity, Mistral, Cursor, VS Code Copilot, Goose and restricted-preview Gemini. Perplexity/Mistral are tools-only; Cursor/VS Code/Goose are developer/desktop channels. Grok remains visual-only. Actual provider-account installation/rendering remains unverified; a controlled MCP Apps bridge passed a 390px hotel checkout. [Capabilities and official sources →](docs/prism-platforms.md)
+- **Follow-up:** retail uses a pull feed. Presence's separate consent and callback workflow does not establish proactive delivery into third-party assistant hosts.
 
-The team reports ideation began on 30 October 2026 at 20:30 Europe/Zurich. The [decision log](docs/decision-log.md) preserves that report; Git commits use actual timestamps.
+Try the hotel with `https://www.krafftbasel.ch/en/` in PRISM. [Open the built Krafft browser example](https://prism.mvps.ch/apps/62d9b46320cf841b120e5f35fea685a9694486df/widget).
+
+The Galaxus and hotel examples are independent demonstrations, with no claimed affiliation. No real purchase or accommodation booking is made. Secrets, generated job directories and private verification captures are excluded; only selected screenshots are published here.
+
+## Further reading
+
+[Challenge brief](docs/challenge-brief.md) · [Presence architecture](docs/architecture.md) · [Research sources](docs/sources.md) · [Original concept and pitch](output/pdf/presence-hackathon-plan.pdf)
 
 ## License
 
-[MIT](LICENSE) for original code and documentation. Adobe’s challenge and linked third-party materials retain their respective ownership.
+[MIT](LICENSE) for original code and documentation. Third-party brands, product images and linked materials retain their respective ownership.

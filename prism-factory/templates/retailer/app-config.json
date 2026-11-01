@@ -1,0 +1,18 @@
+{
+  "appId": "local-retailer-template",
+  "company": {
+    "name": "Galaxus",
+    "slug": "galaxus",
+    "url": "https://www.galaxus.ch/",
+    "description": "A local retailer prototype using the prepared Galaxus headphones catalogue.",
+    "industry": "retail",
+    "accent": "#444444",
+    "source": "curated-demo",
+    "evidence": ["Prepared product snapshots captured on 31 October 2026."],
+    "recommendedFlows": ["discover", "purchase", "updates"]
+  },
+  "flows": ["discover", "purchase", "updates"],
+  "headline": "Headphones",
+  "welcome": "Find your everyday pair.",
+  "suggestedPrompts": ["Find headphones for studying.", "Adjust the filters — I’m a student.", "Show my cart."]
+}

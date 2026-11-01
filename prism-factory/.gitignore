@@ -1,0 +1,14 @@
+node_modules
+.next
+.env*
+.vercel
+*.tsbuildinfo
+.runs
+
+# Runtime sessions, local caches and private key material
+.data/
+coverage/
+*.log
+*.pem
+*.key
+.DS_Store
