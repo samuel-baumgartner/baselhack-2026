@@ -1,0 +1,11 @@
+import {build} from 'esbuild';
+import {createHash} from 'node:crypto';
+import {readFile,writeFile} from 'node:fs/promises';
+const result=await build({entryPoints:['widget/entry.tsx'],bundle:true,minify:true,format:'iife',platform:'browser',jsx:'automatic',write:false,define:{'process.env.NODE_ENV':'"production"'}});
+const js=result.outputFiles[0].contents;
+const css=(await readFile('app/globals.css','utf8')).replace('@import "tailwindcss";','');
+const digest=createHash('sha256').update(js).update(css).digest('hex').slice(0,12);
+await writeFile('public/galaxus-widget.js',js);
+await writeFile('public/galaxus-widget.css',css);
+await writeFile('lib/widget-version.ts',`export const widgetVersion = ${JSON.stringify(digest)};\n`);
+console.log('Standalone MCP widget built',digest);

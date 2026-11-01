@@ -27,3 +27,12 @@ test-results/
 /.presence/
 
 dist/
+
+# PRISM local runs, output and private working notes
+.runs/
+*.log
+/prism-factory/docs/
+/galaxus-demo/docs/
+/prism-factory/output/
+/galaxus-demo/output/
+.claude/

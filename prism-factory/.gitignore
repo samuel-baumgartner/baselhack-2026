@@ -1,0 +1,17 @@
+node_modules
+.next
+.env*
+.vercel
+*.tsbuildinfo
+.runs
+
+# Private working notes, generated runs and local tooling
+/docs/
+/output/
+.runs/
+*.log
+*.key
+.codex/
+.claude/
+playwright-report/
+test-results/

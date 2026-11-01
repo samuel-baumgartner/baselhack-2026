@@ -1,3 +1,15 @@
+# BaselHack 2026 v1
+
+This repository contains three applications. Each has its own dependencies and setup.
+
+- **Presence**, at the repository root: the existing hotel and traveller demonstration, documented below.
+- **[PRISM factory](prism-factory/README.md)**: website intake, capability selection, branded MCP Apps output and a local code-building worker.
+- **[Galaxus demo](galaxus-demo/README.md)**: a standalone retail MCP Apps demonstration with a frozen catalogue, cart, synthetic checkout and updates.
+
+The PRISM folders are a v1 source snapshot taken while development continues. The new source-building worker and retailer template are included, but their end-to-end validation was still underway at snapshot time. This commit does not establish that every generated application builds or renders in every host. Orders, payments and inventory are simulated. Credentials, native login stores, generated runs, private working notes and local verification captures are excluded.
+
+---
+
 # Presence — BaselHack 2026
 
 **Your next customer is an agent. Your business should be ready.**
