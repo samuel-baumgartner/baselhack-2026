@@ -1,0 +1,6 @@
+Generated with the built-in image_gen tool. First attached image: scene edit target. Second attached image: identity reference.
+
+Use case: identity-preserve / compositing.
+Image 1 is the EDIT TARGET: the dark cinematic Basel hotel reception scene. Image 2 is the IDENTITY REFERENCE: the young blond man in the beige jacket.
+Replace only the seated dark-haired hotel owner in image 1 with the recognizable man from image 2. Preserve his youthful face, clean-shaven features, medium-length center-parted blond hair, eye shape and facial proportions. He plays Samuel, a hotel owner. Seat him naturally behind the same desk at the same scale, wearing his beige jacket over a dark shirt. Use a three-quarter angle turned slightly toward the viewer so his identity is recognizable while his gaze still goes toward the guests on the right. Thoughtful and quietly concerned, not smiling broadly.
+Keep the exact hotel reception composition, laptop, arriving couple, architecture, smoked-glass partition, dusk background and restrained warm lighting. Preserve the empty chair and near-black left 38% of the image for slide copy. Match cinematic photographic realism and plausible warm light on his face and clothing, integrate naturally with the scene. Preserve 16:9 landscape framing. No text, logos, captions, or watermark. Do not change or replace the arriving couple.

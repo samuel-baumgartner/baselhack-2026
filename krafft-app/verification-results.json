@@ -1,0 +1,28 @@
+{
+  "origin": "https://krafft.prism.mvps.ch",
+  "deploymentId": "dpl_Fxy6vEvWe9wWqyq1Wsw6SwKgpEM6",
+  "unitTests": 7,
+  "productionBuild": true,
+  "typescript": true,
+  "productionMcpAcceptance": true,
+  "canonicalAssetsAndCsp": true,
+  "crossOriginMcpCors": true,
+  "mobileBrowser": {
+    "width": 390,
+    "height": 844,
+    "quoteMinor": 44000,
+    "syntheticReceipt": true,
+    "preferencesAfterReload": true,
+    "latestReservationAfterReload": true,
+    "imagesLoaded": true,
+    "overflow": false
+  },
+  "officialAppBridge": {
+    "imagesLoaded": true,
+    "syntheticReceipt": true,
+    "modelContextUpdates": 2,
+    "overflow": false,
+    "actionErrors": false
+  },
+  "actualChatGPTAccountVerified": false
+}

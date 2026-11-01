@@ -79,9 +79,9 @@ export const flows = [
   {
     id: "purchase" as const,
     title: "From “that one” to done",
-    label: "Cart & demo checkout",
+    label: "Cart & checkout",
     description:
-      "Keep the decision and the purchase together. A shared cart and a seamless demo order.",
+      "Keep the decision and the purchase together. A shared cart and an order.",
     prompt: "Add the cheapest pair to my cart.",
     icon: "bag",
   },

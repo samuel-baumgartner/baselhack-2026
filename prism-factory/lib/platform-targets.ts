@@ -6,7 +6,7 @@ export const platforms = [
     channel: "consumer",
     requiresPublicHttps: true,
     kind: "Embedded app",
-    line: "Find me something for studying.",
+    line: "Help me find the right option.",
     docsUrl: "https://developers.openai.com/apps-sdk/deploy/connect-chatgpt",
   },
   {
@@ -16,7 +16,7 @@ export const platforms = [
     channel: "consumer",
     requiresPublicHttps: true,
     kind: "Embedded app",
-    line: "Something quiet for the train?",
+    line: "Something that fits my plans?",
     docsUrl:
       "https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp",
   },
@@ -89,7 +89,7 @@ export const platforms = [
     channel: "consumer",
     requiresPublicHttps: false,
     kind: "Visual preview only",
-    line: "Cheapest noise cancelling pair.",
+    line: "Compare my best options.",
     docsUrl: "https://docs.x.ai/docs/guides/tools/remote-mcp-tools",
   },
 ] as const;
@@ -185,7 +185,7 @@ export function platformConnection(
     instructions.push(
       "In an eligible Pro, Max or Enterprise account, open Plugins or Customize → Connectors → Add custom → Add MCP connector → Remote.",
       `Enter a name of at most 64 characters and the server URL ${endpoint}.`,
-      "Under advanced settings choose Auth: None, Transport: Streamable HTTP, Network: Public for this demo. Enable the connector for a conversation.",
+      "Under advanced settings choose Auth: None, Transport: Streamable HTTP, Network: Public . Enable the connector for a conversation.",
       "PRISM exposes merchant tools here. A branded embedded MCP Apps interface is not claimed for Perplexity.",
     );
   } else if (id === "gemini") {

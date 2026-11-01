@@ -1,0 +1,29 @@
+{
+  "mode": "Built-in image_gen",
+  "assets": [
+    {
+      "file": "assets/connections.png",
+      "prompt": "Use case: stylized-concept. Asset type: widescreen keynote backdrop, 16:9. Cinematic abstract visualization of a luminous central AI core connecting many floating translucent service tiles through fine fiber optic threads, shopping bags, payment terminals, delivery and booking symbols subtly embossed in tiles. Sophisticated tangible 3D glass and metal, black ink background, icy white light with small amber accents. Main composition occupies right two thirds, left third deep black empty space for HTML typography. No text, no letters, no logos, no watermark. Premium editorial art direction, striking contrast, not sci fi robot imagery."
+    },
+    {
+      "file": "assets/alex.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: widescreen pitch slide image. Fictional retail founder Alex, woman about 38 with short dark wavy hair, warm tan skin, wearing dark navy overshirt over cream shirt, standing in her carefully designed independent outdoor equipment store with orange accents, backpacks, headphones and beautiful product displays, laptop on counter, two customers softly out of focus browsing. Confident approachable expression, years of care tangible in store. Editorial photography, natural film grain, warm light, authentic not corporate stock. Subject in right half, left third nearly black shadow for large white HTML heading. Wide 16:9. No visible writing or logos."
+    },
+    {
+      "file": "assets/separation.png",
+      "prompt": "Use case: stylized-concept. Asset type: widescreen keynote visual. Metaphor of agentic commerce leaving a retailer behind: beautifully detailed warm amber independent retail storefront and its website-like glass window stand on far right, small human founder silhouette inside. A stream of luminous white particles and customers flows away toward a huge minimal monochrome conversational portal in foreground, the storefront recedes into darkness. Physical cinematic miniature set, believable materials, premium surreal advertising photography, dark charcoal background, left third black negative space, warm store color being lost to white interface. Wide 16:9, no text, no logos, no letters."
+    },
+    {
+      "file": "assets/product.png",
+      "prompt": "Use case: stylized-concept. Asset type: widescreen keynote backdrop. A rich miniature retail world with warm amber shelving, beautifully designed orange shopping bags, texture and personality, is compressed through a narrow slit into one stark generic white product tile showing a single pair of black headphones on the far right. A visual metaphor of brand identity stripped away, premium surreal studio photography, tangible paper glass and materials, black background, vivid warm orange disappearing to pale gray. Composition across bottom and right two thirds, generous black negative space top left for headline. Wide 16:9. No text, no letters, no logos."
+    },
+    {
+      "file": "assets/prism.png",
+      "prompt": "Use case: stylized-concept. Asset type: widescreen brand reveal slide for Prism. One immaculate solid optical glass triangular prism floating in a pitch black studio, very clean precise form with realistic polished edges, one narrow white beam enters from left, exits as controlled elegant spectral ribbons amber coral pink violet cyan extending right. Museum quality product photography, refined architectural light, high contrast, subtle reflections, absolutely no busy particles or stars. Prism in right half, left third completely black negative space for native HTML wordmark. Wide 16:9. No text, no letters, no logo, no watermark."
+    },
+    {
+      "file": "assets/reunion.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: widescreen pitch ending visual. Fictional retail founder Alex, woman 38 short dark wavy hair warm tan skin navy overshirt cream shirt, standing in warm amber independent outdoor equipment store, sharing a friendly moment with a customer holding a tablet. Tablet shows an elegant orange-accented retail experience with product photographs of headphones and backpacks inside a minimal chat interface, no readable text. Warm natural editorial photography, intimate human connection, premium film texture, subjects right half, left third deep shadow negative space for white headline, wide 16:9. No legible text, no logos, no watermark."
+    }
+  ]
+}

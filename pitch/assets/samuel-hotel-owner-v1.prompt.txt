@@ -1,0 +1,11 @@
+Generated with the built-in image_gen tool.
+
+Use case: illustration-story.
+Asset type: cinematic 16:9 background image for a minimal dark startup pitch slide.
+Primary request: A fictional independent Swiss boutique hotel owner called Samuel is facing the arrival of AI alone, worried about losing his personal connection with guests. An emotionally legible, elegant editorial image, not an infographic.
+Scene: a small refined Basel boutique hotel reception after dusk, suggested historic architecture and Rhine-side atmosphere, not an asserted accurate depiction of any actual hotel interior.
+Subject: one approachable male hotel owner in his late thirties, natural short dark hair, dark knit shirt, seated alone at a reception desk, seen in three-quarter profile. Thoughtful rather than devastated. His open laptop displays a quiet abstract assistant conversation, no readable text. An empty chair beside him gently conveys he has no technical partner.
+Story: in the farther right background, a couple of softly lit arriving guests are absorbed in a phone, while the owner looks toward them. A restrained translucent smoked-glass partition between desk and guests hints at the new digital intermediary. Keep it plausible and subtle.
+Composition: landscape 16:9. Owner and desk centered around 65% from left, guests around 88%. Left 38% is nearly pure black negative space with no objects, reserved for editable presentation typography. All key subjects in right 60%; generous breathing room. Bottom and left edges fade naturally into black.
+Style: premium cinematic photographic editorial realism, tactile materials, restrained Swiss design sensibility. Matches black slides with off-white type and muted lilac accents. Deep charcoal, black, desaturated warm wood, faint muted violet laptop light. Human face softly lit in natural warm light; no neon, no glow effects, no sci-fi holograms.
+Text: none. No letters, logos, captions, watermarks or invented branding. Do not create a finished slide or embed any text.

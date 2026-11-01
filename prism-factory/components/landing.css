@@ -95,3 +95,13 @@
   .landing .url-form .button { width: 100%; justify-content: space-between; }
   .landing h1 { font-size: 48px; }
 }
+
+.landing-hotel-example { display: flex; align-items: center; gap: 16px; margin-top: 16px; padding: 12px; background: #ffffff85; border: 1px solid #292d2818; border-radius: 9px; text-decoration: none; }
+.landing-hotel-photo { width: 76px; height: 84px; flex-shrink: 0; object-fit: cover; object-position: center 53%; border-radius: 4px; }
+.landing-hotel-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; min-width: 0; }
+.landing-hotel-name { display: flex; align-items: center; gap: 8px; }
+.landing-hotel-name img { width: 26px; height: 26px; object-fit: contain; }
+.landing-hotel-name strong { font-size: 13px; color: #30372e; font-weight: 500; }
+.landing-hotel-copy>span { color: #575e53; font-size: 11px; line-height: 1.45; }
+.landing-hotel-copy>small { display: inline-flex; align-items: center; gap: 5px; color: #3e4835; font-size: 10px; line-height: 1.4; }
+@media (hover:hover) and (pointer:fine) { .landing-hotel-example:hover { border-color: #9da58d; background: #fff; } }

@@ -37,7 +37,7 @@ async function analyze(job: Job) {
     job.id,
     "analyzing",
     "Reading your website",
-    "Looking for your brand, your products and the conversations that connect them.",
+    "Looking for your brand, your offering and the conversations that connect them.",
   );
   let name = "",
     description = "",
@@ -152,9 +152,9 @@ async function build(job: Job) {
     template: job.profile.industry === "hotel" ? "prism-hotel-v1" : "prism-retailer-v1",
     constraints: [
       "Only selected flows. Purchase requires discovery.",
-      "Product snapshots, synthetic no-charge orders, pull updates.",
+      job.profile.industry === "hotel" ? "Researched room categories, simulated availability, reviewed no-charge demo reservations and pull-based guest guidance." : "Product snapshots, synthetic no-charge orders, pull updates.",
       "Platform capabilities differ: MCP Apps UI where documented, tools-only where appropriate, and explicit previews where native consumer installation is unverified.",
-      "Generate application source against the pinned retailer template. A trusted controller writes it, compiles/tests in Docker without secrets or network, then starts an independent local app.",
+      `Generate application source against the pinned ${job.profile.industry === "hotel" ? "hotel" : "retailer"} template. A trusted controller writes it, compiles/tests in Docker without secrets or network, then starts an independent local app.`,
     ],
   };
   let current = job;
