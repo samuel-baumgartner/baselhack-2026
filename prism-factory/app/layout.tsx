@@ -6,7 +6,7 @@ const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 export const metadata: Metadata = {
   title: "PRISM — Your business. Inside their AI.",
   description:
-    "Turn a hotel website into a branded guest experience for personal AI agents. Discover rooms, plan a demo stay and explore local guidance.",
+    "Turn a hotel website into a branded guest experience for personal AI agents. Discover rooms, plan a stay and explore local guidance.",
   icons: {
     shortcut: "/favicon.ico?v=2",
     icon: [

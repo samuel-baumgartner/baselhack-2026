@@ -73,7 +73,7 @@ export const editions = [
     type: "News + Trends",
     title: "Keep a shortlist, then revisit the facts",
     summary:
-      "Follow audio and watch a product to save your interest. Refresh this feed to see the latest demo edition. Prices here remain the frozen 31 October snapshot unless explicitly marked as simulated.",
+      "Follow audio and watch a product to save your interest. Refresh this feed to see the latest edition. Prices here remain the frozen 31 October snapshot unless explicitly marked as simulated.",
     productIds: ["61065156"],
   },
 ];

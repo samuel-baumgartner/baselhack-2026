@@ -399,7 +399,7 @@ export function Build({ id }: { id: string }) {
                 setNotice(
                   !on && flow === "discover" && selected.includes("purchase")
                     ? job.profile?.industry === "hotel"
-                      ? "Demo reservations need room discovery, so they were removed too."
+                      ? "Reservations need room discovery, so they were removed too."
                       : "Purchasing needs discovery, so it was removed too."
                     : on &&
                         flow === "purchase" &&
@@ -529,8 +529,8 @@ function Selection({
           <Check size={12} aria-hidden="true" />
           {profile?.source === "curated-demo"
             ? hotel
-              ? "Curated hotel demo"
-              : "Curated demo catalog"
+              ? "Hotel profile"
+              : "Product catalog"
             : "Website researched"}
         </span>
         <span className="industry-label">{profile?.industry}</span>
@@ -819,7 +819,7 @@ function Workspace({
                       hotel
                         ? {
                             discover: "Rooms",
-                            purchase: "Demo stays",
+                            purchase: "Reservations",
                             updates: "Guest guide",
                           }[f]
                         : flowShort[f],
@@ -1036,7 +1036,7 @@ function ChatGPTCard({
               ) : (
                 <strong>{profile?.name}</strong>
               )}
-              <span>Demo store · no charge</span>
+              <span>Your store</span>
             </div>
             <div className="mini-shop-nav">
               <span className="mini-tab-active">Headphones</span>
@@ -1143,13 +1143,10 @@ function HotelMiniature() {
               height={112}
             />
             <strong>{room.name}</strong>
-            <span>Demo {room.rate} / night</span>
+            <span>{room.rate} / night</span>
           </div>
         ))}
       </div>
-      <p className="mini-hotel-note">
-        Synthetic rates and reservations · no real booking
-      </p>
     </div>
   );
 }
@@ -1174,7 +1171,7 @@ function HotelFlowIllustration({ kind }: { kind: number }) {
             <br />A different rhythm.
           </strong>
           <span className="hotel-mini-confirm">
-            <Check size={12} /> Demo reservation
+            <Check size={12} /> Reservation
           </span>
         </>
       ) : (

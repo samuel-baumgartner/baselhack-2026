@@ -28,13 +28,13 @@ Version 2 uses dark backgrounds throughout, with restrained violet accents and m
 
 The planned slide budgets total 186 seconds, including a 60-second live demo; this is 6 seconds over the three-minute rehearsal target. Slides advance manually. The rehearsal timer runs independently.
 
-Slide 10 is a holding slide for the actual live demo. Version 2 uses the original dark Prism reveal on slide 8; both original reveal options remain in Version 1.
+Slide 10 introduces the Krafft Basel demo. Version 2 uses the original dark Prism reveal on slide 9; both original reveal options remain in Version 1.
 
 ## Story and claims
 
 Slide 6 follows the agent-led journey with “More efficient markets. Relationships become auctions.” The offer comparison is a metaphor for repeated competition, not a claim of a literal auction protocol or price-only selection.
 
-Slide 9 uses a Krafft Basel hotel-manager role-play with Maxus and the supplied portrait in `assets/maxus.jpg`. Keep the role-play context in the presenter notes. The visible job title is “Hotel manager · Basel” for the scenario. Maxus is a fictional hotel-manager persona; no actual Krafft management role, partnership or claim about its internal technical team is implied. Slide 11 recaps the website-to-branded-AI journey. Slide 12 shows the implemented software factory: website evidence → experience selection → independent planning/review → template-based source generation and Docker checks → MCP tools and branded apps. The lower rail separates the Vercel control plane, local source worker and public configured MCP runtime.
+Slide 8 introduces Samuel, a fictional Krafft Basel hotel-owner persona, using an AI-edited illustration based on the supplied portrait. The visible scenario title is “Owner · Krafft Basel”. He is not the actual hotel owner, and no claim about the hotel’s real internal technical team or a partnership is implied. Slide 11 explains the website-to-branded-AI experience; slide 12 names the implemented technology stack. The factory’s generated local source app and public configured MCP runtime remain distinct.
 
 Slide 3 is an illustrative ecosystem of 14 companies in five capability groups. Each company has an official local site icon, a short description and a clickable primary source. Tile areas do not encode market size. Some companies also serve merchants and brands; broader agent infrastructure is labelled separately. See `startup-sources.md` and `assets/logos/sources.json`.
 
@@ -49,7 +49,7 @@ Platform support, deployment and publishing requirements vary. The closing tagli
 - `index.html`: editable slide copy, notes and timings.
 - `style.css`: layout, typography and animations.
 - `deck.js`: navigation, fragments, overview and timer.
-- `assets/`: retained generated imagery, BCG attribution logo and locally stored official company icons. The diagrams are SVG/CSS; `maxus.jpg` is the supplied portrait.
+- `assets/`: retained generated imagery, BCG attribution logo and locally stored official company icons. The diagrams are SVG/CSS. `maxus.jpg` preserves the supplied portrait; the active Samuel scene uses an AI-edited illustration and retains its prompt alongside the asset.
 - `image-prompts.json`: prompts for the previously generated raster imagery.
 
 Version 2 has 13 slides, including the black opening; Version 1 retains its 13 slides. All slides and image assets work locally. Google Fonts are optional; Avenir Next and local sans-serif fonts provide fallbacks if offline. No build or package installation is required.
@@ -60,7 +60,7 @@ The BCG logo is an official SVG extracted from the source article’s logo symbo
 
 ## Active hotel demonstration
 
-The current Version 2 case is Krafft Basel, https://www.krafftbasel.ch/en/. Maxus plays a busy hotel manager who wants to keep the guest relationship without building custom integrations for each assistant. This is a scenario, not a claim about Krafft’s actual staffing or a partnership.
+The current Version 2 case is Krafft Basel, https://www.krafftbasel.ch/en/. Samuel is a fictional busy hotel owner who wants to keep the guest relationship without building custom integrations for each assistant. This is a scenario, not a claim about Krafft’s actual staffing or a partnership.
 
 Demo sequence: enter the hotel URL in https://prism.mvps.ch → select rooms, demo reservation and guest updates → open the prepared hotel app → filter two guests and CHF250 per night → review a city-room quote → record a no-charge synthetic reservation → save local-tip interest.
 

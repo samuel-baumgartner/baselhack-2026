@@ -185,7 +185,7 @@ export function platformConnection(
     instructions.push(
       "In an eligible Pro, Max or Enterprise account, open Plugins or Customize → Connectors → Add custom → Add MCP connector → Remote.",
       `Enter a name of at most 64 characters and the server URL ${endpoint}.`,
-      "Under advanced settings choose Auth: None, Transport: Streamable HTTP, Network: Public for this demo. Enable the connector for a conversation.",
+      "Under advanced settings choose Auth: None, Transport: Streamable HTTP, Network: Public . Enable the connector for a conversation.",
       "PRISM exposes merchant tools here. A branded embedded MCP Apps interface is not claimed for Perplexity.",
     );
   } else if (id === "gemini") {

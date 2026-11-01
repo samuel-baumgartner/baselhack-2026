@@ -20,7 +20,7 @@ const sessionId = z
   .string()
   .regex(/^[a-f0-9]{64}$/)
   .describe(
-    "Server-issued opaque demo session capability from the previous tool result. Reuse across turns; never invent or use another session.",
+    "Server-issued opaque session capability from the previous tool result. Reuse across turns; never invent or use another session.",
   );
 const revision = z
   .number()
@@ -64,7 +64,7 @@ export const definitions = {
   },
   update_cart: {
     description:
-      "Set absolute quantity for a stored product in the durable demo cart. Zero removes. Validates revision and simulated stock. No real order.",
+      "Set absolute quantity for a stored product in the durable cart. Zero removes. Validates revision and simulated stock. No real order.",
     schema: z.object({
       ...write,
       productId: z.string(),

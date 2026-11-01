@@ -391,7 +391,7 @@ function RetailPreview({
             P
           </span>
           <div>
-            PRISM sandbox<small>Live tools · demo commerce</small>
+            PRISM sandbox<small>Connected tools</small>
           </div>
         </div>
       </aside>
@@ -418,7 +418,7 @@ function RetailPreview({
         </header>
         {id !== "chatgpt" && (
           <p className="host-notice">
-            {name} visual preview, powered by PRISM’s shared demo runtime. Not a
+            {name} visual preview, powered by PRISM’s shared runtime. Not a
             native {name} connection.
           </p>
         )}
@@ -547,7 +547,7 @@ function RetailPreview({
             </button>
           </form>
           <p className="composer-note">
-            Live AI tool calls. Snapshot prices. Demo orders, never charged.
+            Connected AI tools · product discovery and checkout
           </p>
         </div>
       </main>

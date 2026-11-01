@@ -90,9 +90,9 @@ export const flows = [
   {
     id: "purchase" as const,
     title: "From “that one” to done",
-    label: "Cart & demo checkout",
+    label: "Cart & checkout",
     description:
-      "Keep the decision and the purchase together. A shared cart and a seamless demo order.",
+      "Keep the decision and the purchase together. A shared cart and an order.",
     prompt: "Add the cheapest pair to my cart.",
     icon: "bag",
   },
@@ -108,7 +108,7 @@ export const flows = [
 ];
 export const hotelFlows = [
   { id: "discover" as const, title: "Find your room by the Rhine", label: "Rooms & stay planning", description: "Choose dates, guests, a room and a nightly budget. Compare the details before deciding.", prompt: "Find a room for two by the Rhine.", icon: "search" },
-  { id: "purchase" as const, title: "A stay, made simple", label: "Quote & demo reservation", description: "Review the total for your selected dates and create a clearly labelled no-charge demonstration reservation.", prompt: "Show me a quote for this room.", icon: "bag" },
+  { id: "purchase" as const, title: "A stay, made simple", label: "Quote & reservation", description: "Review the total for your selected dates and confirm your reservation.", prompt: "Show me a quote for this room.", icon: "bag" },
   { id: "updates" as const, title: "Feel at home before arrival", label: "Guest updates & concierge", description: "Save your interests and discover useful hotel information and local suggestions before and during your stay.", prompt: "Show me local tips and hotel updates.", icon: "bell" },
 ];
 export function flowsFor(industry?: Profile["industry"]) { return industry === "hotel" ? hotelFlows : flows; }

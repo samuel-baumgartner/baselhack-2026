@@ -113,9 +113,9 @@ export function snapshot(
             {
               id: `demo-edition-${s.edition}`,
               type: "News + Trends",
-              title: `Audio shortlist check-in · demo edition ${s.edition}`,
+              title: `Audio shortlist check-in · edition ${s.edition}`,
               summary:
-                "This operator-published demo update is now available on refresh. Galaxy Buds3 FE remains CHF 91.90 in the frozen snapshot. Revisit fit and your budget before choosing. No live price or stock change is asserted.",
+                "This operator-published update is now available on refresh. Galaxy Buds3 FE remains CHF 91.90 in the frozen snapshot. Revisit fit and your budget before choosing. No live price or stock change is asserted.",
               productIds: ["61065156"],
             },
             ...editions,
@@ -227,7 +227,7 @@ export function execute(
     case "place_demo_order": {
       const cart = cartSummary(n);
       if (!cart.items.length)
-        fail("EMPTY_CART", "Add a product before placing a demo order.");
+        fail("EMPTY_CART", "Add a product before placing an order.");
       if (cart.totalMinor !== c.reviewedTotalMinor)
         fail(
           "TOTAL_CHANGED",
@@ -262,7 +262,7 @@ export function execute(
     case "get_order":
       order =
         (c.orderId ? s.orders.find((o) => o.id === c.orderId) : s.orders.at(-1)) ??
-        fail("ORDER_NOT_FOUND", "Order is not in this demo session.");
+        fail("ORDER_NOT_FOUND", "Order is not session.");
       view = "receipt";
       break;
     case "get_updates":

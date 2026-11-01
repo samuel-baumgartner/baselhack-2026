@@ -380,7 +380,7 @@ export function RetailView({
                 <span>Total</span>
                 <strong>{money(state.cart.totalMinor)}</strong>
               </div>
-              <p className="demo-note">A demo order. No payment, no charge, no real delivery.</p>
+
               <button
                 type="button"
                 className="retail-checkout"
@@ -394,7 +394,7 @@ export function RetailView({
                     : run("order", "get_checkout")
                 }
               >
-                {view === "checkout" ? "Place demo order · no charge" : "Review demo order"}
+                {view === "checkout" ? "Place order" : "Review order"}
                 {icon("order", <ArrowRight size={17} aria-hidden="true" />)}
               </button>
             </>
@@ -414,7 +414,7 @@ export function RetailView({
           <div className="receipt-check" aria-hidden="true">
             <Check size={26} />
           </div>
-          <span className="retail-eyebrow">Demo order confirmed</span>
+          <span className="retail-eyebrow">Order saved</span>
           <h3>
             A good choice.
             <br />

@@ -42,7 +42,7 @@ The factory and Krafft Basel hotel output make this concrete. The repository als
 
 ## A working hotel slice
 
-The active example is **Krafft Basel**, a local hotel and restaurant on the Rhine. The pitch uses Maxus as a fictional hotel-manager persona, not its actual manager or representative. We make no claim about the hotel’s internal technical resources or a partnership.
+The active example is **Krafft Basel**, a local hotel and restaurant on the Rhine. The pitch uses Samuel as a fictional hotel-manager persona, not its actual manager or representative. We make no claim about the hotel’s internal technical resources or a partnership.
 
 > Find a room for two adults in Basel. Keep the nightly budget under CHF250, and show me the total before reserving.
 

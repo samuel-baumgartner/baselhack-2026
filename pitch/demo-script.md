@@ -1,6 +1,6 @@
 # Krafft Basel — rehearsal
 
-The active case is a hotel. Maxus plays a hotel manager, not the actual owner/manager of Krafft Basel. No partner relationship or claim about the real hotel’s internal technology team is implied.
+The active case is a hotel. Samuel is a fictional hotel owner, not the actual owner/manager of Krafft Basel. No partner relationship or claim about the real hotel’s internal technology team is implied.
 
 ## Links
 
